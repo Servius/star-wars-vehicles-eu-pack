@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+{
+	"$baseTexture"	"skipray/Uv_skipray"
+	"$bumpmap"	"skipray/Uv_skipray_b"
+	"$nocull"	"1"
+
+	"$Phong" "1"
+	"$PhongBoost" "5"
+	"$PhongFresnelRanges"	"[.05 .5 1]"
+}

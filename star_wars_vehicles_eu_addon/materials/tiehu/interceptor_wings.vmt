@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture"	"tiehu/interceptor_wings"
+	"$bumpmap"	"tiehu/interceptor_wings_n"
+}

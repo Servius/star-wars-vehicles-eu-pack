@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swbf3\vehicles\rep_attack-ship\repatt_b"
+"$bumpmap" "models/starwars\swbf3\vehicles\rep_attack-ship/repatt_b_nrm"
+}

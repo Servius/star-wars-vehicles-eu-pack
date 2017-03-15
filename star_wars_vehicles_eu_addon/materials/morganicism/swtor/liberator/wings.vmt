@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+	$basetexture "Morganicism/SWTOR/Liberator/wings"
+	$phong 1
+	$bumpmap "Morganicism/SWTOR/Liberator/wings_n"
+	$phongexponent 50			
+	$phongboost 5.0
+	$phongfresnelranges "[0 0.5 1]"
+}
