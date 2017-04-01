@@ -40,10 +40,9 @@ https://docs.google.com/document/d/1o599ftTRcHWWmDRIibNfC5NcJJF1YTY9IizqnxzgM7U/
 https://www.youtube.com/watch?v=72a28tleThY&t=484s
 
 ### MODELERS LOOK HERE PLEASE!
-- Use this to make sure your models can be used: 
-https://docs.google.com/document/d/1UJ5QkbpPZtxIRZ5lqNX2jkkGeallTRgUTtP2gi6fWO0/edit
+- Use this to make sure your models can be used: https://docs.google.com/document/d/1UJ5QkbpPZtxIRZ5lqNX2jkkGeallTRgUTtP2gi6fWO0/edit
 
 ### RULES OF USE
 - It is completley unacceptable to claim any of the work posted here by someone else as your own work. 
 - You may not re-upload other peoples work under any circumstances. 
-If found violating any of the above a [DMCA])https://www.google.com/search?q=dmca&rlz=1C1CHBD_enUS728US728&oq=dmca&aqs=chrome..69i57.575j0j7&sourceid=chrome&ie=UTF-8) will be filed. 
+If found violating any of the above a [DMCA](https://www.google.com/search?q=dmca&rlz=1C1CHBD_enUS728US728&oq=dmca&aqs=chrome..69i57.575j0j7&sourceid=chrome&ie=UTF-8) will be filed. 
