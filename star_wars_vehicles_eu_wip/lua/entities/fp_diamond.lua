@@ -3,31 +3,30 @@ ENT.RenderGroup = RENDERGROUP_OPAQUE
 ENT.Base = "fighter_base"
 ENT.Type = "vehicle"
 
-ENT.PrintName = "Diamond"
-ENT.Author = "Liam0102, Nashatok"
-ENT.Category = "Star Wars Vehicles: CIS"
+ENT.PrintName = "fp_diamond"
+ENT.Author = "Liam0102, Servius"
+ENT.Category = "Star Wars: Input needed"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = false;
+ENT.Spawnable = true;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
 ENT.EntModel = "models/fp_diamond/fp_diamond.mdl"
-ENT.Vehicle = "Diamond"
-ENT.StartHealth = 15000;
+ENT.Vehicle = "fp_diamond"
+ENT.StartHealth = 35000;
+ENT.DontLock = true;
 ENT.IsCapitalShip = true;
-ENT.Allegiance = "CIS";
-list.Set("SWVehicles", ENT.PrintName, ENT);
 
 if SERVER then
 
-ENT.FireSound = Sound("weapons/aat_shoot.wav");
+ENT.FireSound = Sound("weapons/xwing_shoot.wav");
 ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),LightSpeed=CurTime(),Switch=CurTime(),};
 ENT.HyperDriveSound = Sound("vehicles/hyperdrive.mp3");
 
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
-	local e = ents.Create("diamond");
-	e:SetPos(tr.HitPos + Vector(0,0,200));
+	local e = ents.Create("fp_diamond");
+	e:SetPos(tr.HitPos + Vector(0,0,1000));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+180,0));
 	e:Spawn();
 	e:Activate();
@@ -44,10 +43,10 @@ function ENT:Initialize()
 		Right = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*70,
 	}
 	self.WeaponsTable = {};
-	self.BoostSpeed = 750;
+	self.BoostSpeed = 2500;
 	self.ForwardSpeed = 500;
-	self.UpSpeed = 100;
-	self.AccelSpeed = 8;
+	self.UpSpeed = 500;
+	self.AccelSpeed = 16;
 	self.CanStandby = true;
 	self.CanBack = true;
 	self.CanRoll = false;
@@ -55,260 +54,182 @@ function ENT:Initialize()
 	self.Cooldown = 2;
 	self.HasWings = false;
 	self.CanShoot = false;
-	self.Bullet = CreateBulletStructure(35,"red",false);
-	self.FireDelay = 0.5;
-	self.HasLightspeed = true;
-	self.SeatPos = {
-		{self:GetPos()+self:GetUp()*250+self:GetForward()*-300+self:GetRight()*500, self:GetAngles()+Angle(0,180,0)},
-		{self:GetPos()+self:GetUp()*250+self:GetForward()*-300+self:GetRight()*-500, self:GetAngles()},
-	}
-	self.GunnerSeats = {};
-	self:SpawnGunnerSeats();
-
+	self.Bullet = CreateBulletStructure(75,"green");
+	self.FireDelay = 0.15;
+	self.WarpDestination = Vector(0,0,0);
+	if(WireLib) then
+		Wire_CreateInputs(self, { "Destination [VECTOR]", })
+	else
+		self.DistanceMode = true;
+	end
 	
-	self.LeftWeaponLocations = {
-		self:GetPos()+self:GetUp()*-365+self:GetForward()*150+self:GetRight()*450,
-		self:GetPos()+self:GetUp()*-335+self:GetForward()*150+self:GetRight()*450,
-		
-		self:GetPos()+self:GetUp()*365+self:GetForward()*150+self:GetRight()*450,
-		self:GetPos()+self:GetUp()*335+self:GetForward()*150+self:GetRight()*450,
-		
-		self:GetPos()+self:GetUp()*15+self:GetForward()*150+self:GetRight()*600,
-		self:GetPos()+self:GetUp()*-15+self:GetForward()*150+self:GetRight()*600,
-		self:GetPos()+self:GetUp()*15+self:GetForward()*100+self:GetRight()*600,
-		self:GetPos()+self:GetUp()*-15+self:GetForward()*100+self:GetRight()*600,
-		
-		self:GetPos()+self:GetUp()*60+self:GetForward()*-230+self:GetRight()*500,
-		self:GetPos()+self:GetUp()*60+self:GetForward()*-260+self:GetRight()*440,
-		
-		self:GetPos()+self:GetUp()*-60+self:GetForward()*-230+self:GetRight()*500,
-		self:GetPos()+self:GetUp()*-60+self:GetForward()*-260+self:GetRight()*440,		
-	}
-	
-	self.RightWeaponLocations = {
-		self:GetPos()+self:GetUp()*-365+self:GetForward()*150+self:GetRight()*-450,
-		self:GetPos()+self:GetUp()*-335+self:GetForward()*150+self:GetRight()*-450,
-		
-		self:GetPos()+self:GetUp()*365+self:GetForward()*150+self:GetRight()*-450,
-		self:GetPos()+self:GetUp()*335+self:GetForward()*150+self:GetRight()*-450,
-		
-		self:GetPos()+self:GetUp()*15+self:GetForward()*150+self:GetRight()*-600,
-		self:GetPos()+self:GetUp()*-15+self:GetForward()*150+self:GetRight()*-600,
-		self:GetPos()+self:GetUp()*15+self:GetForward()*100+self:GetRight()*-600,
-		self:GetPos()+self:GetUp()*-15+self:GetForward()*100+self:GetRight()*-600,
-		
-		self:GetPos()+self:GetUp()*60+self:GetForward()*-230+self:GetRight()*-500,
-		self:GetPos()+self:GetUp()*60+self:GetForward()*-260+self:GetRight()*-440,
-		
-		self:GetPos()+self:GetUp()*-60+self:GetForward()*-230+self:GetRight()*-500,
-		self:GetPos()+self:GetUp()*-60+self:GetForward()*-260+self:GetRight()*-440,
-	}
+	self.OGForward = 150;
+	self.OGBoost = 100;
+	self.OGUp = 100;
 
-	self.ExitModifier = {x=1000,y=225,z=100};
+	self.ExitModifier = {x=0,y=600,z= -320};
 	
-
 	self.BaseClass.Initialize(self);
-end
-
-function ENT:TestLoc(pos)
-
-	local e = ents.Create("prop_physics");
-	e:SetPos(pos);
-	e:SetModel("models/props_borealis/bluebarrel001.mdl");
-	e:Spawn();
-	e:Activate();
-	e:SetParent(self);
 	
+	self:GetPhysicsObject():SetMass(1000000)
 end
+
+function ENT:StartLightSpeed()
+	self.LightspeedPassengers = {};
+	self.LightSpeed = true;
+	self.LightSpeedTimer = CurTime() + 3;
+	self.NextUse.LightSpeed = CurTime() + 20;
+	local mb,mb2 = self:GetModelBounds();
+	for k,v in pairs(ents.FindInBox(self:LocalToWorld(mb),self:LocalToWorld(mb2))) do
+		if(v.IsSWVehicle and v!=self) then
+		
+			v.BeingWarped = true;
+			v.ReturnToStandby = v.CanStandby;
+			v.CanStandby = false;
+			
+			v:SetParent(self);
+			
+			self.LightspeedPassengers[k] = v;
+		end
+	end
+end
+
 
 function ENT:Think()
 
-	if(IsValid(self.LeftGunner)) then
-		if(self.GunnerSeats[1]:GetThirdPersonMode()) then
-			self.GunnerSeats[1]:SetThirdPersonMode(false);
-		end
-		if(self.LeftGunner:KeyDown(IN_ATTACK)) then
-			self:FireLeft(self.LeftGunner:GetAimVector():Angle():Forward());
-		end
-	end
-	
-	if(IsValid(self.RightGunner)) then
-		if(self.GunnerSeats[2]:GetThirdPersonMode()) then
-			self.GunnerSeats[2]:SetThirdPersonMode(false);
-		end
-		if(self.RightGunner:KeyDown(IN_ATTACK)) then
-			self:FireRight(self.RightGunner:GetAimVector():Angle():Forward());
+	local mb,mb2 = self:GetModelBounds();
+	for k,v in pairs(ents.FindInBox(self:LocalToWorld(mb),self:LocalToWorld(mb2))) do
+		if(v.IsSWVehicle and v != self) then
+			local Health = v:GetNWInt("Health");
+			if(Health<v.StartHealth) then
+				nHealth = v.VehicleHealth+5;
+				v:SetNWInt("Health",nHealth);
+				v.VehicleHealth = nHealth
+				if(IsValid(v.Pilot)) then
+					v.Pilot:SetNWInt("SW_Health",v.VehicleHealth);
+				end
+			end
+			v.Land = false;
+			v.TakeOff = false;
+			v.Docked = true;
 		end
 	end
 
+	
+	if(self.Inflight) then
+		if(IsValid(self.Pilot)) then
+		
+			if(self.Pilot:KeyDown(IN_WALK) and self.NextUse.LightSpeed < CurTime()) then
+				if(!self.LightSpeed and !self.HyperdriveDisabled) then
+					self:StartLightSpeed();
+				end
+			end
+
+			
+			if(WireLib) then
+				if(self.Pilot:KeyDown(IN_RELOAD) and self.NextUse.Switch < CurTime()) then
+					if(!self.DistanceMode) then
+						self.DistanceMode = true;
+						self.Pilot:ChatPrint("LightSpeed Mode: Distance");
+					else
+						self.DistanceMode = false;
+						self.Pilot:ChatPrint("LightSpeed Mode: Destination");
+					end
+					self.NextUse.Switch = CurTime() + 1;
+				end
+			end
+			
+		end
+		if(self.LightSpeed) then
+			if(self.DistanceMode) then
+				self:PunchingIt(self:GetPos()+self:GetForward()*-15000);
+			else
+				self:PunchingIt(self.WarpDestination);
+			end
+		end
+	end
 	
 	self.BaseClass.Think(self);
 end
 
-hook.Add("PlayerLeaveVehicle", "CaptorSeatExit", function(p,v)
-	if(IsValid(p) and IsValid(v)) then
-		if(v.IsRepGunnerSeat) then
-			local e = v:GetParent();
-			if(v.IsRight) then
-				e:GunnerExit(true,p);
-			else
-				e:GunnerExit(false,p);
+function ENT:PunchingIt(Dest)
+	if(!self.PunchIt) then
+		if(self.LightSpeedTimer > CurTime()) then
+			self.ForwardSpeed = 0;
+			self.BoostSpeed = 0;
+			self.UpSpeed = 0;
+			self.Accel.FWD = 0;
+			self:SetNWInt("LightSpeed",1);
+			for k,v in pairs(self.LightspeedPassengers) do
+				if(IsValid(v)) then
+					v:SetNWInt("LightSpeed",1);
+				end
+			end
+			if(!self.PlayedSound) then
+				self:EmitSound(self.HyperDriveSound,100);
+				self.PlayedSound = true;
+			end
+			//util.ScreenShake(self:GetPos()+self:GetForward()*-730+self:GetUp()*195+self:GetRight()*3,5,5,10,5000)
+		else
+			self.Accel.FWD = 4000;
+			self.LightSpeedWarp = CurTime()+0.5;
+			self.PunchIt = true;
+			self:SetNWInt("LightSpeed",2);
+			for k,v in pairs(self.LightspeedPassengers) do
+				if(IsValid(v)) then
+					v:SetNWInt("LightSpeed",2);
+				end
 			end
 		end
-	end
-end);
-
-function ENT:FireLeft(angPos)
-
-	if(self.NextUse.Fire < CurTime()) then
-		for k,v in pairs(self.LeftWeapons) do
-
-			self.Bullet.Attacker = self.Pilot or self;
-			self.Bullet.Src		= v:GetPos();
-			self.Bullet.Dir = angPos
-
-			v:FireBullets(self.Bullet)
-		end
-		self:EmitSound(self.FireSound,100,math.random(80,120));
-		self.NextUse.Fire = CurTime() + (self.FireDelay or 0.75);
-	end
-end
-
-function ENT:FireRight(angPos)
-
-	if(self.NextUse.Fire < CurTime()) then
-		for k,v in pairs(self.RightWeapons) do
-
-			self.Bullet.Attacker = self.Pilot or self;
-			self.Bullet.Src		= v:GetPos();
-			self.Bullet.Dir = angPos
-
-			v:FireBullets(self.Bullet)
-		end
-		self:EmitSound(self.FireSound,100,math.random(80,120));
-		self.NextUse.Fire = CurTime() + (self.FireDelay or 0.75);
-	end
-end
-
-function ENT:SpawnWeapons()
-	self.LeftWeapons = {};
-	self.RightWeapons = {};
-	for k,v in pairs(self.LeftWeaponLocations) do
-		local e = ents.Create("prop_physics");
-		e:SetModel("models/props_junk/PopCan01a.mdl");
-		e:SetPos(v);
-		e:Spawn();
-		e:Activate();
-		e:SetRenderMode(RENDERMODE_TRANSALPHA);
-		e:SetSolid(SOLID_NONE);
-		e:AddFlags(FL_DONTTOUCH);
-		e:SetColor(Color(255,255,255,0));
-		e:SetParent(self);
-		e:GetPhysicsObject():EnableMotion(false);
-		self.LeftWeapons[k] = e;
-	end
-
-	for k,v in pairs(self.RightWeaponLocations) do
-		local e = ents.Create("prop_physics");
-		e:SetModel("models/props_junk/PopCan01a.mdl");
-		e:SetPos(v);
-		e:Spawn();
-		e:Activate();
-		e:SetRenderMode(RENDERMODE_TRANSALPHA);
-		e:SetSolid(SOLID_NONE);
-		e:AddFlags(FL_DONTTOUCH);
-		e:SetColor(Color(255,255,255,0));
-		e:SetParent(self);
-		e:GetPhysicsObject():EnableMotion(false);
-		self.RightWeapons[k] = e;
-	end
-end
-
-function ENT:SpawnGunnerSeats()
 	
-	for k,v in pairs(self.SeatPos) do
-		local e = ents.Create("prop_vehicle_prisoner_pod");
-		e:SetPos(v[1]);
-		e:SetAngles(v[2]);
-		e:SetParent(self);
-		e:SetModel("models/nova/airboat_seat.mdl");
-		e:SetRenderMode(RENDERMODE_TRANSALPHA);
-		e:SetColor(Color(255,255,255,0));
-		e:Spawn();
-		e:Activate();
-		e:SetThirdPersonMode(false);
-		e:GetPhysicsObject():EnableMotion(false);
-		e:GetPhysicsObject():EnableCollisions(false);
-		e:SetUseType(USE_OFF);
-		self.GunnerSeats[k] = e;
-		if(k == 2) then
-			e.IsRight = true;
-		end
-		e.IsRepGunnerSeat = true;
-	end
-end
-
-function ENT:Use(p)
-
-	if(p == self.Pilot or p == self.LeftGunner or p == self.RightGunner) then return end;
-
-	if(!self.Inflight and !p:KeyDown(IN_WALK)) then
-		if(p != self.LeftGunner and p != self.RightGunner) then
-			self:Enter(p);
-		end
 	else
-		if(!self.LeftGunner) then
-			self:GunnerEnter(p,false);
-		else
-			self:GunnerEnter(p,true);
-		end
-	end
-
-end
-
-function ENT:GunnerEnter(p,right)
-	if(p == self.Pilot) then return end;
-	if(p == self.LeftGunner) then return end;
-	if(p == self.RightGunner) then return end;
-	if(self.NextUse.Use < CurTime()) then
-		if(!right) then
-			if(!IsValid(self.LeftGunner)) then
-				p:SetNWBool("LeftGunner",true);
-				self.LeftGunner = p;
-				p:EnterVehicle(self.GunnerSeats[1]);
+		if(self.LightSpeedWarp < CurTime()) then
+			
+			self.LightSpeed = false;
+			self.PunchIt = false;
+			self.ForwardSpeed = self.OGForward;
+			self.BoostSpeed = self.OGBoost;
+			self.UpSpeed = self.OGUp;
+			self:SetNWInt("LightSpeed",0);
+			local fx = EffectData()
+				fx:SetOrigin(self:GetPos())
+				fx:SetEntity(self)
+			util.Effect("propspawn",fx)
+			self:EmitSound("ambient/levels/citadel/weapon_disintegrate2.wav", 500)
+			
+			
+			self.Accel.FWD = 0;
+			
+			self:SetPos(Dest);
+			local mb,mb2 = self:GetModelBounds();
+			for k,v in pairs(self.LightspeedPassengers) do
+				if(IsValid(v) and v.IsSWVehicle and v != self) then
+					local fx = EffectData()
+						fx:SetOrigin(v:GetPos())
+						fx:SetEntity(v)
+					util.Effect("propspawn",fx)
+					
+					v:SetParent(NULL);
+					v.BeingWarped = false;
+					if(v.ReturnToStandby) then
+						v.CanStandby = true;
+					end
+					v:SetNWInt("LightSpeed",0);
+				end
 			end
-		else
-			if(!IsValid(self.RightGunner)) then
-				p:SetNWBool("RightGunner",true);
-				self.RightGunner = p;
-				p:EnterVehicle(self.GunnerSeats[2]);
-			end
+			
+			
+			self.PlayedSound = false;
+			
 		end
-		p:SetNWEntity(self.Vehicle,self);
-		self.NextUse.Use = CurTime() + 1;
 	end
 end
 
-function ENT:GunnerExit(right,p)
-
-	if(!right) then
-		if(IsValid(self.LeftGunner)) then
-			self.LeftGunner:SetNWBool("LeftGunner",false);
-			self.LeftGunner = NULL;
-		end
-	else
-		if(IsValid(self.RightGunner)) then
-			self.RightGunner:SetNWBool("RightGunner",false);
-			self.RightGunner = NULL;
-		end
+function ENT:TriggerInput(k,v)
+	if(k == "Destination") then
+		self.WarpDestination = v;
 	end
-	p:SetPos(self:GetPos()+self:GetRight()*1000);
-	p:SetNWEntity(self.Vehicle,NULL);
-
-
 end
-
-
 
 local FlightPhys = {
 	secondstoarrive	= 1;
@@ -418,42 +339,67 @@ if CLIENT then
 		
 		if(Flying) then
 			self.EnginePos = {
-				self:GetPos()+self:GetForward()*910+self:GetUp()*00+self:GetRight()*300,
-				self:GetPos()+self:GetForward()*910+self:GetUp()*00+self:GetRight()*-300,
-				self:GetPos()+self:GetForward()*910+self:GetUp()*00
 			}
 			self:Effects();
 		end
 	end	
 	
-    ENT.ViewDistance = -3000;
-	ENT.ViewHeight = 350;
-    
+	local View = {}
+	local lastpos, lastang;
+	local function CalcView()
+		
+		local p = LocalPlayer();
+		local self = p:GetNWEntity("fp_diamond")
+		local Flying = p:GetNWBool("Flyingfp_diamond");
+		local pos,face;
+		if(IsValid(self)) then
+			
+			if(LightSpeed == 2) then
+				pos = lastpos;
+				face = lastang;
+
+				View.origin = pos;
+				View.angles = face;
+			else
+				pos = self:GetPos()+self:GetUp()*350+LocalPlayer():GetAimVector():GetNormal()*5000;			
+				face = ((self:GetPos() + Vector(0,0,100))- pos):Angle()
+				View =  SWVehicleView(self,-5000,350,fpvPos);
+			end
+			
+			lastpos = pos;
+			lastang = face;
+			
+			return View;
+		end
+	end
+	hook.Add("CalcView", "fp_diamondView", CalcView)
+	
 	function ENT:Effects()
 
 		local p = LocalPlayer();
 		local roll = math.Rand(-45,45);
 		local normal = (self.Entity:GetForward() * 1):GetNormalized();
 		local id = self:EntIndex();
+		local FWD = self:GetForward();
 		for k,v in pairs(self.EnginePos) do
 
 			local heatwv = self.Emitter:Add("sprites/heatwave",v);
 			heatwv:SetVelocity(normal*2);
-			heatwv:SetDieTime(0.6);
+			heatwv:SetDieTime(0.1);
 			heatwv:SetStartAlpha(255);
 			heatwv:SetEndAlpha(255);
-			heatwv:SetStartSize(85);
-			heatwv:SetEndSize(10);
+			heatwv:SetStartSize(200);
+			heatwv:SetEndSize(150);
 			heatwv:SetColor(255,255,255);
 			heatwv:SetRoll(roll);
 			
 			local blue = self.Emitter:Add("sprites/bluecore",v)
 			blue:SetVelocity(normal)
-			blue:SetDieTime(0.3)
+			blue:SetDieTime(0.05)
 			blue:SetStartAlpha(255)
-			blue:SetEndAlpha(255)
-			blue:SetStartSize(85)
-			blue:SetEndSize(10)
+			blue:SetEndAlpha(200)
+			blue:SetStartSize(200)
+			blue:SetEndSize(150)
 			blue:SetRoll(roll)
 			blue:SetColor(255,255,255)
 			
@@ -471,116 +417,25 @@ if CLIENT then
 	end
 
 	
-	function RepCruiserReticle()
+	function fp_diamondReticle()
 		
 		local p = LocalPlayer();
-		local Flying = p:GetNWBool("FlyingDiamond");
-		local self = p:GetNWEntity("Diamond");
-		local LeftGunner = p:GetNWBool("LeftGunner");
-		local RightGunner = p:GetNWBool("RightGunner");
-		
-		if(IsValid(self)) then
-			if(LightSpeed == 2) then
-				DrawMotionBlur( 0.4, 20, 0.01 );
-			end
-		end
-		
+		local Flying = p:GetNWBool("Flyingfp_diamond");
+		local self = p:GetNWEntity("fp_diamond");
 		if(Flying and IsValid(self)) then
 			
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(15000,x,y);		
-			
-		elseif(LeftGunner and IsValid(self)) then
-
-			local WeaponsPos = {
-				self:GetPos()+self:GetUp()*860+self:GetForward()*-40+self:GetRight()*870,
-				self:GetPos()+self:GetUp()*860+self:GetForward()*-70+self:GetRight()*870,
-				
-				self:GetPos()+self:GetUp()*895+self:GetForward()*455+self:GetRight()*920,
-				self:GetPos()+self:GetUp()*895+self:GetForward()*485+self:GetRight()*940,
-				
-				self:GetPos()+self:GetUp()*930+self:GetForward()*970+self:GetRight()*1030,
-				self:GetPos()+self:GetUp()*930+self:GetForward()*1000+self:GetRight()*1030,
-				
-				self:GetPos()+self:GetUp()*950+self:GetForward()*1440+self:GetRight()*1150,
-				self:GetPos()+self:GetUp()*950+self:GetForward()*1470+self:GetRight()*1150,		
-			}
-			
-			for i=1,8 do
-				local tr = util.TraceLine( {
-					start = WeaponsPos[i],
-					endpos = WeaponsPos[i] + p:GetAimVector():Angle():Forward()*10000,
-				} )
-
-				surface.SetTextColor( 255, 255, 255, 255 );
-				
-				local vpos = tr.HitPos;
-				
-				local screen = vpos:ToScreen();
-				
-				surface.SetFont( "HUD_Crosshair" );	
-				local tsW, tsH = surface.GetTextSize("+");
-				
-				local x,y;
-				for k,v in pairs(screen) do
-					if k=="x" then
-						x = v - tsW/2;
-					elseif k=="y" then
-						y = v - tsH/2;
-					end
+			SW_HUD_DrawHull(35000,x,y);		
+			if(IsValid(self)) then
+				if(LightSpeed == 2) then
+					DrawMotionBlur( 0.4, 20, 0.01 );
 				end
-				
-							
-				surface.SetTextPos( x, y );
-				surface.DrawText( "+" );
 			end
-		elseif(RightGunner and IsValid(self)) then
-			local WeaponsPos = {
-				self:GetPos()+self:GetUp()*860+self:GetForward()*-40+self:GetRight()*-870,
-				self:GetPos()+self:GetUp()*860+self:GetForward()*-70+self:GetRight()*-870,
-				
-				self:GetPos()+self:GetUp()*895+self:GetForward()*455+self:GetRight()*-980,
-				self:GetPos()+self:GetUp()*895+self:GetForward()*485+self:GetRight()*-980,
-				
-				self:GetPos()+self:GetUp()*930+self:GetForward()*970+self:GetRight()*-1080,
-				self:GetPos()+self:GetUp()*930+self:GetForward()*1000+self:GetRight()*-1080,
-				
-				self:GetPos()+self:GetUp()*950+self:GetForward()*1440+self:GetRight()*-1200,
-				self:GetPos()+self:GetUp()*950+self:GetForward()*1470+self:GetRight()*-1200,			
-			}
 			
-			for i=1,8 do
-				local tr = util.TraceLine( {
-					start = WeaponsPos[i],
-					endpos = WeaponsPos[i] + p:GetAimVector():Angle():Forward()*10000,
-				} )
-
-				surface.SetTextColor( 255, 255, 255, 255 );
-				
-				local vpos = tr.HitPos;
-				
-				local screen = vpos:ToScreen();
-				
-				surface.SetFont( "HUD_Crosshair" );	
-				local tsW, tsH = surface.GetTextSize("+");
-				
-				local x,y;
-				for k,v in pairs(screen) do
-					if k=="x" then
-						x = v - tsW/2;
-					elseif k=="y" then
-						y = v - tsH/2;
-					end
-				end
-				
-							
-				surface.SetTextPos( x, y );
-				surface.DrawText( "+" );
-			end
 		end
 	end
-	hook.Add("HUDPaint", "DiamondReticle", DiamondReticle)
+	hook.Add("HUDPaint", "fp_diamondReticle", fp_diamondReticle)
 
 end
