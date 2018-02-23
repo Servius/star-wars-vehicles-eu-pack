@@ -48,8 +48,8 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 225 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -225 + self:GetUp() * 20,
+        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 240 + self:GetUp() * 15,
+        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -240 + self:GetUp() * 15,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT

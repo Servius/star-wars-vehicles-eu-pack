@@ -48,15 +48,15 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 235 + self:GetRight() * 50 + self:GetUp() * 45,
-        Left = self:GetPos() + self:GetForward() * 235 + self:GetRight() * -50 + self:GetUp() * 45,
-		TopRight = self:GetPos() + self:GetForward() * 45 + self:GetRight() * 85 + self:GetUp() * 75,
-        TopLeft = self:GetPos() + self:GetForward() * 45 + self:GetRight() * -85 + self:GetUp() * 75,
+        Right = self:GetPos() + self:GetForward() * 130 + self:GetRight() * 75 + self:GetUp() * 45,
+        Left = self:GetPos() + self:GetForward() * 130 + self:GetRight() * -75 + self:GetUp() * 45,
+		TopRight = self:GetPos() + self:GetForward() * 10 + self:GetRight() * 95 + self:GetUp() * 75,
+        TopLeft = self:GetPos() + self:GetForward() * 10 + self:GetRight() * -95 + self:GetUp() * 75,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 2000; // The speed we go when holding SHIFT
     self.ForwardSpeed = 750; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
+    self.UpSpeed = 300; // Up/Down Speed
     self.AccelSpeed = 14; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
@@ -76,13 +76,40 @@ function ENT:Initialize()
 	
 	
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
+	self.NextUse.Torpedos = CurTime();
  
 
     self.Bullet = CreateBulletStructure(80,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end
+function ENT:IonTorpedos()
 
+	if(self.NextUse.Torpedos < CurTime()) then
+		local pos = self:GetPos()+self:GetForward()*130+self:GetUp()*50+self:GetRight()*-16
+		local e = self:FindTarget();
+		if(e == self) then
+			e = NULL;
+		end
+		self:FireTorpedo(pos,e,1500,750,Color(255,255,255,255),15,true);
+		self.NextUse.Torpedos = CurTime()+15;
+		self:SetNWInt("FireBlast",self.NextUse.Torpedos)
+	end
+end
+
+function ENT:Think()
+	
+
+	if(self.Inflight) then
+		if(IsValid(self.Pilot)) then
+			if(self.Pilot:KeyDown(IN_ATTACK2)) then
+				self:IonTorpedos();
+			end
+		end
+		
+	end
+	self.BaseClass.Think(self);
+end
  
 end
  
@@ -151,7 +178,7 @@ end
 		local self = p:GetNetworkedEntity("Skiray2", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); // This is the position of the first person view if you have it
-			View = SWVehicleView(self,700,400,fpvPos);		// 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,600,200,fpvPos);		// 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

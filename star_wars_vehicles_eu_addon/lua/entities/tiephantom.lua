@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/tieph/tieph1.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "TiePhantom" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Empire";
  
 if SERVER then
  
@@ -48,15 +48,15 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 400 + self:GetRight() * 85 + self:GetUp() * 80,
-        Left = self:GetPos() + self:GetForward() * 400 + self:GetRight() * -85 + self:GetUp() * 80,
-		TopRight = self:GetPos() + self:GetForward() * 400 + self:GetRight() * 0 + self:GetUp() * 170,
+        Right = self:GetPos() + self:GetForward() * 375 + self:GetRight() * 75 + self:GetUp() * 70,
+        Left = self:GetPos() + self:GetForward() * 375 + self:GetRight() * -75 + self:GetUp() * 70,
+		Top = self:GetPos() + self:GetForward() * 375 + self:GetRight() * 0 + self:GetUp() * 175,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 3500; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 1250; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
-    self.AccelSpeed = 14; // How fast we get to our previously set speeds
+    self.BoostSpeed = 1500; // The speed we go when holding SHIFT
+    self.ForwardSpeed = 1080; // The forward speed 
+    self.UpSpeed = 250; // Up/Down Speed
+    self.AccelSpeed = 16; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
 	self.CanStrafe = false; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
@@ -148,7 +148,7 @@ end
 		local self = p:GetNetworkedEntity("tiephantom", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); // This is the position of the first person view if you have it
-			View = SWVehicleView(self,700,400,fpvPos);		// 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,500,400,fpvPos);		// 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

@@ -1,20 +1,18 @@
-
 ENT.RenderGroup = RENDERGROUP_OPAQUE
 ENT.Base = "fighter_base"
 ENT.Type = "vehicle"
 
-ENT.PrintName = "Majestic"
+ENT.PrintName = "Assault Frigate Mk. 1"
 ENT.Author = "Liam0102, Nashatok"
 ENT.Category = "Star Wars Vehicles: Rebels"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
-ENT.EntModel = "models/fp_majestic/fp_majestic.mdl"
-ENT.Vehicle = "fp_majestic"
-ENT.StartHealth = 18000;
-ENT.DontLock = true;
+ENT.EntModel = "models/fp_assaultf/fp_assaultf.mdl"
+ENT.Vehicle = "Assault"
+ENT.StartHealth = 15000;
 ENT.IsCapitalShip = true;
 ENT.Allegiance = "Rebels";
 list.Set("SWVehicles", ENT.PrintName, ENT);
@@ -27,8 +25,8 @@ ENT.HyperDriveSound = Sound("vehicles/hyperdrive.mp3");
 
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
-	local e = ents.Create("majestic");
-	e:SetPos(tr.HitPos + Vector(0,0,500));
+	local e = ents.Create("assaultf");
+	e:SetPos(tr.HitPos + Vector(0,0,200));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+180,0));
 	e:Spawn();
 	e:Activate();
@@ -41,14 +39,14 @@ function ENT:Initialize()
 	self:SetNWInt("Health",self.StartHealth);
 	
 	self.WeaponLocations = {
-		Left = self:GetPos()+self:GetForward()*-500+self:GetUp()*-700+self:GetRight()*-500,
-		Right = self:GetPos()+self:GetForward()*-500+self:GetUp()*-700+self:GetRight()*500,
+		Left = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*-70,
+		Right = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*70,
 	}
 	self.WeaponsTable = {};
-	self.BoostSpeed = 1500;
-	self.ForwardSpeed = 800;
-	self.UpSpeed = 500;
-	self.AccelSpeed = 16;
+	self.BoostSpeed = 750;
+	self.ForwardSpeed = 500;
+	self.UpSpeed = 100;
+	self.AccelSpeed = 8;
 	self.CanStandby = true;
 	self.CanBack = true;
 	self.CanRoll = false;
@@ -56,54 +54,67 @@ function ENT:Initialize()
 	self.Cooldown = 2;
 	self.HasWings = false;
 	self.CanShoot = false;
-	self.Bullet = CreateBulletStructure(125,"red",false);
-	self.FireDelay = 0.75;
+	self.Bullet = CreateBulletStructure(45,"red",false);
+	self.FireDelay = 0.15;
 	self.HasLightspeed = true;
-	
 	self.SeatPos = {
-		{self:GetPos()+self:GetUp()*100+self:GetForward()*75+self:GetRight()*500, self:GetAngles()+Angle(0,180,0)},
-		{self:GetPos()+self:GetUp()*100+self:GetForward()*-75+self:GetRight()*-500, self:GetAngles()},
+		{self:GetPos()+self:GetForward()*250+self:GetUp()*70+self:GetRight()*120, self:GetAngles()+Angle(0,180,0)},
+		{self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*-70, self:GetAngles()},
 	}
 	self.GunnerSeats = {};
 	self:SpawnGunnerSeats();
 
-	self.WeaponLocations = {
-		Right = self:GetPos()+self:GetForward()*120+self:GetUp()*45+self:GetRight()*87,
-		Left = self:GetPos()+self:GetForward()*120+self:GetUp()*43+self:GetRight()*-80,
-	}
-	self.WeaponsTable = {};
 	
 	self.LeftWeaponLocations = {
-		self:GetPos()+self:GetUp()*25+self:GetForward()*-150+self:GetRight()*700,
-		self:GetPos()+self:GetUp()*50+self:GetForward()*-175+self:GetRight()*700,
-		self:GetPos()+self:GetUp()*25+self:GetForward()*-200+self:GetRight()*700,
-		
-		self:GetPos()+self:GetUp()*25+self:GetForward()*150+self:GetRight()*700,
-		self:GetPos()+self:GetUp()*50+self:GetForward()*175+self:GetRight()*700,
-		self:GetPos()+self:GetUp()*25+self:GetForward()*200+self:GetRight()*700,
-		
-	}
-	
+		self:GetPos()+self:GetUp()*50+self:GetForward()*150+self:GetRight()*350,
+		self:GetPos()+self:GetUp()*50+self:GetForward()*200+self:GetRight()*350,
 
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*235+self:GetRight()*350,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*285+self:GetRight()*350,
+		
+		self:GetPos()+self:GetUp()*35+self:GetForward()*400+self:GetRight()*350,
+		self:GetPos()+self:GetUp()*35+self:GetForward()*450+self:GetRight()*350,
+		
+		self:GetPos()+self:GetUp()*75+self:GetForward()*815+self:GetRight()*350,
+		self:GetPos()+self:GetUp()*75+self:GetForward()*865+self:GetRight()*350,		
+		
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*695+self:GetRight()*350,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*645+self:GetRight()*350,		
+	}
 	
 	self.RightWeaponLocations = {
-		self:GetPos()+self:GetUp()*25+self:GetForward()*-50+self:GetRight()*-700,
-		self:GetPos()+self:GetUp()*25+self:GetForward()*-100+self:GetRight()*-700,
-		self:GetPos()+self:GetUp()*50+self:GetForward()*-75+self:GetRight()*-700,
+		self:GetPos()+self:GetUp()*50+self:GetForward()*150+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*50+self:GetForward()*200+self:GetRight()*-350,
 
-		self:GetPos()+self:GetUp()*25+self:GetForward()*50+self:GetRight()*-700,
-		self:GetPos()+self:GetUp()*50+self:GetForward()*75+self:GetRight()*-700,
-		self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*-700,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*235+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*285+self:GetRight()*-350,
 		
+		self:GetPos()+self:GetUp()*35+self:GetForward()*400+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*35+self:GetForward()*450+self:GetRight()*-350,
+		
+		self:GetPos()+self:GetUp()*75+self:GetForward()*815+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*75+self:GetForward()*865+self:GetRight()*-350,
+		
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*695+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*645+self:GetRight()*-350,	
 	}
 
-	self.ExitModifier = {x=0,y=300,z= -320};
+	self.ExitModifier = {x=1000,y=225,z=100};
 	
+
 	self.BaseClass.Initialize(self);
-	
-	self:GetPhysicsObject():SetMass(1000000)
 end
 
+function ENT:TestLoc(pos)
+
+	local e = ents.Create("prop_physics");
+	e:SetPos(pos);
+	e:SetModel("models/props_borealis/bluebarrel001.mdl");
+	e:Spawn();
+	e:Activate();
+	e:SetParent(self);
+	
+end
 
 function ENT:Think()
 
@@ -129,16 +140,14 @@ function ENT:Think()
 	self.BaseClass.Think(self);
 end
 
-hook.Add("PlayerLeaveVehicle", "majesticSeatExit", function(p,v)
+hook.Add("PlayerLeaveVehicle", "CaptorSeatExit", function(p,v)
 	if(IsValid(p) and IsValid(v)) then
-		if(v.IsmajesticSeat) then
+		if(v.IsRepGunnerSeat) then
 			local e = v:GetParent();
 			if(v.IsRight) then
 				e:GunnerExit(true,p);
-				p:SetNWBool("RightGunner_majestic",false);
 			else
 				e:GunnerExit(false,p);
-				p:SetNWBool("LeftGunner_majestic",false);
 			end
 		end
 	end
@@ -155,7 +164,7 @@ function ENT:FireLeft(angPos)
 
 			v:FireBullets(self.Bullet)
 		end
-		self:EmitSound(self.FireSound,100,math.random(85,115));
+		self:EmitSound(self.FireSound,100,math.random(80,120));
 		self.NextUse.Fire = CurTime() + (self.FireDelay or 0.2);
 	end
 end
@@ -171,7 +180,7 @@ function ENT:FireRight(angPos)
 
 			v:FireBullets(self.Bullet)
 		end
-		self:EmitSound(self.FireSound,100,math.random(85,115));
+		self:EmitSound(self.FireSound,100,math.random(80,120));
 		self.NextUse.Fire = CurTime() + (self.FireDelay or 0.2);
 	end
 end
@@ -225,19 +234,23 @@ function ENT:SpawnGunnerSeats()
 		e:SetThirdPersonMode(false);
 		e:GetPhysicsObject():EnableMotion(false);
 		e:GetPhysicsObject():EnableCollisions(false);
+		e:SetUseType(USE_OFF);
 		self.GunnerSeats[k] = e;
 		if(k == 2) then
 			e.IsRight = true;
 		end
-		e.IsmajesticSeat = true;
+		e.IsRepGunnerSeat = true;
 	end
 end
 
 function ENT:Use(p)
 
+	if(p == self.Pilot or p == self.LeftGunner or p == self.RightGunner) then return end;
 
 	if(!self.Inflight and !p:KeyDown(IN_WALK)) then
-		self:Enter(p);
+		if(p != self.LeftGunner and p != self.RightGunner) then
+			self:Enter(p);
+		end
 	else
 		if(!self.LeftGunner) then
 			self:GunnerEnter(p,false);
@@ -249,6 +262,9 @@ function ENT:Use(p)
 end
 
 function ENT:GunnerEnter(p,right)
+	if(p == self.Pilot) then return end;
+	if(p == self.LeftGunner) then return end;
+	if(p == self.RightGunner) then return end;
 	if(self.NextUse.Use < CurTime()) then
 		if(!right) then
 			if(!IsValid(self.LeftGunner)) then
@@ -281,11 +297,13 @@ function ENT:GunnerExit(right,p)
 			self.RightGunner = NULL;
 		end
 	end
-	p:SetPos(self:GetPos()+self:GetRight()*2000);
+	p:SetPos(self:GetPos()+self:GetRight()*1000);
 	p:SetNWEntity(self.Vehicle,NULL);
 
 
 end
+
+
 
 local FlightPhys = {
 	secondstoarrive	= 1;
@@ -395,54 +413,53 @@ if CLIENT then
 		
 		if(Flying) then
 			self.EnginePos = {
-				self:GetPos()+self:GetForward()*1800+self:GetUp()*-30+self:GetRight()*180,
-				self:GetPos()+self:GetForward()*1800+self:GetUp()*-30+self:GetRight()*-180,
-				self:GetPos()+self:GetForward()*1800+self:GetUp()*50+self:GetRight()*180,
-				self:GetPos()+self:GetForward()*1800+self:GetUp()*50+self:GetRight()*-180,
-				self:GetPos()+self:GetForward()*1800+self:GetUp()*10+self:GetRight()*180,
-				self:GetPos()+self:GetForward()*1800+self:GetUp()*10+self:GetRight()*-180,
+				self:GetPos()+self:GetForward()*1530+self:GetUp()*-450+self:GetRight()*25,
+				self:GetPos()+self:GetForward()*1500+self:GetUp()*-240+self:GetRight()*25,
+				self:GetPos()+self:GetForward()*1380+self:GetUp()*425+self:GetRight()*25,
+				self:GetPos()+self:GetForward()*1365+self:GetUp()*265+self:GetRight()*25,
+				
+				self:GetPos()+self:GetForward()*1530+self:GetUp()*-450+self:GetRight()*-25,
+				self:GetPos()+self:GetForward()*1500+self:GetUp()*-240+self:GetRight()*-25,
+				self:GetPos()+self:GetForward()*1380+self:GetUp()*425+self:GetRight()*-25,
+				self:GetPos()+self:GetForward()*1365+self:GetUp()*265+self:GetRight()*-25,
+				
+				self:GetPos()+self:GetForward()*1530+self:GetUp()*-450,
+				self:GetPos()+self:GetForward()*1500+self:GetUp()*-240,
+				self:GetPos()+self:GetForward()*1380+self:GetUp()*425,
+				self:GetPos()+self:GetForward()*1365+self:GetUp()*265,
 			}
 			self:Effects();
 		end
 	end	
 	
-    ENT.ViewDistance = -5000;
+    ENT.ViewDistance = -3000;
 	ENT.ViewHeight = 350;
-	
-	hook.Add( "ShouldDrawLocalPlayer", "majesticDrawPlayerModel", function( p )
-		local sat = p:GetNWBool("LeftGunner_majestic")
-		local sat2 = p:GetNWBool("RightGunner_majestic")
-		if(sat or sat2) then
-			return false;
-		end
-	end);
-	
+    
 	function ENT:Effects()
 
 		local p = LocalPlayer();
 		local roll = math.Rand(-45,45);
 		local normal = (self.Entity:GetForward() * 1):GetNormalized();
 		local id = self:EntIndex();
-		local FWD = self:GetForward();
 		for k,v in pairs(self.EnginePos) do
 
-			local heatwv = self.Emitter:Add("sprites/heatwave",v+FWD*300);
+			local heatwv = self.Emitter:Add("sprites/heatwave",v);
 			heatwv:SetVelocity(normal*2);
-			heatwv:SetDieTime(0.1);
+			heatwv:SetDieTime(0.3);
 			heatwv:SetStartAlpha(255);
 			heatwv:SetEndAlpha(255);
-			heatwv:SetStartSize(85);
-			heatwv:SetEndSize(50);
+			heatwv:SetStartSize(70);
+			heatwv:SetEndSize(20);
 			heatwv:SetColor(255,255,255);
 			heatwv:SetRoll(roll);
 			
-			local blue = self.Emitter:Add("sprites/orangecore1",v+FWD*300)
+			local blue = self.Emitter:Add("sprites/bluecore",v)
 			blue:SetVelocity(normal)
-			blue:SetDieTime(0.1)
+			blue:SetDieTime(0.15)
 			blue:SetStartAlpha(255)
 			blue:SetEndAlpha(255)
-			blue:SetStartSize(85)
-			blue:SetEndSize(50)
+			blue:SetStartSize(70)
+			blue:SetEndSize(20)
 			blue:SetRoll(roll)
 			blue:SetColor(255,255,255)
 			
@@ -459,35 +476,45 @@ if CLIENT then
 		end
 	end
 
-	//ENT.CanFPV = true;
-	local HUD = surface.GetTextureID("vgui/majestic_cockpit")
-	function majesticReticle()
+	
+	function AssaultFReticle()
 		
 		local p = LocalPlayer();
-		local Flying = p:GetNWBool("Flyingmajestic");
-		local self = p:GetNWEntity("majestic");
-		local LeftGunner = p:GetNWBool("LeftGunner_majestic");
-		local RightGunner = p:GetNWBool("RightGunner_majestic");
-		if(Flying and IsValid(self)) then
-			local FPV = self:GetFPV();
-			if(FPV) then
-				SW_HUD_FPV(HUD);
+		local Flying = p:GetNWBool("FlyingAssaultF");
+		local self = p:GetNWEntity("AssaultF");
+		local LeftGunner = p:GetNWBool("LeftGunner");
+		local RightGunner = p:GetNWBool("RightGunner");
+		
+		if(IsValid(self)) then
+			if(LightSpeed == 2) then
+				DrawMotionBlur( 0.4, 20, 0.01 );
 			end
+		end
+		
+		if(Flying and IsValid(self)) then
+			
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(18000,x,y);		
+			SW_HUD_DrawHull(15000,x,y);		
 			
 		elseif(LeftGunner and IsValid(self)) then
 
 			local WeaponsPos = {
-				self:GetPos()+self:GetUp()*25+self:GetForward()*-150+self:GetRight()*700,
-				self:GetPos()+self:GetUp()*50+self:GetForward()*-175+self:GetRight()*700,
-				self:GetPos()+self:GetUp()*25+self:GetForward()*-200+self:GetRight()*700,
+				self:GetPos()+self:GetUp()*50+self:GetForward()*150+self:GetRight()*350,
+				self:GetPos()+self:GetUp()*50+self:GetForward()*200+self:GetRight()*350,
+
+				self:GetPos()+self:GetUp()*-50+self:GetForward()*235+self:GetRight()*350,
+				self:GetPos()+self:GetUp()*-50+self:GetForward()*285+self:GetRight()*350,
 		
-				self:GetPos()+self:GetUp()*25+self:GetForward()*150+self:GetRight()*700,
-				self:GetPos()+self:GetUp()*50+self:GetForward()*175+self:GetRight()*700,
-				self:GetPos()+self:GetUp()*25+self:GetForward()*200+self:GetRight()*700,
+				self:GetPos()+self:GetUp()*35+self:GetForward()*400+self:GetRight()*350,
+				self:GetPos()+self:GetUp()*35+self:GetForward()*450+self:GetRight()*350,
+		
+				self:GetPos()+self:GetUp()*75+self:GetForward()*815+self:GetRight()*350,
+				self:GetPos()+self:GetUp()*75+self:GetForward()*865+self:GetRight()*350,		
+		
+				self:GetPos()+self:GetUp()*-50+self:GetForward()*695+self:GetRight()*350,
+				self:GetPos()+self:GetUp()*-50+self:GetForward()*645+self:GetRight()*350,	
 			}
 			
 			for i=1,8 do
@@ -520,13 +547,20 @@ if CLIENT then
 			end
 		elseif(RightGunner and IsValid(self)) then
 			local WeaponsPos = {
-				self:GetPos()+self:GetUp()*25+self:GetForward()*-50+self:GetRight()*-700,
-				self:GetPos()+self:GetUp()*25+self:GetForward()*-100+self:GetRight()*-700,
-				self:GetPos()+self:GetUp()*50+self:GetForward()*-75+self:GetRight()*-700,
+		self:GetPos()+self:GetUp()*50+self:GetForward()*150+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*50+self:GetForward()*200+self:GetRight()*-350,
 
-				self:GetPos()+self:GetUp()*25+self:GetForward()*50+self:GetRight()*-700,
-				self:GetPos()+self:GetUp()*50+self:GetForward()*75+self:GetRight()*-700,
-				self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*-700,			
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*235+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*285+self:GetRight()*-350,
+		
+		self:GetPos()+self:GetUp()*35+self:GetForward()*400+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*35+self:GetForward()*450+self:GetRight()*-350,
+		
+		self:GetPos()+self:GetUp()*75+self:GetForward()*815+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*75+self:GetForward()*865+self:GetRight()*-350,
+		
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*695+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*-50+self:GetForward()*645+self:GetRight()*-350,
 			}
 			
 			for i=1,8 do
@@ -559,6 +593,17 @@ if CLIENT then
 			end
 		end
 	end
-	hook.Add("HUDPaint", "MajesticReticle", MajesticReticle)
+	local function DGunReticle()
+		
+		local p = LocalPlayer();
+		local Flying = p:GetNWBool("FlyingAssaultf");
+		local self = p:GetNWEntity("AssaultF");
+		if(Flying and IsValid(self)) then
+			SW_HUD_DrawHull(35000); // Replace 1000 with the starthealth at the top
+			SW_HUD_Compass(self);
+			SW_HUD_DrawSpeedometer();
+		end
+	end
+	hook.Add("HUDPaint", "AssaultReticle", AssaultReticle)
 
 end

@@ -11,7 +11,7 @@ ENT.AdminSpawnable = false;
 
 ENT.EntModel = "models/ship_dooku/ship_dooku.mdl"
 ENT.Vehicle = "geonosis_dooku"
-ENT.StartHealth = 500;
+ENT.StartHealth = 1500;
 ENT.Allegiance = "CIS";
 
 if SERVER then
@@ -23,7 +23,8 @@ ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),FireMode = Cur
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
 	local e = ents.Create("geonosis_dooku");
-	e:SetPos(tr.HitPos + Vector(0,0,5));
+	local spawn_height = 100; // How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
+	e:SetPos(tr.HitPos + Vector(0,0,125));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw,0));
 	e:Spawn();
 	e:Activate();
@@ -48,7 +49,7 @@ function ENT:Initialize()
 	self.CanStrafe = false;
 	self.Cooldown = 2;
 	self.HasLookaround = true;
-	self.CanShoot = true;
+	self.CanShoot = false;
 	self.Bullet = CreateBulletStructure(100,"red");
 	self.FireDelay = 0.2;
 
@@ -134,7 +135,7 @@ if CLIENT then
 		local Flying = p:GetNWBool("Flyinggeonosis_dooku");
 		local self = p:GetNWEntity("geonosis_dooku");
 		if(Flying and IsValid(self)) then
-			SW_HUD_DrawHull(500);
+			SW_HUD_DrawHull(1500);
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
 			

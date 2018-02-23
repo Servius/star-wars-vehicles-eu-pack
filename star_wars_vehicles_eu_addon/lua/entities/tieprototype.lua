@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/swbf3/vehicles/imp_tie_advanced_prototype.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "TiePrototype" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Empire";
  
 if SERVER then
  
@@ -66,7 +66,7 @@ function ENT:Initialize()
 	self.ExitModifier = {x=125,y=200,z=100}
 
 	
-	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
+	self.AlternateFire = false // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
 	self.FireGroup = {"Left","TopLeft","TopRight","Right"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 //The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; // Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.

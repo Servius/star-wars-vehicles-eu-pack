@@ -48,8 +48,8 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 500 + self:GetRight() * 20 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 500 + self:GetRight() * -20 + self:GetUp() * 20,
+        Right = self:GetPos() + self:GetForward() * 275 + self:GetRight() * 10 + self:GetUp() * 35,
+        Left = self:GetPos() + self:GetForward() * 275 + self:GetRight() * -10 + self:GetUp() * 35,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT
@@ -147,7 +147,7 @@ end
 		local self = p:GetNetworkedEntity("y2_wing", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); // This is the position of the first person view if you have it
-			View = SWVehicleView(self,500,200,fpvPos);		// 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,700,200,fpvPos);		// 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

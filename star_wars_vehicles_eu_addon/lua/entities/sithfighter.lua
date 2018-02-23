@@ -55,7 +55,7 @@ function ENT:Initialize()
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3500; // The speed we go when holding SHIFT
     self.ForwardSpeed = 750; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
+    self.UpSpeed = 300; // Up/Down Speed
     self.AccelSpeed = 14; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
@@ -148,7 +148,7 @@ end
 		local self = p:GetNetworkedEntity("SithFighter", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); // This is the position of the first person view if you have it
-			View = SWVehicleView(self,700,400,fpvPos);		// 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,700,200,fpvPos);		// 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end
