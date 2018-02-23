@@ -50,8 +50,8 @@ function ENT:Initialize()
     self.WeaponLocations = {
         Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 240 + self:GetUp() * 20,
         Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -240 + self:GetUp() * 20,
-        TopLeft = self:GetPos() + self:GetForward() * 45 + self:GetRight() * -10 + self:GetUp() * 150,
-        TopRight = self:GetPos() + self:GetForward() * 45 + self:GetRight() * 10 + self:GetUp() * 150,
+        TopLeft = self:GetPos() + self:GetForward() * 25 + self:GetRight() * -10 + self:GetUp() * 160,
+        TopRight = self:GetPos() + self:GetForward() * 25 + self:GetRight() * 10 + self:GetUp() * 160,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT
@@ -77,7 +77,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end

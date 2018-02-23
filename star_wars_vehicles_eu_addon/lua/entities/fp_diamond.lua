@@ -26,7 +26,7 @@ ENT.HyperDriveSound = Sound("vehicles/hyperdrive.mp3");
 
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
-	local e = ents.Create("diamond");
+	local e = ents.Create("fp_diamond");
 	e:SetPos(tr.HitPos + Vector(0,0,200));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+180,0));
 	e:Spawn();
