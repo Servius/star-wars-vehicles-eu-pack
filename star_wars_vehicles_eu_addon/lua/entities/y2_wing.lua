@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/sweaw/ships/rep_y2-wing.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "y2_wing" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Republic";
  
 if SERVER then
  

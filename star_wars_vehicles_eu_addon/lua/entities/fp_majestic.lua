@@ -459,7 +459,7 @@ if CLIENT then
 		end
 	end
 
-	//ENT.CanFPV = true;
+	//ENT.CanFPV = false;
 	local HUD = surface.GetTextureID("vgui/majestic_cockpit")
 	function majesticReticle()
 		

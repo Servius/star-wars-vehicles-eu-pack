@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/skipray/skipray1.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "Skiray2" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Neutral";
  
 if SERVER then
  
@@ -193,6 +193,7 @@ end
 			SW_HUD_DrawHull(2000); // Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
+			SW_BlastIcon(self,15);
 
 			SW_HUD_Compass(self); // Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); // Draw the speedometer

@@ -88,7 +88,7 @@ function ENT:ProtonTorpedos()
 		local pos;
 		if(fire == 1) then
 			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*-65;
-			self.NextUse.Torpedos = CurTime()+0.25;
+			self.NextUse.Torpedos = CurTime()+0.15;
 		elseif(fire == 2) then
 			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*65;
 			
@@ -98,7 +98,7 @@ function ENT:ProtonTorpedos()
 		fire = fire + 1;
 		if(fire > 2) then
 			fire = 1;
-			self.NextUse.Torpedos = CurTime()+30;
+			self.NextUse.Torpedos = CurTime()+20;
 			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
 		else
 			self:ProtonTorpedos();
@@ -204,7 +204,7 @@ end
 			SW_HUD_DrawHull(2000); // Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-
+			SW_BlastIcon(self,20);
 			SW_HUD_Compass(self); // Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); // Draw the speedometer
 		end
