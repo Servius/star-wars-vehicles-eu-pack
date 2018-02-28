@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/sfighter/sfighter1.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "SithFighter" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Neutral";
  
 if SERVER then
  
@@ -55,7 +55,7 @@ function ENT:Initialize()
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3500; // The speed we go when holding SHIFT
     self.ForwardSpeed = 750; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
+    self.UpSpeed = 300; // Up/Down Speed
     self.AccelSpeed = 14; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
@@ -148,7 +148,7 @@ end
 		local self = p:GetNetworkedEntity("SithFighter", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); // This is the position of the first person view if you have it
-			View = SWVehicleView(self,700,400,fpvPos);		// 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,700,200,fpvPos);		// 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

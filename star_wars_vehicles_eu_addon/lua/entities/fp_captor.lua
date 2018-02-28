@@ -498,7 +498,7 @@ if CLIENT then
 	end
 
 	
-	function RepCruiserReticle()
+	function CaptorReticle()
 		
 		local p = LocalPlayer();
 		local Flying = p:GetNWBool("FlyingCaptor");

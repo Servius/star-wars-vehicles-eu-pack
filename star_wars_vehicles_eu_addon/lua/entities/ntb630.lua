@@ -34,7 +34,7 @@ function ENT:SpawnFunction(pl, tr)
     local e = ents.Create("ntb630"); // This should be the same name as the file
 	local spawn_height = 9; // How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
 	
-    e:SetPos(tr.HitPos + Vector(0,0,spawn_height));
+    e:SetPos(tr.HitPos + Vector(180,0,spawn_height));
     e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw,0));
     e:Spawn();
     e:Activate();

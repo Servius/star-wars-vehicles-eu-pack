@@ -73,7 +73,7 @@ function ENT:Initialize()
 	self.StandbyHoverAmount = 40;
 	self.CanShoot = true;
 	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"Left","TopLeft","TopRight","Right"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.FireGroup = {"Left","TopRight","TopLeft","Right"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 
 end
 

@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/sweaw/ships/rep_w-wing.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "w_wing" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Republic";
  
 if SERVER then
  
@@ -48,8 +48,10 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 164 + self:GetRight() * 85 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 164 + self:GetRight() * -85 + self:GetUp() * 20,
+        Right = self:GetPos() + self:GetForward() * 164 + self:GetRight() * 105 + self:GetUp() * 10,
+        Left = self:GetPos() + self:GetForward() * 164 + self:GetRight() * -105 + self:GetUp() * 10,
+        TopRight = self:GetPos() + self:GetForward() * 164 + self:GetRight() * 105 + self:GetUp() * 30,
+        TopLeft = self:GetPos() + self:GetForward() * 164 + self:GetRight() * -105 + self:GetUp() * 30,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT

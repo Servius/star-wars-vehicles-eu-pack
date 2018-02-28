@@ -48,13 +48,15 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 225 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -225 + self:GetUp() * 20,
+        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 240 + self:GetUp() * 20,
+        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -240 + self:GetUp() * 20,
+        TopLeft = self:GetPos() + self:GetForward() * 25 + self:GetRight() * -10 + self:GetUp() * 160,
+        TopRight = self:GetPos() + self:GetForward() * 25 + self:GetRight() * 10 + self:GetUp() * 160,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 500; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
+    self.ForwardSpeed = 750; // The forward speed 
+    self.UpSpeed = 300; // Up/Down Speed
     self.AccelSpeed = 14; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
@@ -66,21 +68,59 @@ function ENT:Initialize()
 
 	
 	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"Left","Right","TopLeft","TopRight"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.FireGroup = {"Left","Right","TopRight","TopLeft"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 //The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; // Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
 	self.MaxIonShots = 20; // The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
-	
+	self.NextUse.Torpedos = CurTime();
 	
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end
 
- 
+local fire = 1;
+function ENT:ProtonTorpedos()
+
+	if(self.NextUse.Torpedos < CurTime()) then
+		local pos;
+		if(fire == 1) then
+			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*-25;
+			self.NextUse.Torpedos = CurTime()+0.25;
+		elseif(fire == 2) then
+			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*25;
+			
+		end
+		local e = self:FindTarget();
+		self:FireTorpedo(pos,e,1500,200,Color(255,50,50,255),15);
+		fire = fire + 1;
+		if(fire > 2) then
+			fire = 1;
+			self.NextUse.Torpedos = CurTime()+15;
+			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
+		else
+			self:ProtonTorpedos();
+		end
+
+	end
+end
+
+ function ENT:Think()
+	
+	if(self.Inflight) then
+		if(IsValid(self.Pilot)) then
+			if(self.Pilot:KeyDown(IN_ATTACK2)) then
+				self:ProtonTorpedos();
+			end
+		end
+		
+	end
+	self.BaseClass.Think(self);
+end
+
 end
  
 if CLIENT then

@@ -12,7 +12,7 @@ ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
 ENT.EntModel = "models/csp_mc90/csp_mc90.mdl"
-ENT.Vehicle = "mc90"
+ENT.Vehicle = "csp_mc90"
 ENT.StartHealth = 35000;
 ENT.DontLock = true;
 ENT.IsCapitalShip = true;

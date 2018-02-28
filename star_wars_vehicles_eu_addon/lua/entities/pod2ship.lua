@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/jk3/pod2.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "Pod2Ship" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Neutral";
  
 if SERVER then
  
@@ -48,22 +48,25 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 500 + self:GetRight() * 90 + self:GetUp() * 80,
-        Left = self:GetPos() + self:GetForward() * 500 + self:GetRight() * -90 + self:GetUp() * 80,
+        Right1 = self:GetPos() + self:GetForward() * 75 + self:GetRight() * 20 + self:GetUp() * 0,
+        Left1 = self:GetPos() + self:GetForward() * 75 + self:GetRight() * -20 + self:GetUp() * 0,
+        Right2 = self:GetPos() + self:GetForward() * 75 + self:GetRight() * 45 + self:GetUp() * 0,
+        Left2 = self:GetPos() + self:GetForward() * 75 + self:GetRight() * -45 + self:GetUp() * 0,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 650; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 400; // The forward speed 
-    self.UpSpeed = 100; // Up/Down Speed
+    self.BoostSpeed = 1500; // The speed we go when holding SHIFT
+    self.ForwardSpeed = 750; // The forward speed 
+    self.UpSpeed = 250; // Up/Down Speed
     self.AccelSpeed = 8; // How fast we get to our previously set speeds
     self.CanBack = true; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = false; // Set to true if you want the ship to roll, false if not
 	self.CanStrafe = true; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; // Set to true if you want the ship to hover when not inflight
-	self.CanShoot = false; // Set to true if you want the ship to be able to shoot, false if not
+	self.CanShoot = true; // Set to true if you want the ship to be able to shoot, false if not
 	
-	self.AlternateFire = false // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"Left","Right","TopLeft","TopRight"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.FireDelay = .2
+	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
+	self.FireGroup = {"Left1","Right1","Left2","Right2"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 //The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; // Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
 	self.MaxIonShots = 20; // The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
@@ -72,7 +75,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"blue",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end

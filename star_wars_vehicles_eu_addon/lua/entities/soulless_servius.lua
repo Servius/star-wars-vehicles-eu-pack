@@ -36,8 +36,8 @@ function ENT:Initialize()
 	self:SetNWInt("Health",self.StartHealth);
 	
 	self.WeaponLocations = {
-		Left = self:GetPos()+self:GetUp()*60+self:GetForward()*100+self:GetRight()*-80,
-		Right = self:GetPos()+self:GetUp()*60+self:GetForward()*100+self:GetRight()*80,
+		Left = self:GetPos()+self:GetUp()*40+self:GetForward()*100+self:GetRight()*-80,
+		Right = self:GetPos()+self:GetUp()*40+self:GetForward()*100+self:GetRight()*80,
 	}
 	self.WeaponsTable = {};
 	self.BoostSpeed = 2250;
@@ -90,8 +90,8 @@ if CLIENT then
 	function ENT:Effects()
 	
 		self.ThrusterLocations = {
-			self:GetPos()+self:GetUp()*35+self:GetForward()*-60+self:GetRight()*-115,
-			self:GetPos()+self:GetUp()*35+self:GetForward()*-60+self:GetRight()*115,
+			self:GetPos()+self:GetUp()*0+self:GetForward()*-200+self:GetRight()*-30,
+			self:GetPos()+self:GetUp()*0+self:GetForward()*-200+self:GetRight()*30,
 		}
 		local p = LocalPlayer();
 		local roll = math.Rand(-45,45);
@@ -104,8 +104,8 @@ if CLIENT then
 			heatwv:SetDieTime(0.1);
 			heatwv:SetStartAlpha(255);
 			heatwv:SetEndAlpha(255);
-			heatwv:SetStartSize(20);
-			heatwv:SetEndSize(15);
+			heatwv:SetStartSize(15);
+			heatwv:SetEndSize(5);
 			heatwv:SetColor(255,255,255);
 			heatwv:SetRoll(roll);
 			
@@ -114,8 +114,8 @@ if CLIENT then
 			blue:SetDieTime(0.05)
 			blue:SetStartAlpha(255)
 			blue:SetEndAlpha(255)
-			blue:SetStartSize(20)
-			blue:SetEndSize(15)
+			blue:SetStartSize(15)
+			blue:SetEndSize(5)
 			blue:SetRoll(roll)
 			blue:SetColor(255,255,255)
 			

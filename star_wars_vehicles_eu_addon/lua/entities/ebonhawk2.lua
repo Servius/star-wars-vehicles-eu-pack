@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/ehawk/ehawk1.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "EbonHawk2" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Republic";
  
 if SERVER then
  

@@ -48,16 +48,16 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 170 + self:GetRight() * 325 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 170 + self:GetRight() * -325 + self:GetUp() * 20,
-		TopRight = self:GetPos() + self:GetForward() * 170 + self:GetRight() * 325 + self:GetUp() * 45,
-        TopLeft = self:GetPos() + self:GetForward() * 170 + self:GetRight() * -325 + self:GetUp() * 45,
+        Right = self:GetPos() + self:GetForward() * 125 + self:GetRight() * 300 + self:GetUp() * 40,
+        Left = self:GetPos() + self:GetForward() * 125 + self:GetRight() * -300 + self:GetUp() * 40,
+		TopRight = self:GetPos() + self:GetForward() * 125 + self:GetRight() * 300 + self:GetUp() * 65,
+        TopLeft = self:GetPos() + self:GetForward() * 125 + self:GetRight() * -300 + self:GetUp() * 65,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 500; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
-    self.AccelSpeed = 14; // How fast we get to our previously set speeds
+    self.ForwardSpeed = 1000; // The forward speed 
+    self.UpSpeed = 300; // Up/Down Speed
+    self.AccelSpeed = 18; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
 	self.CanStrafe = false; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
@@ -112,10 +112,10 @@ function ENT:Effects()
 	
 	//Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-365+self:GetUp()*88+self:GetRight()*-57,
-		self:GetPos()+self:GetForward()*-365+self:GetUp()*88+self:GetRight()*57,
-		self:GetPos()+self:GetForward()*-365+self:GetUp()*27+self:GetRight()*-57,
-		self:GetPos()+self:GetForward()*-365+self:GetUp()*27+self:GetRight()*57,
+		self:GetPos()+self:GetForward()*-378+self:GetUp()*88+self:GetRight()*-57,
+		self:GetPos()+self:GetForward()*-378+self:GetUp()*88+self:GetRight()*57,
+		self:GetPos()+self:GetForward()*-378+self:GetUp()*27+self:GetRight()*-57,
+		self:GetPos()+self:GetForward()*-378+self:GetUp()*27+self:GetRight()*57,
 	}
 	
 	for k,v in pairs(self.EnginePos) do

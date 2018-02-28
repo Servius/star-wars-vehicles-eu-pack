@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/morganicism/swtor/supremacy/supremacy.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "SupremacyFighter2" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Neutral";
  
 if SERVER then
  

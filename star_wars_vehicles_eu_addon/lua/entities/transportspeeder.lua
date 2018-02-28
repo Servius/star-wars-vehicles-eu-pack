@@ -21,7 +21,7 @@ ENT.AdminOnly = false; //Set to true for an Admin vehicle.
 ENT.EntModel = "models/jk3/pod1.mdl" //The oath to the model you want to use.
 ENT.Vehicle = "TransportSpeeder" //The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; //How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Neutral";
  
 if SERVER then
  
@@ -53,12 +53,12 @@ function ENT:Initialize()
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 1250; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 1000; // The forward speed 
-    self.UpSpeed = 100; // Up/Down Speed
+    self.ForwardSpeed = 600; // The forward speed 
+    self.UpSpeed = 300; // Up/Down Speed
     self.AccelSpeed = 8; // How fast we get to our previously set speeds
-    self.CanBack = false; // Can we move backwards? Set to true if you want this.
-	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
-	self.CanStrafe = false; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
+    self.CanBack = true; // Can we move backwards? Set to true if you want this.
+	self.CanRoll = false; // Set to true if you want the ship to roll, false if not
+	self.CanStrafe = true; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; // Set to true if you want the ship to hover when not inflight
 	self.CanShoot = false; // Set to true if you want the ship to be able to shoot, false if not
 	
@@ -71,7 +71,7 @@ function ENT:Initialize()
 	self.MaxIonShots = 20; // The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
 	
 	
-	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
+	self.LandOffset = Vector(0,0,25); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
     self.Bullet = CreateBulletStructure(80,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
@@ -109,14 +109,14 @@ function ENT:Effects()
 	
 	//Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*35+self:GetRight()*-50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*35+self:GetRight()*50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*52+self:GetRight()*-50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*52+self:GetRight()*50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*10+self:GetRight()*-50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*10+self:GetRight()*50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*22+self:GetRight()*-50,
-		self:GetPos()+self:GetForward()*-128+self:GetUp()*22+self:GetRight()*50,		
+		self:GetPos()+self:GetForward()*-175+self:GetUp()*57+self:GetRight()*-50,
+		self:GetPos()+self:GetForward()*-175+self:GetUp()*57+self:GetRight()*50,
+		self:GetPos()+self:GetForward()*-173+self:GetUp()*42+self:GetRight()*-50,
+		self:GetPos()+self:GetForward()*-173+self:GetUp()*42+self:GetRight()*50,
+		self:GetPos()+self:GetForward()*-170+self:GetUp()*27+self:GetRight()*-50,
+		self:GetPos()+self:GetForward()*-170+self:GetUp()*27+self:GetRight()*50,
+		self:GetPos()+self:GetForward()*-168+self:GetUp()*12+self:GetRight()*-50,
+		self:GetPos()+self:GetForward()*-168+self:GetUp()*12+self:GetRight()*50,		
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -126,8 +126,8 @@ function ENT:Effects()
 		red:SetDieTime(0.04) //How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) // Self explanitory. How visible it is.
 		red:SetEndAlpha(100) // How visible it is at the end
-		red:SetStartSize(18) // Start size. Just play around to find the right size.
-		red:SetEndSize(5) // End size
+		red:SetStartSize(10) // Start size. Just play around to find the right size.
+		red:SetEndSize(3) // End size
 		red:SetRoll(roll) // They see me rollin. (They hatin')
 		red:SetColor(255,60,0) // Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
