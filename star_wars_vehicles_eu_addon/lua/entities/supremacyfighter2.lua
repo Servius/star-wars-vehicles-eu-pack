@@ -48,14 +48,16 @@ function ENT:Initialize()
    
     //The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 500 + self:GetRight() * 155 + self:GetUp() * 115,
-        Left = self:GetPos() + self:GetForward() * 500 + self:GetRight() * -155 + self:GetUp() * 115,
+        Right = self:GetPos() + self:GetForward() * 400 + self:GetRight() * 120 + self:GetUp() * 160,
+        Left = self:GetPos() + self:GetForward() * 400 + self:GetRight() * -120 + self:GetUp() * 160,
+        TopRight = self:GetPos() + self:GetForward() * 30 + self:GetRight() * 25 + self:GetUp() * 165,
+        TopLeft = self:GetPos() + self:GetForward() * 30 + self:GetRight() * -25 + self:GetUp() * 165,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 500; // The forward speed 
-    self.UpSpeed = 75; // Up/Down Speed
-    self.AccelSpeed = 14; // How fast we get to our previously set speeds
+    self.ForwardSpeed = 800; // The forward speed 
+    self.UpSpeed = 350; // Up/Down Speed
+    self.AccelSpeed = 22; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
 	self.CanStrafe = false; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
@@ -66,7 +68,7 @@ function ENT:Initialize()
 
 	
 	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"Left","Right","TopLeft","TopRight"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.FireGroup = {"Left","TopLeft","Right","TopRight"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 //The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; // Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
 	self.MaxIonShots = 20; // The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
@@ -75,7 +77,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"green",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(40,"green",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end

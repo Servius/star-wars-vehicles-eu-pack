@@ -8,7 +8,7 @@ ENT.Base = "fighter_base";
 ENT.Type = "vehicle";
  
 //Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
-ENT.PrintName = "W-Wing";
+ENT.PrintName = "T-38 W-Wing";
 ENT.Author = "Liam0102, Servius";
  
 // Leave the same
@@ -55,8 +55,8 @@ function ENT:Initialize()
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 500; // The forward speed 
-    self.UpSpeed = 115; // Up/Down Speed
+    self.ForwardSpeed = 800; // The forward speed 
+    self.UpSpeed = 150; // Up/Down Speed
     self.AccelSpeed = 14; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
@@ -72,6 +72,8 @@ function ENT:Initialize()
 	self.OverheatAmount = 50 //The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; // Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
 	self.MaxIonShots = 20; // The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
+	self.FireDelay = 0.35;
+	self.NextUse.Torpedos = CurTime();
 	
 	
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
@@ -81,7 +83,45 @@ function ENT:Initialize()
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end
+local fire = 1;
+function ENT:ProtonTorpedos()
 
+	if(self.NextUse.Torpedos < CurTime()) then
+		local pos;
+		if(fire == 1) then
+			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*150+self:GetRight()*25;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		elseif(fire == 2) then
+			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*150+self:GetRight()*-25;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		end
+		local e = self:FindTarget();
+		self:FireTorpedo(pos,e,1500,1500,Color(10,121,212,200),25);
+		fire = fire + 1;
+		if(fire > 2) then
+			fire = 1;
+			self.NextUse.Torpedos = CurTime()+15;
+			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
+		else
+			self:ProtonTorpedos();
+		end
+
+	end
+end
+
+function ENT:Think()
+	
+
+	if(self.Inflight) then
+		if(IsValid(self.Pilot)) then
+			if(self.Pilot:KeyDown(IN_ATTACK2)) then
+				self:ProtonTorpedos();
+			end
+		end
+		
+	end
+	self.BaseClass.Think(self);
+end
  
 end
  
@@ -112,8 +152,8 @@ function ENT:Effects()
 	
 	//Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		--self:GetPos()+self:GetForward()*-210+self:GetUp()*57+self:GetRight()*-0,
-		--self:GetPos()+self:GetForward()*-210+self:GetUp()*57+self:GetRight()*0,
+		self:GetPos()+self:GetForward()*-70+self:GetUp()*22+self:GetRight()*-110,
+		self:GetPos()+self:GetForward()*-70+self:GetUp()*22+self:GetRight()*110,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -123,19 +163,19 @@ function ENT:Effects()
 		red:SetDieTime(0.09) //How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) // Self explanitory. How visible it is.
 		red:SetEndAlpha(100) // How visible it is at the end
-		red:SetStartSize(14) // Start size. Just play around to find the right size.
+		red:SetStartSize(9) // Start size. Just play around to find the right size.
 		red:SetEndSize(3) // End size
 		red:SetRoll(roll) // They see me rollin. (They hatin')
-		red:SetColor(255,60,0) // Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
+		red:SetColor(70,0,150) // Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
 		local dynlight = DynamicLight(id + 4096 * k); // Create the "glow"
 		dynlight.Pos = v; // Position from the table
- 		dynlight.Brightness = 4; // Brightness, Don't go above 10. It's blinding
+ 		dynlight.Brightness = 6; // Brightness, Don't go above 10. It's blinding
 		dynlight.Size = 100; // How far it reaches
 		dynlight.Decay = 1024; // Not really sure what this does, but I leave it in
-		dynlight.R = 255; // Colour R
-		dynlight.G = 69; // Colour G
-		dynlight.B = 0; // Colour B
+		dynlight.R = 70; // Colour R
+		dynlight.G = 0; // Colour G
+		dynlight.B = 150; // Colour B
 		dynlight.DieTime = CurTime()+1; // When the light should die
 
 	end
@@ -164,7 +204,7 @@ end
 			SW_HUD_DrawHull(2000); // Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-
+			SW_BlastIcon(self,15);
 			SW_HUD_Compass(self); // Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); // Draw the speedometer
 		end

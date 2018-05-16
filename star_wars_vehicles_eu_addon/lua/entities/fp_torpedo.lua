@@ -19,7 +19,7 @@ ENT.IsCapitalShip = true;
 
 if SERVER then
 
-ENT.FireSound = Sound("weapons/xwing_shoot.wav");
+ENT.FireSound = Sound("weapons/tie_shoot.wav");
 ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),LightSpeed=CurTime(),Switch=CurTime(),};
 ENT.HyperDriveSound = Sound("vehicles/hyperdrive.mp3");
 
@@ -39,8 +39,10 @@ function ENT:Initialize()
 	self:SetNWInt("Health",self.StartHealth);
 	
 	self.WeaponLocations = {
-		Left = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*-70,
-		Right = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*70,
+		Left = self:GetPos()+self:GetForward()*950+self:GetUp()*0+self:GetRight()*-70,
+		Right = self:GetPos()+self:GetForward()*950+self:GetUp()*0+self:GetRight()*70,
+		FLeft = self:GetPos()+self:GetForward()*950+self:GetUp()*0+self:GetRight()*-130,
+		FRight = self:GetPos()+self:GetForward()*950+self:GetUp()*0+self:GetRight()*130,
 	}
 	self.WeaponsTable = {};
 	self.BoostSpeed = 2500;
@@ -51,9 +53,10 @@ function ENT:Initialize()
 	self.CanBack = true;
 	self.CanRoll = false;
 	self.CanStrafe = false;
-	self.Cooldown = 2;
 	self.HasWings = false;
-	self.CanShoot = false;
+	self.CanShoot = true;
+	self.DontOverheat = true;
+	self.NextUse.Torpedos = CurTime();
 	self.Bullet = CreateBulletStructure(75,"green");
 	self.FireDelay = 0.15;
 	self.WarpDestination = Vector(0,0,0);
@@ -72,6 +75,51 @@ function ENT:Initialize()
 	self.BaseClass.Initialize(self);
 	
 	self:GetPhysicsObject():SetMass(1000000)
+end
+
+local fire = 1;
+function ENT:ProtonTorpedos()
+
+	if(self.NextUse.Torpedos < CurTime()) then
+		local pos;
+		if(fire == 1) then
+			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*-900+self:GetRight()*-25,self:GetAngles()+Angle(0,180,0);
+			self.NextUse.Torpedos = CurTime()+0.25;
+		elseif(fire == 2) then
+			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*-900+self:GetRight()*25,self:GetAngles()+Angle(0,180,0);
+			
+		end
+		local e = self:FindTarget();
+		self:FireTorpedo(pos,e,1500,200,Color(255,50,50,255),15);
+		fire = fire + 1;
+		if(fire > 2) then
+			fire = 1;
+			self.NextUse.Torpedos = CurTime()+30;
+			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
+		else
+			self:ProtonTorpedos();
+		end
+
+	end
+end
+function ENT:Think()
+	
+
+	if(self.Inflight) then
+		if(!self.Wings) then
+			self.CanShoot = false;
+		else
+			self.CanShoot = true;
+		end
+		
+		if(IsValid(self.Pilot)) then
+			if(self.Pilot:KeyDown(IN_ATTACK2)) then
+				self:ProtonTorpedos();
+			end
+		end
+		
+	end
+	self.BaseClass.Think(self);
 end
 
 function ENT:StartLightSpeed()
@@ -98,23 +146,6 @@ end
 function ENT:Think()
 
 	local mb,mb2 = self:GetModelBounds();
-	for k,v in pairs(ents.FindInBox(self:LocalToWorld(mb),self:LocalToWorld(mb2))) do
-		if(v.IsSWVehicle and v != self) then
-			local Health = v:GetNWInt("Health");
-			if(Health<v.StartHealth) then
-				nHealth = v.VehicleHealth+5;
-				v:SetNWInt("Health",nHealth);
-				v.VehicleHealth = nHealth
-				if(IsValid(v.Pilot)) then
-					v.Pilot:SetNWInt("SW_Health",v.VehicleHealth);
-				end
-			end
-			v.Land = false;
-			v.TakeOff = false;
-			v.Docked = true;
-		end
-	end
-
 	
 	if(self.Inflight) then
 		if(IsValid(self.Pilot)) then
@@ -427,7 +458,8 @@ if CLIENT then
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(35000,x,y);		
+			SW_HUD_DrawHull(35000,x,y);
+			SW_WeaponReticles(self);		
 			if(IsValid(self)) then
 				if(LightSpeed == 2) then
 					DrawMotionBlur( 0.4, 20, 0.01 );

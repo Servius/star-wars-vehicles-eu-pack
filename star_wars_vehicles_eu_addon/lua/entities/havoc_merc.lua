@@ -58,7 +58,7 @@ function ENT:Initialize()
     self.ForwardSpeed = 600; // The forward speed 
     self.UpSpeed = 300; // Up/Down Speed
     self.AccelSpeed = 16; // How fast we get to our previously set speeds
-    self.CanBack = false; // Can we move backwards? Set to true if you want this.
+    self.CanBack = true; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
 	self.CanStrafe = false; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; // Set to true if you want the ship to hover when not inflight
@@ -77,7 +77,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); // Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"red",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(80,"yellow",false); // The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end
@@ -91,14 +91,20 @@ function ENT:ProtonTorpedos()
 			self.NextUse.Torpedos = CurTime()+0.15;
 		elseif(fire == 2) then
 			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*65;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		elseif(fire == 3) then
+			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*-65;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		elseif(fire == 4) then
+			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*65;
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,200,Color(255,50,50,255),15);
+		self:FireTorpedo(pos,e,1500,500,Color(160,85,212,200),55);
 		fire = fire + 1;
-		if(fire > 2) then
+		if(fire > 4) then
 			fire = 1;
-			self.NextUse.Torpedos = CurTime()+20;
+			self.NextUse.Torpedos = CurTime()+15;
 			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
 		else
 			self:ProtonTorpedos();

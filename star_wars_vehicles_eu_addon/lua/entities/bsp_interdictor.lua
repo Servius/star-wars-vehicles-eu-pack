@@ -3,9 +3,9 @@ ENT.RenderGroup = RENDERGROUP_OPAQUE
 ENT.Base = "fighter_base"
 ENT.Type = "vehicle"
 
-ENT.PrintName = "bsp_interdictor"
-ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars: Input needed"
+ENT.PrintName = "Interdictor Cruiser"
+ENT.Author = "Liam0102, Servius, Nashatok"
+ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true;
 ENT.AdminSpawnable = false;
@@ -13,7 +13,7 @@ ENT.AdminOnly = true;
 
 ENT.EntModel = "models/bsp_interdictor/bsp_interdictor.mdl"
 ENT.Vehicle = "bsp_interdictor"
-ENT.StartHealth = 35000;
+ENT.StartHealth = 12000;
 ENT.DontLock = true;
 ENT.IsCapitalShip = true;
 
@@ -339,6 +339,11 @@ if CLIENT then
 		
 		if(Flying) then
 			self.EnginePos = {
+				self:GetPos()+self:GetForward()*3300+self:GetUp()*0+self:GetRight()*510,
+				self:GetPos()+self:GetForward()*3300+self:GetUp()*0+self:GetRight()*-510,
+			}
+			self.EnginePos2 = {
+				self:GetPos()+self:GetForward()*3300+self:GetUp()*0,
 			}
 			self:Effects();
 		end
@@ -388,8 +393,8 @@ if CLIENT then
 			heatwv:SetDieTime(0.1);
 			heatwv:SetStartAlpha(255);
 			heatwv:SetEndAlpha(255);
-			heatwv:SetStartSize(200);
-			heatwv:SetEndSize(150);
+			heatwv:SetStartSize(175);
+			heatwv:SetEndSize(50);
 			heatwv:SetColor(255,255,255);
 			heatwv:SetRoll(roll);
 			
@@ -398,8 +403,41 @@ if CLIENT then
 			blue:SetDieTime(0.05)
 			blue:SetStartAlpha(255)
 			blue:SetEndAlpha(200)
-			blue:SetStartSize(200)
-			blue:SetEndSize(150)
+			blue:SetStartSize(175)
+			blue:SetEndSize(50)
+			blue:SetRoll(roll)
+			blue:SetColor(255,255,255)
+			
+			local dynlight = DynamicLight(id + 4096 * k);
+			dynlight.Pos = v;
+			dynlight.Brightness = 5;
+			dynlight.Size = 150;
+			dynlight.Decay = 1024;
+			dynlight.R = 100;
+			dynlight.G = 100;
+			dynlight.B = 255;
+			dynlight.DieTime = CurTime()+1;
+		end
+			
+		for k,v in pairs(self.EnginePos2) do
+
+			local heatwv = self.Emitter:Add("sprites/heatwave",v);
+			heatwv:SetVelocity(normal*2);
+			heatwv:SetDieTime(0.1);
+			heatwv:SetStartAlpha(255);
+			heatwv:SetEndAlpha(255);
+			heatwv:SetStartSize(240);
+			heatwv:SetEndSize(50);
+			heatwv:SetColor(255,255,255);
+			heatwv:SetRoll(roll);
+			
+			local blue = self.Emitter:Add("sprites/bluecore",v)
+			blue:SetVelocity(normal)
+			blue:SetDieTime(0.05)
+			blue:SetStartAlpha(255)
+			blue:SetEndAlpha(200)
+			blue:SetStartSize(240)
+			blue:SetEndSize(50)
 			blue:SetRoll(roll)
 			blue:SetColor(255,255,255)
 			
@@ -427,7 +465,7 @@ if CLIENT then
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(35000,x,y);		
+			SW_HUD_DrawHull(12000,x,y);		
 			if(IsValid(self)) then
 				if(LightSpeed == 2) then
 					DrawMotionBlur( 0.4, 20, 0.01 );

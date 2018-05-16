@@ -12,8 +12,8 @@ ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
 ENT.EntModel = "models/fp_mc30/fp_mc30.mdl"
-ENT.Vehicle = "fp_mc30"
-ENT.StartHealth = 35000;
+ENT.Vehicle = "mc30"
+ENT.StartHealth = 15000;
 ENT.DontLock = true;
 ENT.IsCapitalShip = true;
 ENT.Allegiance = "Rebel";
@@ -542,7 +542,7 @@ if CLIENT then
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(10000,x,y);		
+			SW_HUD_DrawHull(15000,x,y);		
 			
 		elseif(LeftGunner and IsValid(self)) then
 

@@ -8,7 +8,7 @@ ENT.Base = "fighter_base";
 ENT.Type = "vehicle";
  
 //Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
-ENT.PrintName = "Skiray";
+ENT.PrintName = "Skipray";
 ENT.Author = "Liam0102, Servius";
  
 // Leave the same
@@ -50,14 +50,14 @@ function ENT:Initialize()
     self.WeaponLocations = {
         Right = self:GetPos() + self:GetForward() * 130 + self:GetRight() * 75 + self:GetUp() * 45,
         Left = self:GetPos() + self:GetForward() * 130 + self:GetRight() * -75 + self:GetUp() * 45,
-		TopRight = self:GetPos() + self:GetForward() * 10 + self:GetRight() * 95 + self:GetUp() * 75,
-        TopLeft = self:GetPos() + self:GetForward() * 10 + self:GetRight() * -95 + self:GetUp() * 75,
+		TopRight = self:GetPos() + self:GetForward() * 120 + self:GetRight() * 7 + self:GetUp() * 125,
+        TopLeft = self:GetPos() + self:GetForward() * 120 + self:GetRight() * -7 + self:GetUp() * 125,
     }
     self.WeaponsTable = {}; // IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 2000; // The speed we go when holding SHIFT
-    self.ForwardSpeed = 750; // The forward speed 
-    self.UpSpeed = 300; // Up/Down Speed
-    self.AccelSpeed = 14; // How fast we get to our previously set speeds
+    self.BoostSpeed = 1000; // The speed we go when holding SHIFT
+    self.ForwardSpeed = 500; // The forward speed 
+    self.UpSpeed = 150; // Up/Down Speed
+    self.AccelSpeed = 10; // How fast we get to our previously set speeds
     self.CanBack = false; // Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; // Set to true if you want the ship to roll, false if not
 	self.CanStrafe = false; // Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
@@ -83,17 +83,35 @@ function ENT:Initialize()
 	
     self.BaseClass.Initialize(self); // Ignore, needed to work
 end
-function ENT:IonTorpedos()
+local fire = 1;
+function ENT:ProtonTorpedos()
 
 	if(self.NextUse.Torpedos < CurTime()) then
-		local pos = self:GetPos()+self:GetForward()*130+self:GetUp()*50+self:GetRight()*-16
-		local e = self:FindTarget();
-		if(e == self) then
-			e = NULL;
+		local pos;
+		if(fire == 1) then
+			pos = self:GetPos()+self:GetUp()*75+self:GetForward()*100+self:GetRight()*-95;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		elseif(fire == 2) then
+			pos = self:GetPos()+self:GetUp()*75+self:GetForward()*100+self:GetRight()*95;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		elseif(fire == 3) then
+			pos = self:GetPos()+self:GetUp()*75+self:GetForward()*100+self:GetRight()*-95;
+			self.NextUse.Torpedos = CurTime()+0.15;
+		elseif(fire == 4) then
+			pos = self:GetPos()+self:GetUp()*75+self:GetForward()*100+self:GetRight()*95;
+			
 		end
-		self:FireTorpedo(pos,e,1500,750,Color(255,255,255,255),15,true);
-		self.NextUse.Torpedos = CurTime()+15;
-		self:SetNWInt("FireBlast",self.NextUse.Torpedos)
+		local e = self:FindTarget();
+		self:FireTorpedo(pos,e,1500,200,Color(150,150,150,255),15);
+		fire = fire + 1;
+		if(fire > 4) then
+			fire = 1;
+			self.NextUse.Torpedos = CurTime()+30;
+			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
+		else
+			self:ProtonTorpedos();
+		end
+
 	end
 end
 
@@ -103,7 +121,7 @@ function ENT:Think()
 	if(self.Inflight) then
 		if(IsValid(self.Pilot)) then
 			if(self.Pilot:KeyDown(IN_ATTACK2)) then
-				self:IonTorpedos();
+				self:ProtonTorpedos();
 			end
 		end
 		
@@ -193,7 +211,7 @@ end
 			SW_HUD_DrawHull(2000); // Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,15);
+			SW_BlastIcon(self,30);
 
 			SW_HUD_Compass(self); // Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); // Draw the speedometer

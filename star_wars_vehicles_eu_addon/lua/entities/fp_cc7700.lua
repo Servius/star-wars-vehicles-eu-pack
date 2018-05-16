@@ -67,13 +67,13 @@ function ENT:Initialize()
 
 	
 	self.LeftWeaponLocations = {
-		self:GetPos()+self:GetUp()*-20+self:GetForward()*-200+self:GetRight()*300,
-		self:GetPos()+self:GetUp()*-20+self:GetForward()*200+self:GetRight()*320,	
+		self:GetPos()+self:GetUp()*10+self:GetForward()*-100+self:GetRight()*270,
+		self:GetPos()+self:GetUp()*20+self:GetForward()*100+self:GetRight()*320,	
 	}
 	
 	self.RightWeaponLocations = {
-		self:GetPos()+self:GetUp()*-50+self:GetForward()*-200+self:GetRight()*-350,
-		self:GetPos()+self:GetUp()*-50+self:GetForward()*200+self:GetRight()*-350,
+		self:GetPos()+self:GetUp()*10+self:GetForward()*-100+self:GetRight()*-270,
+		self:GetPos()+self:GetUp()*20+self:GetForward()*100+self:GetRight()*-320,
 	}
 
 	self.ExitModifier = {x=500,y=225,z=100};

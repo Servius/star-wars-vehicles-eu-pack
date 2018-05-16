@@ -4,7 +4,7 @@ ENT.Base = "fighter_base"
 ENT.Type = "vehicle"
 
 ENT.PrintName = "Captor"
-ENT.Author = "Liam0102, Nashatok"
+ENT.Author = "Liam0102, Servius, Nashatok"
 ENT.Category = "Star Wars Vehicles: CIS"
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
@@ -13,7 +13,7 @@ ENT.AdminOnly = true;
 
 ENT.EntModel = "models/fp_captor/fp_captor.mdl"
 ENT.Vehicle = "Captor"
-ENT.StartHealth = 10000;
+ENT.StartHealth = 12000;
 ENT.IsCapitalShip = true;
 ENT.Allegiance = "CIS";
 list.Set("SWVehicles", ENT.PrintName, ENT);
@@ -298,8 +298,6 @@ function ENT:GunnerExit(right,p)
 
 end
 
-
-
 local FlightPhys = {
 	secondstoarrive	= 1;
 	maxangular		= 5000;
@@ -516,7 +514,7 @@ if CLIENT then
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(10000,x,y);		
+			SW_HUD_DrawHull(12000,x,y);		
 			
 		elseif(LeftGunner and IsValid(self)) then
 

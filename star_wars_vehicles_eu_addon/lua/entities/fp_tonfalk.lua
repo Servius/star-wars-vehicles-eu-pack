@@ -3,9 +3,9 @@ ENT.RenderGroup = RENDERGROUP_OPAQUE
 ENT.Base = "fighter_base"
 ENT.Type = "vehicle"
 
-ENT.PrintName = "fp_tonfalk"
-ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars: Input needed"
+ENT.PrintName = "Tonfalk Escort Carrier"
+ENT.Author = "Liam0102, Servius, Nashatok"
+ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = true;
 ENT.AdminSpawnable = false;
@@ -13,9 +13,10 @@ ENT.AdminOnly = true;
 
 ENT.EntModel = "models/fp_tonfalk/fp_tonfalk.mdl"
 ENT.Vehicle = "fp_tonfalk"
-ENT.StartHealth = 35000;
+ENT.StartHealth = 12000;
 ENT.DontLock = true;
 ENT.IsCapitalShip = true;
+ENT.Allegiance = "Empire";
 
 if SERVER then
 
@@ -39,8 +40,9 @@ function ENT:Initialize()
 	self:SetNWInt("Health",self.StartHealth);
 	
 	self.WeaponLocations = {
-		Left = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*-70,
-		Right = self:GetPos()+self:GetForward()*100+self:GetUp()*70+self:GetRight()*70,
+		Left = self:GetPos()+self:GetForward()*2200+self:GetUp()*200+self:GetRight()*-30,
+		Right = self:GetPos()+self:GetForward()*2200+self:GetUp()*200+self:GetRight()*0,
+		Top = self:GetPos()+self:GetForward()*2200+self:GetUp()*230+self:GetRight()*0,
 	}
 	self.WeaponsTable = {};
 	self.BoostSpeed = 2500;
@@ -53,9 +55,10 @@ function ENT:Initialize()
 	self.CanStrafe = false;
 	self.Cooldown = 2;
 	self.HasWings = false;
-	self.CanShoot = false;
+	self.CanShoot = true;
+	self.DontOverheat = true;
 	self.Bullet = CreateBulletStructure(75,"green");
-	self.FireDelay = 0.15;
+	self.FireDelay = 0.35;
 	self.WarpDestination = Vector(0,0,0);
 	if(WireLib) then
 		Wire_CreateInputs(self, { "Destination [VECTOR]", })
@@ -339,6 +342,9 @@ if CLIENT then
 		
 		if(Flying) then
 			self.EnginePos = {
+				self:GetPos()+self:GetForward()*1150+self:GetUp()*-160+self:GetRight()*270,
+				self:GetPos()+self:GetForward()*1150+self:GetUp()*-160+self:GetRight()*-270,
+				self:GetPos()+self:GetForward()*1150+self:GetUp()*-160,
 			}
 			self:Effects();
 		end
@@ -362,7 +368,7 @@ if CLIENT then
 				View.angles = face;
 			else
 				pos = self:GetPos()+self:GetUp()*350+LocalPlayer():GetAimVector():GetNormal()*5000;			
-				face = ((self:GetPos() + Vector(0,0,100))- pos):Angle()
+				face = ((self:GetPos() + Vector(0,0,500))- pos):Angle()
 				View =  SWVehicleView(self,-5000,350,fpvPos);
 			end
 			
@@ -373,6 +379,9 @@ if CLIENT then
 		end
 	end
 	hook.Add("CalcView", "fp_tonfalkView", CalcView)
+	
+    ENT.ViewDistance = -4000;
+	ENT.ViewHeight = 350;
 	
 	function ENT:Effects()
 
@@ -388,8 +397,8 @@ if CLIENT then
 			heatwv:SetDieTime(0.1);
 			heatwv:SetStartAlpha(255);
 			heatwv:SetEndAlpha(255);
-			heatwv:SetStartSize(200);
-			heatwv:SetEndSize(150);
+			heatwv:SetStartSize(120);
+			heatwv:SetEndSize(30);
 			heatwv:SetColor(255,255,255);
 			heatwv:SetRoll(roll);
 			
@@ -398,8 +407,8 @@ if CLIENT then
 			blue:SetDieTime(0.05)
 			blue:SetStartAlpha(255)
 			blue:SetEndAlpha(200)
-			blue:SetStartSize(200)
-			blue:SetEndSize(150)
+			blue:SetStartSize(120)
+			blue:SetEndSize(30)
 			blue:SetRoll(roll)
 			blue:SetColor(255,255,255)
 			
@@ -427,7 +436,8 @@ if CLIENT then
 
 			local x = ScrW()/10;
 			local y = ScrH()/4*3.5;
-			SW_HUD_DrawHull(35000,x,y);		
+			SW_HUD_DrawHull(12000,x,y);
+			SW_WeaponReticles(self);			
 			if(IsValid(self)) then
 				if(LightSpeed == 2) then
 					DrawMotionBlur( 0.4, 20, 0.01 );

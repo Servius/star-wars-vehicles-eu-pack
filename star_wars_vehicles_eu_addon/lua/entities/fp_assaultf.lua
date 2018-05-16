@@ -55,7 +55,7 @@ function ENT:Initialize()
 	self.HasWings = false;
 	self.CanShoot = false;
 	self.Bullet = CreateBulletStructure(45,"red",false);
-	self.FireDelay = 0.15;
+	self.FireDelay = 0.35;
 	self.HasLightspeed = true;
 	self.SeatPos = {
 		{self:GetPos()+self:GetForward()*250+self:GetUp()*70+self:GetRight()*120, self:GetAngles()+Angle(0,180,0)},
