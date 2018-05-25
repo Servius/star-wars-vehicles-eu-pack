@@ -12,7 +12,7 @@ ENT.PrintName = "E-Wing Fighter";
 ENT.Author = "Liam0102, Servius";
  
 -- Leave the same
-ENT.Category = "Star Wars Vehicles: Neutral"; 
+ENT.Category = "Star Wars Vehicles: Rebels"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;

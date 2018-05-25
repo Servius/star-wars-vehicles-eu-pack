@@ -17,11 +17,11 @@ list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
-ENT.AdminOnly = false; --Set to true for an Admin vehicle.
+ENT.AdminOnly = true; --Set to true for an Admin vehicle.
  
 ENT.EntModel = "models/sweaw/ships/rep_havoc.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "havoc_merc" --The internal name for the ship. It cannot be the same as a different ship.
-ENT.StartHealth = 2000; --How much health they should have.
+ENT.StartHealth = 4000; --How much health they should have.
 ENT.Allegiance = "Neutral";
  
 if SERVER then
@@ -56,7 +56,7 @@ function ENT:Initialize()
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
-    self.ForwardSpeed = 600; -- The forward speed 
+    self.ForwardSpeed = 700; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
@@ -88,24 +88,24 @@ function ENT:ProtonTorpedos()
 	if(self.NextUse.Torpedos < CurTime()) then
 		local pos;
 		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*-65;
-			self.NextUse.Torpedos = CurTime()+0.15;
+			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*-65;
+			self.NextUse.Torpedos = CurTime()-0.1;
 		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*65;
-			self.NextUse.Torpedos = CurTime()+0.15;
+			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*65;
+			self.NextUse.Torpedos = CurTime()+0.25;
 		elseif(fire == 3) then
-			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*-65;
-			self.NextUse.Torpedos = CurTime()+0.15;
+			pos = self:GetPos()+self:GetUp()*-5+self:GetForward()*100+self:GetRight()*-85;
+			self.NextUse.Torpedos = CurTime()-0.1;
 		elseif(fire == 4) then
-			pos = self:GetPos()+self:GetUp()*45+self:GetForward()*300+self:GetRight()*65;
+			pos = self:GetPos()+self:GetUp()*-5+self:GetForward()*100+self:GetRight()*85;
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(160,85,212,200),55);
+		self:FireTorpedo(pos,e,1500,500,Color(90,0,180,200),10);
 		fire = fire + 1;
 		if(fire > 4) then
 			fire = 1;
-			self.NextUse.Torpedos = CurTime()+15;
+			self.NextUse.Torpedos = CurTime()+10;
 			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
 		else
 			self:ProtonTorpedos();
@@ -208,10 +208,10 @@ end
 		local Flying = p:GetNWBool("Flyinghavoc_merc");
 		local self = p:GetNWEntity("havoc_merc");
 		if(Flying and IsValid(self)) then
-			SW_HUD_DrawHull(2000); -- Replace 1000 with the starthealth at the top
+			SW_HUD_DrawHull(4000); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,20);
+			SW_BlastIcon(self,10);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end

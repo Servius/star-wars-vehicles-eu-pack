@@ -4,13 +4,13 @@ ENT.Base = "fighter_base"
 
 ENT.PrintName = "ARC-170B"
 ENT.Author = "Liam0102 + textures recoloyr by OREX"
-ENT.Category = "Star Wars Vehicles: Neutral"; -- Techincally you could change this, but personally I'd leave it so they're all in the same place (Looks more proffesional).
+ENT.Category = "Star Wars Vehicles: Republic"; -- Techincally you could change this, but personally I'd leave it so they're all in the same place (Looks more proffesional).
  list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true -- For smooth animations
 ENT.Spawnable = false; -- Spawnable
 ENT.AdminSpawnable = false; -- Is it only Admin spawnable?
 
-ENT.EntModel = "models/arc170/arc1702.mdl" -- The model for the vehicle you're using
+ENT.EntModel = "models/arc170_black.mdl" -- The model for the vehicle you're using
 ENT.Vehicle = "ARC171" -- The name of the vehicle, this is very important.
 ENT.StartHealth = 2000; -- How much health the vehicle will have
 ENT.Allegiance = "Republic";
@@ -46,7 +46,7 @@ function ENT:Initialize()
 	self.UpSpeed = 500; --This is how fast you can go up or down while holding SPACE or CTRL
 	self.AccelSpeed = 8; --This is how fast you reach the speeds. The higher the number the quicker it is.
 	
-	self.Bullet = CreateBulletStructure(90,"red");
+	self.Bullet = CreateBulletStructure(90,"green",false);
 	self.CanShoot = true;
 	self.FireDelay = 0.3 -- This is how fast you can fire. The smaller, the faster.
 	self.AlternateFire = true;

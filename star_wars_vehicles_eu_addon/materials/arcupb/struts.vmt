@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+
+// ARC-170 Starfighter
+// made by
+// minilogoguy18 (modeling)
+// Dark_Cuillere (texturing) 
+{
+	"$baseTexture"		"arcupb/struts"
+	"$bumpmap"		"arcupb/struts_n"
+}

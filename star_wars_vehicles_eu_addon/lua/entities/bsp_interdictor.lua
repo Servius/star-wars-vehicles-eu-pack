@@ -5,7 +5,8 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Interdictor Cruiser"
 ENT.Author = "Liam0102, Servius, Nashatok"
-ENT.Category = "Star Wars"
+ENT.Category = "Star Wars Vehicles: Empire"
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
