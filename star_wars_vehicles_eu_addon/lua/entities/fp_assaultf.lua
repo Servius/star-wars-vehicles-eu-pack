@@ -354,7 +354,7 @@ function ENT:PhysicsSimulate(phys,delta)
 		--######### Do a tilt when turning, due to aerodynamic effects @aVoN
 		local velocity = self:GetVelocity();
 		local aim = self.Pilot:GetAimVector();
-		//local ang = aim:Angle();
+		--local ang = aim:Angle();
 		
 		
 		local weight_roll = (phys:GetMass()/1000)/1.5
@@ -599,7 +599,7 @@ if CLIENT then
 		local Flying = p:GetNWBool("FlyingAssaultf");
 		local self = p:GetNWEntity("AssaultF");
 		if(Flying and IsValid(self)) then
-			SW_HUD_DrawHull(35000); // Replace 1000 with the starthealth at the top
+			SW_HUD_DrawHull(35000); -- Replace 1000 with the starthealth at the top
 			SW_HUD_Compass(self);
 			SW_HUD_DrawSpeedometer();
 		end

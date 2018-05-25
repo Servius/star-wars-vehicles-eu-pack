@@ -7,7 +7,7 @@ ENT.PrintName = "Bulwark Mk. 1"
 ENT.Author = "Liam0102, Servius, Nashatok"
 ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
@@ -351,7 +351,7 @@ function ENT:PhysicsSimulate(phys,delta)
 		--######### Do a tilt when turning, due to aerodynamic effects @aVoN
 		local velocity = self:GetVelocity();
 		local aim = self.Pilot:GetAimVector();
-		//local ang = aim:Angle();
+		--local ang = aim:Angle();
 		
 		
 		local weight_roll = (phys:GetMass()/1000)/1.5

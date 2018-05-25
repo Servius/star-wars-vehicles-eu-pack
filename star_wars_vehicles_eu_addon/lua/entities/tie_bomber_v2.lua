@@ -81,7 +81,7 @@ if CLIENT then
 	
 	ENT.EnginePos = {}
 	ENT.Sounds={
-		//Engine=Sound("ambient/atmosphere/ambience_base.wav"),
+		--Engine=Sound("ambient/atmosphere/ambience_base.wav"),
 		Engine=Sound("vehicles/tie/tie_fly3.wav"),
 	}
 	ENT.CanFPV = true;

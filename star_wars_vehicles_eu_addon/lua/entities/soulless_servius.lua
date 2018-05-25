@@ -5,9 +5,10 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Soulless Two"
 ENT.Author = "Servius"
-ENT.Category = "Star Wars: In Development"
+ENT.Category = "Star Wars Vehicles: In Development"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.EntModel = "models/ship_belbu/ship_belbu.mdl"
@@ -55,7 +56,7 @@ function ENT:Initialize()
 	self.AlternateFire = true;
 	self.FireGroup = {"Left","Right",};
 
-	//self.ExitModifier = {x=0,y=225,z=100};
+	--self.ExitModifier = {x=0,y=225,z=100};
 	
 	self.BaseClass.Initialize(self);
 end

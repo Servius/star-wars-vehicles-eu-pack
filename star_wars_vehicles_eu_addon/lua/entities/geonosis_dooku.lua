@@ -4,9 +4,10 @@ ENT.Base = "fighter_base"
 
 ENT.PrintName = "Geonosian Transport"
 ENT.Author = "Servius"
-ENT.Category = "Star Wars: In Development"
+ENT.Category = "Star Wars Vehicles: In Development"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.EntModel = "models/ship_dooku/ship_dooku.mdl"
@@ -23,7 +24,7 @@ ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),FireMode = Cur
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
 	local e = ents.Create("geonosis_dooku");
-	local spawn_height = 100; // How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
+	local spawn_height = 100; -- How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
 	e:SetPos(tr.HitPos + Vector(0,0,125));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw,0));
 	e:Spawn();

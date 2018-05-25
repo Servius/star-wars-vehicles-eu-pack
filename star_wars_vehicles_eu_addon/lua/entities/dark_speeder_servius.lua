@@ -6,11 +6,11 @@ ENT.PrintName = "BARC Speeder v2"
 ENT.Author = "Liam0102"
 ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.Vehicle = "dark_speeder_servius"; // The unique name for the speeder.
-ENT.EntModel = "models/darc/barc1.mdl"; // The path to your model
+ENT.Vehicle = "dark_speeder_servius"; -- The unique name for the speeder.
+ENT.EntModel = "models/darc/barc1.mdl"; -- The path to your model
 
 local classes = {
 	"speeder_bike",
@@ -135,7 +135,7 @@ if CLIENT then
 			if(IsValid(DriverSeat)) then
 				if(DriverSeat:GetThirdPersonMode()) then
 					local pos = self:GetPos()+self:GetForward()*270+self:GetUp()*100;
-					//local face = self:GetAngles() + Angle(0,180,0);
+					--local face = self:GetAngles() + Angle(0,180,0);
 					local face = ((self:GetPos() + Vector(0,0,100))- pos):Angle();
 						View.origin = pos;
 						View.angles = face;

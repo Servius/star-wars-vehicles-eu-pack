@@ -5,9 +5,10 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "csp_viscount"
 ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars: Input needed"
+ENT.Category = "Star Wars Vehicles: Neutral"; 
+ list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
@@ -169,7 +170,7 @@ function ENT:PunchingIt(Dest)
 				self:EmitSound(self.HyperDriveSound,100);
 				self.PlayedSound = true;
 			end
-			//util.ScreenShake(self:GetPos()+self:GetForward()*-730+self:GetUp()*195+self:GetRight()*3,5,5,10,5000)
+			--util.ScreenShake(self:GetPos()+self:GetForward()*-730+self:GetUp()*195+self:GetRight()*3,5,5,10,5000)
 		else
 			self.Accel.FWD = 4000;
 			self.LightSpeedWarp = CurTime()+0.5;
@@ -280,7 +281,7 @@ function ENT:PhysicsSimulate(phys,delta)
 		--######### Do a tilt when turning, due to aerodynamic effects @aVoN
 		local velocity = self:GetVelocity();
 		local aim = self.Pilot:GetAimVector();
-		//local ang = aim:Angle();
+		--local ang = aim:Angle();
 		
 		
 		local weight_roll = (phys:GetMass()/1000)/1.5

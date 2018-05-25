@@ -4,9 +4,10 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "CIS MTT"
 ENT.Author = "Servius"
-ENT.Category = "Star Wars: In Development"
+ENT.Category = "Star Wars Vehicles: In Development"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.Vehicle = "servius_mtt";
@@ -201,14 +202,14 @@ if CLIENT then
 
 		if(IsValid(self)) then
 
-			//if(IsValid(DriverSeat)) then
+			--if(IsValid(DriverSeat)) then
 				local pos = self:GetPos()+self:GetForward()*870+self:GetUp()*200;
-				//local face = self:GetAngles() + Angle(0,180,0);
+				--local face = self:GetAngles() + Angle(0,180,0);
 				local face = ((self:GetPos() + Vector(0,0,0))- pos):Angle();
 					View.origin = pos;
 					View.angles = face;
 				return View;
-			//end
+			--end
 		end
 	end
 	hook.Add("CalcView", "servius_mttView", CalcView)

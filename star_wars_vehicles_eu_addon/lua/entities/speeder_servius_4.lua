@@ -4,13 +4,14 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Servius Speeder 4"
 ENT.Author = "Liam0102"
-ENT.Category = "Star Wars: In Development"
+ENT.Category = "Star Wars Vehicles: In Development"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.Vehicle = "speeder_servius_4"; // The unique name for the speeder.
-ENT.EntModel = "models/speeder_02/speeder_02.mdl"; // The path to your model
+ENT.Vehicle = "speeder_servius_4"; -- The unique name for the speeder.
+ENT.EntModel = "models/speeder_02/speeder_02.mdl"; -- The path to your model
 
 local classes = {
 	"speeder_bike",
@@ -137,7 +138,7 @@ if CLIENT then
 			if(IsValid(DriverSeat)) then
 				if(DriverSeat:GetThirdPersonMode()) then
 					local pos = self:GetPos()+self:GetForward()*270+self:GetUp()*100;
-					//local face = self:GetAngles() + Angle(0,180,0);
+					--local face = self:GetAngles() + Angle(0,180,0);
 					local face = ((self:GetPos() + Vector(0,0,100))- pos):Angle();
 						View.origin = pos;
 						View.angles = face;

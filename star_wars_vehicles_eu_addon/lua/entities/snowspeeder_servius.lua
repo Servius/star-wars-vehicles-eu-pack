@@ -7,10 +7,10 @@ ENT.PrintName = "T-48 Airspeeder"
 ENT.Author = "Liam0102, Servius"
 ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-//ENT.EntModel = "models/snowspeeder/snowspeeder1.mdl"
+--ENT.EntModel = "models/snowspeeder/snowspeeder1.mdl"
 ENT.EntModel = "models/swbf3/vehicles/reb_snowspeeder.mdl"
 ENT.Vehicle = "snowspeeder_servius"
 ENT.StartHealth = 1000;
@@ -54,8 +54,8 @@ function ENT:Initialize()
 	self.HasLookaround = true;
 	self.GunnerSeat = {}
 	
-	//self.PilotVisible = true;
-	//self.PilotPosition = {x=0,y=45,z=40}
+	--self.PilotVisible = true;
+	--self.PilotPosition = {x=0,y=45,z=40}
 
 	self.BaseClass.Initialize(self)
 	self.GunnerPosition = {

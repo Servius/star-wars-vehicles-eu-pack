@@ -6,11 +6,11 @@ ENT.PrintName = "BARC Speed v3"
 ENT.Author = "Liam0102"
 ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.Vehicle = "speeder_servius"; // The unique name for the speeder.
-ENT.EntModel = "models/speeder_05/speeder_05.mdl"; // The path to your model
+ENT.Vehicle = "speeder_servius"; -- The unique name for the speeder.
+ENT.EntModel = "models/speeder_05/speeder_05.mdl"; -- The path to your model
 
 local classes = {
 	"speeder_bike",
@@ -72,8 +72,8 @@ function ENT:Initialize()
 	self:SpawnWeapons();
 	self.StandbyHoverAmount = 40;
 	self.CanShoot = true;
-	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"Left","TopRight","TopLeft","Right"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
+	self.FireGroup = {"Left","TopRight","TopLeft","Right"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 
 end
 
@@ -171,7 +171,7 @@ if CLIENT then
 			if(IsValid(DriverSeat)) then
 				if(DriverSeat:GetThirdPersonMode()) then
 					local pos = self:GetPos()+self:GetForward()*270+self:GetUp()*100;
-					//local face = self:GetAngles() + Angle(0,180,0);
+					--local face = self:GetAngles() + Angle(0,180,0);
 					local face = ((self:GetPos() + Vector(0,0,100))- pos):Angle();
 						View.origin = pos;
 						View.angles = face;

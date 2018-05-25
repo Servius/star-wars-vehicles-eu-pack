@@ -8,7 +8,7 @@ ENT.PrintName = "Umbaran Fighter"
 ENT.Author = "Servius"
 ENT.Category = "Star Wars"
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.EntModel = "models/ship_umbaran3/ship_umbaran3.mdl"
@@ -51,8 +51,8 @@ function ENT:Initialize()
 	self.Bullet = CreateBulletStructure(30,"red");
 	self.CanStandby = true;
 	
-	self.AlternateFire = true // Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"BottomLeft","TopRight","TopLeft","BottomRight"} // In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
+	self.FireGroup = {"BottomLeft","TopRight","TopLeft","BottomRight"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	
 	self.BaseClass.Initialize(self);
 end

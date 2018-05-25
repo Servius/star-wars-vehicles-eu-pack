@@ -4,20 +4,21 @@ ENT.Base = "fighter_base"
 
 ENT.PrintName = "ARC-170B"
 ENT.Author = "Liam0102 + textures recoloyr by OREX"
-ENT.Category = "Star Wars"
-ENT.AutomaticFrameAdvance = true // For smooth animations
-ENT.Spawnable = true; // Spawnable
-ENT.AdminSpawnable = false; // Is it only Admin spawnable?
+ENT.Category = "Star Wars Vehicles: Neutral"; -- Techincally you could change this, but personally I'd leave it so they're all in the same place (Looks more proffesional).
+ list.Set("SWVehiclesEU", ENT.PrintName, ENT);
+ENT.AutomaticFrameAdvance = true -- For smooth animations
+ENT.Spawnable = false; -- Spawnable
+ENT.AdminSpawnable = false; -- Is it only Admin spawnable?
 
-ENT.EntModel = "models/arc170/arc1702.mdl" // The model for the vehicle you're using
-ENT.Vehicle = "ARC171" // The name of the vehicle, this is very important.
-ENT.StartHealth = 2000; // How much health the vehicle will have
+ENT.EntModel = "models/arc170/arc1702.mdl" -- The model for the vehicle you're using
+ENT.Vehicle = "ARC171" -- The name of the vehicle, this is very important.
+ENT.StartHealth = 2000; -- How much health the vehicle will have
 ENT.Allegiance = "Republic";
 
 if SERVER then
 
-ENT.FireSound = Sound("weapons/xwing_shoot.wav"); // The sound used for the weapon fire
-ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),FireMode = CurTime(),}; // Leave this stuff
+ENT.FireSound = Sound("weapons/xwing_shoot.wav"); -- The sound used for the weapon fire
+ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),FireMode = CurTime(),}; -- Leave this stuff
 
 
 AddCSLuaFile();
@@ -32,22 +33,22 @@ end
 
 function ENT:Initialize()
 	
-	self:SetNWInt("Health",self.StartHealth); //This is here to set the health to the variable made above
-	self.CanRoll = true; //Set this to true if the vehicle can roll, false if it can't
+	self:SetNWInt("Health",self.StartHealth); --This is here to set the health to the variable made above
+	self.CanRoll = true; --Set this to true if the vehicle can roll, false if it can't
 	self.WeaponLocations = {
 		Right = self:GetPos()+self:GetForward()*250+self:GetUp()*45+self:GetRight()*315,
 		Left = self:GetPos()+self:GetForward()*250+self:GetUp()*45+self:GetRight()*-322,
 	}
 
-	self.WeaponsTable = {}; //This is what holds the players weapons, you must have this here in ENT:Initialize
-	self.BoostSpeed = 2200; //This is the speed when holding SHIFT or the Wings are open
-	self.ForwardSpeed = 1250; //This is the standard forward speed
-	self.UpSpeed = 500; //This is how fast you can go up or down while holding SPACE or CTRL
-	self.AccelSpeed = 8; //This is how fast you reach the speeds. The higher the number the quicker it is.
+	self.WeaponsTable = {}; --This is what holds the players weapons, you must have this here in ENT:Initialize
+	self.BoostSpeed = 2200; --This is the speed when holding SHIFT or the Wings are open
+	self.ForwardSpeed = 1250; --This is the standard forward speed
+	self.UpSpeed = 500; --This is how fast you can go up or down while holding SPACE or CTRL
+	self.AccelSpeed = 8; --This is how fast you reach the speeds. The higher the number the quicker it is.
 	
 	self.Bullet = CreateBulletStructure(90,"red");
 	self.CanShoot = true;
-	self.FireDelay = 0.3 // This is how fast you can fire. The smaller, the faster.
+	self.FireDelay = 0.3 -- This is how fast you can fire. The smaller, the faster.
 	self.AlternateFire = true;
 	self.FireGroup = { "Left" , "Right" };
 	self.HasWings = true;
@@ -104,12 +105,12 @@ if CLIENT then
 		end
 	end
 	
-	ENT.EnginePos = {} // Positions of the engines for the effects
+	ENT.EnginePos = {} -- Positions of the engines for the effects
 	ENT.Sounds={
-		Engine=Sound("vehicles/xwing/xwing_fly2.wav"), //The flying sounds
+		Engine=Sound("vehicles/xwing/xwing_fly2.wav"), --The flying sounds
 	}
 
-	// The flight effects, for the most part you can leave this alone
+	-- The flight effects, for the most part you can leave this alone
 	function ENT:FlightEffects()
 		local normal = (self:GetForward() * -1):GetNormalized()
 		local roll = math.Rand(-90,90)
@@ -146,23 +147,23 @@ if CLIENT then
 	function ENT:Think()
 		self.BaseClass.Think(self);
 		
-		local p = LocalPlayer(); //The player
-		local Flying = self:GetNWBool("Flying".. self.Vehicle); //Is the vehicle currently inflight?
+		local p = LocalPlayer(); --The player
+		local Flying = self:GetNWBool("Flying".. self.Vehicle); --Is the vehicle currently inflight?
 		local TakeOff = self:GetNWBool("TakeOff");
 		local Land = self:GetNWBool("Land");
 		local IsFlying = p:GetNWBool("Flying"..self.Vehicle);
 		if(Flying) then
 			
-			// We need to constantly update the engine positions for the effects
+			-- We need to constantly update the engine positions for the effects
 			self.EnginePos = {
 				self:GetPos()+self:GetForward()*-220+self:GetUp()*95+self:GetRight()*65, 
 				self:GetPos()+self:GetForward()*-220+self:GetUp()*95+self:GetRight()*-72,
 			}
 
 			if(!TakeOff and !Land) then
-				self:FlightEffects(); // Draw the effects
+				self:FlightEffects(); -- Draw the effects
 			end
-			Health = self:GetNWInt("Health"); // Get the health for the HUD
+			Health = self:GetNWInt("Health"); -- Get the health for the HUD
 		end
 
 	end
@@ -178,19 +179,19 @@ if CLIENT then
 			return View;
 		end
 	end
-	hook.Add("CalcView", "ARC170View", CalcView) // Change the second string to the name of your vehicle plus "View"
+	hook.Add("CalcView", "ARC170View", CalcView) -- Change the second string to the name of your vehicle plus "View"
 	
 	local HUD = surface.GetTextureID("vgui/arc_cockpit");
 	ENT.CanFPV = true;
-	function ARC170Reticle() // Rename to Vehicle Name Reticle
+	function ARC170Reticle() -- Rename to Vehicle Name Reticle
 		
 		local p = LocalPlayer();
-		local Flying = p:GetNWBool("FlyingARC171"); // Change ARC-170 to your vehicle name
-		local self = p:GetNWEntity("ARC171"); // Change ARC-170 to your vehicle name
+		local Flying = p:GetNWBool("FlyingARC171"); -- Change ARC-170 to your vehicle name
+		local self = p:GetNWEntity("ARC171"); -- Change ARC-170 to your vehicle name
 		
 
 		if(Flying and IsValid(self)) then
-			//These should be the same positions for the weapons as above in initialize
+			--These should be the same positions for the weapons as above in initialize
 			local FPV = self:GetFPV();
 			if(FPV) then
 				SW_HUD_FPV(HUD);

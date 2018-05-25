@@ -4,9 +4,10 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "X-34 Combat"
 ENT.Author = "Liam0102"
-ENT.Category = "Star Wars: In Development"
+ENT.Category = "Star Wars Vehicles: In Development"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.Vehicle = "Speeder";
@@ -132,7 +133,7 @@ if CLIENT then
 			if(IsValid(DriverSeat)) then
 				if(DriverSeat:GetThirdPersonMode()) then
 					local pos = self:GetPos()+LocalPlayer():GetAimVector():GetNormal()*-400+self:GetUp()*100;
-					//local pos = self:GetPos()+self:GetRight()*250+self:GetUp()*100;
+					--local pos = self:GetPos()+self:GetRight()*250+self:GetUp()*100;
 					local face = self:GetAngles() + Angle(0,-180,0);
 					local face = ((self:GetPos() + Vector(0,0,0))- pos):Angle();
 						View.origin = pos;
@@ -142,7 +143,7 @@ if CLIENT then
 			elseif(IsValid(PassengerSeat)) then
 				if(PassengerSeat:GetThirdPersonMode()) then
 					local pos = self:GetPos()+LocalPlayer():GetAimVector():GetNormal()*-400+self:GetUp()*100;
-					//local pos = self:GetPos()+self:GetRight()*250+self:GetUp()*100;
+					--local pos = self:GetPos()+self:GetRight()*250+self:GetUp()*100;
 					local face = self:GetAngles() + Angle(0,-90,0);
 					local face = ((self:GetPos() + Vector(0,0,100))- pos):Angle();
 						View.origin = pos;

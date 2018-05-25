@@ -5,9 +5,10 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Bayonet Light Cruiser"
 ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars"
+ENT.Category = "Star Wars Vehicles: Neutral"; 
+ list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
@@ -342,7 +343,7 @@ function ENT:PhysicsSimulate(phys,delta)
 		--######### Do a tilt when turning, due to aerodynamic effects @aVoN
 		local velocity = self:GetVelocity();
 		local aim = self.Pilot:GetAimVector();
-		//local ang = aim:Angle();
+		--local ang = aim:Angle();
 		
 		
 		local weight_roll = (phys:GetMass()/1000)/1.5

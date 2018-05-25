@@ -4,13 +4,14 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "hovertank"
 ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars: In Development"
+ENT.Category = "Star Wars Vehicles: In Development"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
-ENT.Spawnable = true;
+ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.Vehicle = "hovertank"; // The unique name for the speeder.
-ENT.EntModel = "models/swbf3/vehicles/rep_hover_tank.mdl"; // The path to your model
+ENT.Vehicle = "hovertank"; -- The unique name for the speeder.
+ENT.EntModel = "models/swbf3/vehicles/rep_hover_tank.mdl"; -- The path to your model
 
 local classes = {
 	"speeder_bike",
