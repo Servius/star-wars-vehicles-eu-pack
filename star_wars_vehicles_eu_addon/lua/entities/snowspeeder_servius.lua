@@ -5,7 +5,8 @@ ENT.Base = "fighter_base"
 
 ENT.PrintName = "T-48 Airspeeder"
 ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars"
+ENT.Category = "Star Wars Vehicles: Neutral"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;

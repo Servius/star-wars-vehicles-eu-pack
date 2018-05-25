@@ -6,7 +6,8 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Umbaran Fighter"
 ENT.Author = "Servius"
-ENT.Category = "Star Wars"
+ENT.Category = "Star Wars Vehicles: Neutral"; 
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
