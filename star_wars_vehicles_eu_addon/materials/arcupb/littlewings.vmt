@@ -1,0 +1,20 @@
+"VertexLitGeneric"
+
+// ARC-170 Starfighter
+// made by
+// minilogoguy18 (modeling)
+// Dark_Cuillere (texturing) 
+{
+	"$baseTexture"		"arcupb/littlewings"
+	"$bumpmap"		"arcupb/littlewings_n"
+
+	"$Phong"		"1"
+	"$PhongBoost"		"1.2"
+	"$phongexponent"	"49.8"
+	"$PhongFresnelRanges"	"[.05 .5 1]"
+
+	"$detail"		"detail\metal_detail_01"
+	"$detailscale" 		"5"
+	"$detailblendfactor"	"0.95"
+	"$detailblendmode"	"0"
+}

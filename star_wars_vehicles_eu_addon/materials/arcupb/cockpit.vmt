@@ -1,0 +1,26 @@
+"VertexLitGeneric"
+
+// ARC-170 Starfighter
+// made by
+// minilogoguy18 (modeling)
+// Dark_Cuillere (texturing) 
+{
+	"$baseTexture"		"arcupb/cockpit"
+	"$bumpmap"		"arcupb/cockpit_n"
+
+	"$envmap"		"env_cubemap"
+	//"$envmapmask"		"arc/cockpit_SPC"
+	//"$envmapsaturation" 	"0.2"
+	"$envmaptint"		"[0.2 0.2 0.2]"
+
+
+
+	//"$Phong"		"1"
+	//"$PhongBoost"		"5"
+	//"$PhongFresnelRanges"	"[.05 .5 1]"
+
+	//"$detail" "detail\metal_detail_01"
+	//"$detailscale" "6"
+	//"$detailblendfactor" "0.85"
+	//"$detailblendmode" "0"
+}

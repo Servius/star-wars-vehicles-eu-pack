@@ -5,7 +5,8 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "CC-7700 Corvette"
 ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars"
+ENT.Category = "Star Wars Vehicles: Neutral"
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;

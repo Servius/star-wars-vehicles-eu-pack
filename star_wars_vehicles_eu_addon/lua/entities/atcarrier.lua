@@ -12,7 +12,7 @@ ENT.PrintName = "AT-TE Carrier";
 ENT.Author = "Liam0102, Servius";
  
 -- Leave the same
-ENT.Category = "Star Wars Vehicles: Neutral"; -- Techincally you could change this, but personally I'd leave it so they're all in the same place (Looks more proffesional).
+ENT.Category = "Star Wars Vehicles: Republic"; -- Techincally you could change this, but personally I'd leave it so they're all in the same place (Looks more proffesional).
  list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;

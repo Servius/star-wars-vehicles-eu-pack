@@ -12,7 +12,7 @@ ENT.PrintName = "T-38 W-Wing";
 ENT.Author = "Liam0102, Servius";
  
 -- Leave the same
-ENT.Category = "Star Wars Vehicles: Neutral"; 
+ENT.Category = "Star Wars Vehicles: Republic"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;
@@ -97,7 +97,7 @@ function ENT:ProtonTorpedos()
 			self.NextUse.Torpedos = CurTime()+0.15;
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,1500,Color(10,121,212,200),25);
+		self:FireTorpedo(pos,e,1500,1500,Color(10,50,180,255),12);
 		fire = fire + 1;
 		if(fire > 2) then
 			fire = 1;

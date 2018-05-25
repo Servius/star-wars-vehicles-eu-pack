@@ -4,7 +4,8 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "BARC Snow Speeder"
 ENT.Author = "Liam0102"
-ENT.Category = "Star Wars"
+ENT.Category = "Star Wars Vehicles: Neutral"
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
