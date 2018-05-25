@@ -15,7 +15,7 @@ ENT.Vehicle = "InvHand"
 ENT.StartHealth = 35000;
 ENT.IsCapitalShip = true;
 ENT.Allegiance = "CIS";
-list.Set("SWVehicles", ENT.PrintName, ENT);
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 
 if SERVER then
 

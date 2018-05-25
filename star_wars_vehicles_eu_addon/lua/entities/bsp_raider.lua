@@ -17,7 +17,7 @@ ENT.StartHealth = 15000;
 ENT.DontLock = true;
 ENT.IsCapitalShip = true;
 ENT.Allegiance = "Empire";
-list.Set("SWVehicles", ENT.PrintName, ENT);
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 
 if SERVER then
 

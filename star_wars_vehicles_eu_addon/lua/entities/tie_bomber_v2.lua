@@ -13,7 +13,7 @@ ENT.EntModel = "models/tiebo/tiebo1.mdl"
 ENT.Vehicle = "TieBomber"
 ENT.StartHealth = 2500;
 ENT.Allegiance = "Empire";
-list.Set("SWVehicles", ENT.PrintName, ENT);
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 if SERVER then
 
 ENT.FireSound = Sound("weapons/tie_shoot.wav");
