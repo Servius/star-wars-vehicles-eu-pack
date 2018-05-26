@@ -1,0 +1,16 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\FO_MandatorIV\EVFO_Dreadnought01"
+"$bumpmap" 	"models\starwars\swEaW\ships\FO_MandatorIV\EVFO_Dreadnought01_b"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+
+	"$cloakPassEnabled" 		"1"
+
+}
+
+
