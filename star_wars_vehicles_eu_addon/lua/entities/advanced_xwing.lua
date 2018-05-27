@@ -67,6 +67,8 @@ function ENT:Initialize()
 	
 	self.ExitModifier = {x=125,y=225,z=100}
 
+	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
+
 	
 	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
 	self.FireGroup = {"Left","Right","TopLeft","TopRight"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
