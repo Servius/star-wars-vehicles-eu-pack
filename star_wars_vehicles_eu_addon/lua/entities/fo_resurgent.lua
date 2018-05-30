@@ -343,7 +343,7 @@ if CLIENT then
 		Engine=Sound("ambient/atmosphere/ambience_base.wav"),
 	}
 
-    ENT.ViewDistance = 8000;
+    ENT.ViewDistance = 3000;
     ENT.ViewHeight = 350;
 	
 	function ENT:Initialize()

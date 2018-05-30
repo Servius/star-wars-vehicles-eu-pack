@@ -343,8 +343,8 @@ if CLIENT then
 		Engine=Sound("ambient/atmosphere/ambience_base.wav"),
 	}
 
-    ENT.ViewDistance = 8000;
-    ENT.ViewHeight = 350;
+    ENT.ViewDistance = 3500;
+    ENT.ViewHeight = 300;
 	
 	function ENT:Initialize()
 		self.Emitter = ParticleEmitter(self:GetPos());
