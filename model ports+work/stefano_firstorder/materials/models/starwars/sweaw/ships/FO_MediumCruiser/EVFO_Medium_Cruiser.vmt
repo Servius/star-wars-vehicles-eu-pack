@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\FO_MediumCruiser\EVFO_Medium_Cruiser"
+"$bumpmap" 	"models\starwars\swEaW\ships\FO_MediumCruiser\EVFO_Medium_Cruiser_b"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+	"$cloakPassEnabled" 		"1"
+}
