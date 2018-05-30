@@ -1,6 +1,6 @@
 // Created by Crowbar 0.51.0.0
 
-$modelname "swEaW\ships\FO_Interdictor.mdl"
+$modelname "swEaW\ships\fo_interdictor_mini.mdl"
 
 $bodygroup "Main"
 {
@@ -13,7 +13,7 @@ $surfaceprop "metal"
 
 $contents "solid"
 
-$maxeyedeflection 90
+$maxeyedeflection 30
 
 $mostlyopaque
 
@@ -21,7 +21,7 @@ $cdmaterials "models\starwars\swEaW\ships\FO_Interdictor\"
 
 $cbox 0 0 0 0 0 0
 
-$bbox -1663.395 -6314.2 14.176 1645.417 6009.143 1998.523
+//$bbox -1663.395 -6314.2 14.176 1645.417 6009.143 1998.523
 
 
 $sequence "idle" {
@@ -34,7 +34,7 @@ $sequence "idle" {
 
 $collisionmodel "fo_interdictor_physics.smd"
 {
-	$mass 70
+	$automass
 	$inertia 10
 	$damping 0
 	$rotdamping 8
