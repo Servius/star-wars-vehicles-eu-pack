@@ -1,6 +1,6 @@
 // Created by Crowbar 0.51.0.0
 
-$modelname "swEaW\ships\FO_MandatorIV.mdl"
+$modelname "swEaW\ships\fo_mandatoriv_mini.mdl"
 
 $bodygroup "Main"
 {
@@ -23,7 +23,7 @@ $surfaceprop "metal"
 
 $contents "solid"
 
-$maxeyedeflection 90
+$maxeyedeflection 30
 
 $mostlyopaque
 
@@ -31,7 +31,7 @@ $cdmaterials "models\starwars\swEaW\ships\FO_MandatorIV\"
 
 $cbox 0 0 0 0 0 0
 
-$bbox -1000 -1000 -13.691 1000.625 1000.781 1000.666
+//$bbox -1000 -1000 -13.691 1000.625 1000.781 1000.666
 
 
 $sequence "idle" {

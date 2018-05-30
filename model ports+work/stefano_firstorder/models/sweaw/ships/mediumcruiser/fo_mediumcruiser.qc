@@ -1,6 +1,6 @@
 // Created by Crowbar 0.51.0.0
 
-$modelname "swEaW\ships\FO_MediumCruiser.mdl"
+$modelname "swEaW\ships\fo_mediumcruiser_mini.mdl"
 
 $bodygroup "Main"
 {
@@ -13,7 +13,7 @@ $surfaceprop "metal"
 
 $contents "solid"
 
-$maxeyedeflection 90
+$maxeyedeflection 30
 
 $mostlyopaque
 
@@ -21,7 +21,7 @@ $cdmaterials "models\starwars\swEaW\ships\FO_MediumCruiser\"
 
 $cbox 0 0 0 0 0 0
 
-$bbox -3294.08 -12505.889 -25.236 3283.195 13298.109 3671.893
+//$bbox -3294.08 -12505.889 -25.236 3283.195 13298.109 3671.893
 
 
 $sequence "idle" {
@@ -34,7 +34,7 @@ $sequence "idle" {
 
 $collisionmodel "fo_mediumcruiser_physics.smd"
 {
-	$mass 70
+	$automass
 	$inertia 10
 	$damping 0
 	$rotdamping 8
