@@ -1,6 +1,6 @@
 // Created by Crowbar 0.51.0.0
 
-$modelname "swEaW\ships\fo_resurgent_mini.mdl"
+$modelname "swEaW\ships\fo_resurgent.mdl"
 
 $bodygroup "Main"
 {
