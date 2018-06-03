@@ -11,7 +11,7 @@ ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = false; --Set to true for an Admin vehicle.
-ENT.EntModel = "models/jk3/acship.mdl" --The oath to the model you want to use.
+ENT.EntModel = "models/jk3/acship.mdl" --The path to the model you want to use.
 ENT.Vehicle = "accademycarrier" --The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; --How much health they should have.
 ENT.Allegiance = "Rebels";
@@ -52,7 +52,10 @@ function ENT:Initialize()
 	self.OverheatAmount = 50 --The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; -- Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
 	self.MaxIonShots = 20; -- The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
-	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
+	   
+    self.LandOffset = Vector(0,0,200);-- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
+    self.LandDistance = 500;
+
     self.Bullet = CreateBulletStructure(80,"blue",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	self.HasSeats = true;
     self.DisableThirdpersonSeats = true;
