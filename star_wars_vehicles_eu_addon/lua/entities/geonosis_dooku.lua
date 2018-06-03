@@ -4,7 +4,7 @@ ENT.Base = "fighter_base"
 
 ENT.PrintName = "Geonosian Transport"
 ENT.Author = "Servius"
-ENT.Category = "Star Wars Vehicles: In Development"; 
+ENT.Category = "Star Wars Vehicles: CIS"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
@@ -53,6 +53,18 @@ function ENT:Initialize()
 	self.CanShoot = false;
 	self.Bullet = CreateBulletStructure(100,"red");
 	self.FireDelay = 0.2;
+	self.ExitModifier = {x=225,y=-0,z=-0}
+	 self.LandOffset = Vector(0,0,150);-- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
+
+	self.HasSeats = true;
+    self.DisableThirdpersonSeats = true;
+	self.SeatPos = {
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0,self:GetAngles(),Vector(-500,100,0)},
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0+self:GetRight()*-150,self:GetAngles(),Vector(-500,100,0)},
+		
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0,self:GetAngles(),Vector(-500,-100,0)},
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0+self:GetRight()*-150,self:GetAngles(),Vector(-500,-100,0)},
+	}	
 
 	self.BaseClass.Initialize(self)
 end
@@ -117,18 +129,9 @@ if CLIENT then
 		end
 	end)
 	
-	local View = {}
-	local function CalcView()
-		
-		local p = LocalPlayer();
-		local self = p:GetNetworkedEntity("geonosis_dooku", NULL)
-		if(IsValid(self)) then
-			local fpvPos = self:GetPos()+self:GetUp()*92.5+self:GetForward()*-47.5;
-			View = SWVehicleView(self,500,200,fpvPos,true);		
-			return View;
-		end
-	end
-	hook.Add("CalcView", "geonosis_dookuView", CalcView)
+	ENT.ViewDistance = 800;
+    ENT.ViewHeight = 200;
+    ENT.FPVPos = Vector(100,0,0);
 	
 	function geonosis_dookuReticle()
 		
@@ -137,7 +140,7 @@ if CLIENT then
 		local self = p:GetNWEntity("geonosis_dooku");
 		if(Flying and IsValid(self)) then
 			SW_HUD_DrawHull(1500);
-			SW_WeaponReticles(self);
+		--	SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
 			
 			local pos = self:GetPos()+self:GetUp()*85+self:GetForward()*-20;
