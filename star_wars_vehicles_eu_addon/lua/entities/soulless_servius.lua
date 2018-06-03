@@ -5,7 +5,7 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Soulless Two"
 ENT.Author = "Servius"
-ENT.Category = "Star Wars Vehicles: In Development"; 
+ENT.Category = "Star Wars Vehicles: CIS"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
@@ -25,7 +25,7 @@ ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),};
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
 	local e = ents.Create("soulless_servius");
-	e:SetPos(tr.HitPos + Vector(0,0,10));
+	e:SetPos(tr.HitPos + Vector(0,0,70));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+180,0));
 	e:Spawn();
 	e:Activate();
@@ -49,7 +49,7 @@ function ENT:Initialize()
 	self.CanBack = false;
 	self.CanRoll = true;
 	self.Cooldown = 2;
-
+ 	self.LandOffset = Vector(0,0,70);-- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
 	self.CanShoot = true;
 	self.Bullet = CreateBulletStructure(50,"red");
 	self.FireDelay = 0;
