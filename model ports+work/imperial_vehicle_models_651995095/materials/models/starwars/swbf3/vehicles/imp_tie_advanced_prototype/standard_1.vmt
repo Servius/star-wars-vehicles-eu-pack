@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swbf3\vehicles\Imp_TIE_Advanced_prototype\Standard_1"
+"$bumpmap" "models/starwars\swbf3\vehicles\Imp_TIE_Advanced_prototype/Standard_1_nrm"
+
+	$selfillum 1
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

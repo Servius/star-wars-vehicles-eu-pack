@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/starwars\swbf3\vehicles\imp_tie-interceptor/Imp_tie_body"
+	"$phongexponenttexture"  "models/starwars\swbf3\vehicles\imp_tie-interceptor/iImp_tie_body_exp"
+}
