@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_mandator\ReV_mandator_hull"
+"$bumpmap" 				"models\starwars\swEaW\ships\rep_mandator\ReV_mandator_hull_bump"
+
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

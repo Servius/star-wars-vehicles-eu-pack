@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_imperator\Rebel_Mon_Calamari_Cruisers_L"
+
+
+
+	$selfillum 1
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

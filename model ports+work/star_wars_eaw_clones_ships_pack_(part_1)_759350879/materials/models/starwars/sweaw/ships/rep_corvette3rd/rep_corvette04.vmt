@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_corvette3rd\REP_Corvette04"
+                  "$bumpmap" 				"models\starwars\swEaW\ships\rep_corvette1st\REP_Corvette01_b"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

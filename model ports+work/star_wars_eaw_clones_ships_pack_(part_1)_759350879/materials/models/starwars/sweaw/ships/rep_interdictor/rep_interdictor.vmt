@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_interdictor\rep_interdictor"
+                  "$bumpmap" 				"models\starwars\swEaW\ships\rep_interdictor\rep_interdictor_bm"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

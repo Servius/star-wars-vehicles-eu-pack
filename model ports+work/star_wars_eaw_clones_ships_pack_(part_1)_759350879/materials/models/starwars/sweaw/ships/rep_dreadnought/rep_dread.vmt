@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_dreadnought\rep_dread"
+	"$bumpmap" 	"models\starwars\swEaW\ships\rep_dreadnought\rep_dread_bm"
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}
