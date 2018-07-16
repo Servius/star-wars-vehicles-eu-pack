@@ -38,7 +38,7 @@ https://docs.google.com/document/d/1o599ftTRcHWWmDRIibNfC5NcJJF1YTY9IizqnxzgM7U/
 
 - You can also watch the video located here: 
 https://www.youtube.com/watch?v=72a28tleThY&t=484s
-test
+
 ### MODELERS LOOK HERE PLEASE!
 - Use this to make sure your models can be used: https://docs.google.com/document/d/1UJ5QkbpPZtxIRZ5lqNX2jkkGeallTRgUTtP2gi6fWO0/edit
 
