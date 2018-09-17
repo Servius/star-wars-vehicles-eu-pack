@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_rsd\Empire_Imperial_Star_Destroyer_Super_Structure"
+"$bumpmap" 				"models\starwars\swEaW\ships\rep_rsd\Empire_Imperial_Star_Destroyer_Super_Structure_b"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

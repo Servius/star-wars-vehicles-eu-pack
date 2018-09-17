@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_x-Wing\Rep_Xwing"
+"$bumpmap" 				"models\starwars\swEaW\ships\rep_x-Wing\Rep_Xwing_b"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

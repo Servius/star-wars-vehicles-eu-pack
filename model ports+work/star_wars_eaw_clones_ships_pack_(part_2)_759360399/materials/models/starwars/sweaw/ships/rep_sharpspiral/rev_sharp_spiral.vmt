@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swEaW\ships\rep_SharpSpiral\ReV_sharp_spiral"
+"$bumpmap" 				"models\starwars\swEaW\ships\rep_SharpSpiral\ReV_sharp_spiral_b"
+
+
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}
