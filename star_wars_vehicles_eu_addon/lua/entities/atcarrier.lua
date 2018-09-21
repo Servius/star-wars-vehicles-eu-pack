@@ -8,12 +8,12 @@ ENT.Base = "fighter_base";
 ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
-ENT.PrintName = "AT-TE Carrier";
+ENT.PrintName = "LAAT/c";
 ENT.Author = "Liam0102, Servius";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Republic"; -- Techincally you could change this, but personally I'd leave it so they're all in the same place (Looks more proffesional).
- list.Set("SWVehiclesEU", ENT.PrintName, ENT);
+ list.Set("SWVehicles", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
@@ -21,7 +21,7 @@ ENT.AdminOnly = false; --Set to true for an Admin vehicle.
  
 ENT.EntModel = "models/swbf3/vehicles/rep_carrier.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "ATCarrier" --The internal name for the ship. It cannot be the same as a different ship.
-ENT.StartHealth = 2000; --How much health they should have.
+ENT.StartHealth = 8000; --How much health they should have.
 ENT.Allegiance = "Republic";
  
 if SERVER then
@@ -53,10 +53,10 @@ function ENT:Initialize()
         Left = self:GetPos() + self:GetForward() * 730 + self:GetRight() * -45 + self:GetUp() * 50,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 1000; -- The speed we go when holding SHIFT
-    self.ForwardSpeed = 500; -- The forward speed 
-    self.UpSpeed = 75; -- Up/Down Speed
-    self.AccelSpeed = 14; -- How fast we get to our previously set speeds
+   	self.BoostSpeed = 1000;
+	self.ForwardSpeed = 1000;
+	self.UpSpeed = 800;
+	self.AccelSpeed = 9;
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
 	self.CanRoll = false; -- Set to true if you want the ship to roll, false if not
 	self.CanStrafe = true; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
@@ -76,7 +76,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"green",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(80,"blue",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
