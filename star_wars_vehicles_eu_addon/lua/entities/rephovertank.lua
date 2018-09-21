@@ -4,7 +4,8 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "TX-160"
 ENT.Author = "Liam0102"
-ENT.Category = "Star Wars Vehicles EU: Republic"
+ENT.Category = "Star Wars Vehicles: Republic"
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
@@ -12,7 +13,6 @@ ENT.AdminSpawnable = false;
 ENT.Vehicle = "rephovertank";
 ENT.EntModel = "models/swbf3/vehicles/rep_hover_tank.mdl";
 ENT.StartHealth = 5000;
-list.Set("SWVehicles", ENT.PrintName, ENT);
 
 if SERVER then
 
