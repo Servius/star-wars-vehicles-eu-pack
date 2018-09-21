@@ -5,6 +5,7 @@ ENT.Type = "vehicle"
 ENT.PrintName = "Clone Wars Z-95 Headhunter"
 ENT.Author = "Liam0102 + Jelly"
 ENT.Category = "Star Wars Vehicles: Republic"
+list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
@@ -13,8 +14,6 @@ ENT.EntModel = "models/npc/sweaw/ships/rep_z95.mdl"
 ENT.Vehicle = "cloneheadhunter"
 ENT.StartHealth = 2200;
 ENT.HasLookaround = true
-ENT.Allegiance = "Republic";
-list.Set("SWVehicles", ENT.PrintName, ENT);
 if SERVER then
 
 ENT.FireSound = Sound("weapons/xwing_shoot.wav");
