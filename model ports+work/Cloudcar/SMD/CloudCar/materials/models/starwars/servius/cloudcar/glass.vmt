@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/starwars/servius/cloudcar/glass"
+	"$translucent" "1"
+}
