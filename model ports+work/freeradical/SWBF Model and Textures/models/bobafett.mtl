@@ -1,0 +1,40 @@
+# 
+# Wavefront material file
+# Created with Kaydara FBX
+# 
+
+newmtl 03___Default
+map_Kd Fett_body_C.dds
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl 04___Default
+map_Kd Fett_jetpak_C.dds
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl bobaFett_FETT_display
+map_Kd bobaFett-FETT_display
+Ka 0.200000 0.200000 0.200000
+Kd 0.800000 0.800000 0.800000
+Ks 0.200000 0.200000 0.200000
+illum 2
+Ns 19.999999
+Tr 1.000000
+
+newmtl 02___Default
+map_Kd Fett_helmet_C.dds
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
