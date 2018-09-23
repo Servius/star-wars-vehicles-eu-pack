@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "/v_ehawk01"
+	"$bumpmap" "/v_ehawk01_bump"
+
+	"$phong" "1"
+
+
+	"$phongboost" ".2"	
+	"$phongfresnelranges"	"[1 1 1]"
+	"$phongexponenttexture" "hoteliteactionxxx_clickhere"
+	"$phongalbedotint" "1"
+}

@@ -1,9 +1,0 @@
-"VertexLitGeneric"
-{
-	$basetexture "Morganicism/SWTOR/Liberator/landinggear"
-	$phong 1
-	$bumpmap "Morganicism/SWTOR/Liberator/landinggear_n"
-	$phongexponent 50			
-	$phongboost 5.0
-	$phongfresnelranges "[0 0.5 1]"
-}

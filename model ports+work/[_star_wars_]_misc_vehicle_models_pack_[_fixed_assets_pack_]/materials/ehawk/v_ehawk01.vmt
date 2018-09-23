@@ -1,0 +1,10 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "ehawk/v_ehawk01"
+	"$bumpmap" "ehawk/v_ehawk01_n"
+
+	"$Phong" "1"
+	"$PhongBoost" "5"
+	"$phongexponent" "0"
+	"$PhongFresnelRanges"	"[.05 .5 1]"
+}

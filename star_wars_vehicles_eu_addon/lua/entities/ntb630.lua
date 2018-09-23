@@ -1,4 +1,4 @@
-qqq--HOW TO PROPERLY MAKE AN ADDITIONAL SHIP ADDON OFF OF MINE.
+--HOW TO PROPERLY MAKE AN ADDITIONAL SHIP ADDON OFF OF MINE.
  
 --Do not copy everything out of my addon. You don't need it. Shall explain later.
  

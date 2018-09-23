@@ -1,10 +1,10 @@
 // Created by Crowbar 0.51.0.0
 
-$modelname "sweaw\ships\rep_Allegiance_serviusmini.mdl"
+$modelname "DBARC\DBARC1.mdl"
 
 $bodygroup "body"
 {
-	studio "rep_allegiance_Allegiance.smd"
+	studio "barc1_BARC.smd"
 }
 
 
@@ -14,7 +14,7 @@ $contents "solid"
 
 //$maxeyedeflection 90
 
-$cdmaterials "models\starwars\swEaW\ships\rep_Allegiance\"
+$cdmaterials "DBARC\"
 
 //$cbox 0 0 0 0 0 0
 
@@ -22,18 +22,17 @@ $cdmaterials "models\starwars\swEaW\ships\rep_Allegiance\"
 
 
 $sequence "idle" {
-	"rep_allegiance_anims\idle.smd"
+	"barc1_anims\idle.smd"
 	activity "ACT_IDLE" 1
 	fadein 0.2
 	fadeout 0.2
 	fps 30
 }
 
-$collisionmodel "rep_allegiance_physics.smd"
+$collisionmodel "barc1_physics.smd"
 {
-	$concave
-	$automass
-	$inertia 10
+	$mass 1
+	$inertia 1
 	$damping 0
 	$rotdamping 8
 	$rootbone "root"
