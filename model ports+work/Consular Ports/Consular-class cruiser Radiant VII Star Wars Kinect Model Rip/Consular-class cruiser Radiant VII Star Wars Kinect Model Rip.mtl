@@ -1,0 +1,18 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 11.09.2018 21:16:18
+
+newmtl 01___Default
+	Ns 70.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588235 0.588235 0.588235
+	Kd 0.588235 0.588235 0.588235
+	Ks 0.855000 0.855000 0.855000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka G:\Star Wars Kinect (XBOX 360 DVD)\Consular-class cruiser Radiant VII Star Wars Kinect Model Rip\republic_cruiser_Diff.png
+	map_Kd G:\Star Wars Kinect (XBOX 360 DVD)\Consular-class cruiser Radiant VII Star Wars Kinect Model Rip\republic_cruiser_Diff.png
+	map_bump G:\Star Wars Kinect (XBOX 360 DVD)\Consular-class cruiser Radiant VII Star Wars Kinect Model Rip\republic_cruiser_Bump.png
+	bump G:\Star Wars Kinect (XBOX 360 DVD)\Consular-class cruiser Radiant VII Star Wars Kinect Model Rip\republic_cruiser_Bump.png
