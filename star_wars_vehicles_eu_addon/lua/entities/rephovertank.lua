@@ -10,7 +10,7 @@ ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.Vehicle = "rephovertank";
+ENT.Vehicle = "RepHovertank";
 ENT.EntModel = "models/swbf3/vehicles/rep_hover_tank.mdl";
 ENT.StartHealth = 5000;
 
@@ -22,7 +22,7 @@ ENT.FireSound = Sound("weapons/tie_shoot.wav");
 
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
-	local e = ents.Create("rephovertank");
+	local e = ents.Create("RepHovertank");
 	e:SetPos(tr.HitPos + Vector(0,0,10));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw,0));
 	e:Spawn();
@@ -57,27 +57,43 @@ end
 
 local ZAxis = Vector(0,0,1);
 
-function ENT:FireLeftBlast(pos,gravity,vel,ang)
+function ENT:FireLeftBlast(pos,gravity,vel,ang,dmg,white,size,snd)
 	if(self.NextUse.FireLeftBlast < CurTime()) then
-		local e = ents.Create("turblaser_blast");
-		e:SetPos(pos);
-		e:Spawn();
-		e:Activate();
-		e:Prepare(self,Sound("weapons/xwing_shoot.wav"),gravity,vel,ang);
-		e:SetColor(Color(255,255,255,1));
+		local e = ents.Create("cannon_blast");
+	
+	e.Damage = dmg or 600;
+	e.IsWhite = white or false;
+	e.StartSize = 15;
+	e.EndSize = 5;
+	
+	local sound = snd or Sound("weapons/stinger_fire1.wav");
+	
+	e:SetPos(pos);
+	e:Spawn();
+	e:Activate();
+	e:Prepare(self,sound,gravity,vel,ang);
+	e:SetColor(Color(255,255,255,1));
 		
 		self.NextUse.FireLeftBlast = CurTime() + 2;
 	end	
 end
 
-function ENT:FireRightBlast(pos,gravity,vel,ang)
+function ENT:FireRightBlast(pos,gravity,vel,ang,dmg,white,size,snd)
 	if(self.NextUse.FireRightBlast < CurTime()) then
-		local e = ents.Create("turblaser_blast");
-		e:SetPos(pos);
-		e:Spawn();
-		e:Activate();
-		e:Prepare(self,Sound("weapons/xwing_shoot.wav"),gravity,vel,ang);
-		e:SetColor(Color(255,255,255,1));
+		local e = ents.Create("cannon_blast");
+	
+	e.Damage = dmg or 600;
+	e.IsWhite = white or false;
+	e.StartSize = 15;
+	e.EndSize = 5;
+	
+	local sound = snd or Sound("weapons/stinger_fire1.wav");
+	
+	e:SetPos(pos);
+	e:Spawn();
+	e:Activate();
+	e:Prepare(self,sound,gravity,vel,ang);
+	e:SetColor(Color(255,255,255,1));
 		
 		self.NextUse.FireRightBlast = CurTime() + 2;
 	end	
@@ -209,7 +225,7 @@ if CLIENT then
 	function CalcView()
 		
 		local p = LocalPlayer();
-		local self = p:GetNWEntity("rephovertank", NULL)
+		local self = p:GetNWEntity("RepHovertank", NULL)
 		local DriverSeat = p:GetNWEntity("DriverSeat",NULL);
 
 		if(IsValid(self)) then
@@ -222,13 +238,13 @@ if CLIENT then
 			end
 		end
 	end
-	hook.Add("CalcView", "rephovertankView", CalcView)
+	hook.Add("CalcView", "RepHovertankView", CalcView)
 	
-	function EmpireTankReticle()
+	function RepHovertankReticle()
 	
 		local p = LocalPlayer();
-		local Flying = p:GetNWBool("Flyingrephovertank");
-		local self = p:GetNWEntity("rephovertank");
+		local Flying = p:GetNWBool("FlyingRepHovertank");
+		local self = p:GetNWEntity("RepHovertank");
 		if(Flying and IsValid(self)) then		
 		
 			local CannonPoss, CannonAngg = self:GetBonePosition(self:LookupBone("cannon_part2"))
@@ -273,6 +289,6 @@ if CLIENT then
 	
 		end
 	end
-	hook.Add("HUDPaint", "rephovertankReticle", rephovertankReticle)
+	hook.Add("HUDPaint", "RepHovertankReticle", RepHovertankReticle)
 
 end
