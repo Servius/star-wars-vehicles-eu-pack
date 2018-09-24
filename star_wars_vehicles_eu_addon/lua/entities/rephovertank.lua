@@ -17,7 +17,7 @@ ENT.StartHealth = 5000;
 if SERVER then
 
 ENT.NextUse = {Use = CurTime(),Fire = CurTime(),FireLeftBlast = CurTime(),FireRightBlast = CurTime()};
-ENT.FireSound = Sound("weapons/tie_shoot.wav");
+ENT.FireSound = Sound("weapons/xwing_shoot.wav");
 
 
 AddCSLuaFile();
