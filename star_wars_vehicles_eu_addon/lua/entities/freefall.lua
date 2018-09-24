@@ -19,7 +19,7 @@ ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = false; --Set to true for an Admin vehicle.
  
-ENT.EntModel = "models/sweaw/ships/rep_freefall.mdl" --The oath to the model you want to use.
+ENT.EntModel = "models/sweaw/ships/rep_freefall_servius.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "freefall" --The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; --How much health they should have.
 ENT.Allegiance = "Rebels";

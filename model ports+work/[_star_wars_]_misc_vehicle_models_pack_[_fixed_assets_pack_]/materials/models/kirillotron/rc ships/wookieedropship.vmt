@@ -1,0 +1,8 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\kirillotron\RC ships\WookieeDropship"
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

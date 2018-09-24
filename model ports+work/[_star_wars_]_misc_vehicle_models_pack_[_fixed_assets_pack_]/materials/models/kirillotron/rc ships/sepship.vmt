@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\kirillotron\RC ships\SepShip"
+	"$alphatest" 1
+	"$nocull" 1
+	$selfillum 1
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

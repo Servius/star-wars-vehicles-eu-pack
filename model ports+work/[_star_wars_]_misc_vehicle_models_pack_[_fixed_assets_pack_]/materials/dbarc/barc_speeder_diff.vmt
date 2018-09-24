@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$baseTexture"		"DBARC/Barc_Speeder_diff"
+	"$bumpmap"		"DBARC/Barc_Speeder_n"
+	"$nocull"		"1"
+
+	"$Phong"		"1"
+	"$PhongBoost"		"1.6"
+	"$phongexponent"	"29.8"
+	"$PhongFresnelRanges"	"[.05 .5 1]"
+}

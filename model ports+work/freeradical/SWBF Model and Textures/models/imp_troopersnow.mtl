@@ -1,0 +1,22 @@
+# 
+# Wavefront material file
+# Created with Kaydara FBX
+# 
+
+newmtl 03___Default
+map_Kd game_TroopSnow_A_Color.dds
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl 02___Default
+map_Kd game_TroopSnow_B_Color.dds
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000

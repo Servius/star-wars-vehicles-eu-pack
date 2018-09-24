@@ -1,0 +1,49 @@
+# 
+# Wavefront material file
+# Created with Kaydara FBX
+# 
+
+newmtl 05___Default
+map_Kd cis_drd_enf_d_diff.tga
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl 06___Default
+map_Kd cis_drd_enf_e_diff.tga
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl 02___Default
+map_Kd cis_LG_drd_enf_a_diff.tga
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl 03___Default
+map_Kd cis_LG_drd_enf_b_diff.tga
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000
+
+newmtl 04___Default
+map_Kd cis_drd_enf_c_diff.tga
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.000000 0.000000 0.000000
+illum 2
+Ns 2.000000
+Tr 1.000000

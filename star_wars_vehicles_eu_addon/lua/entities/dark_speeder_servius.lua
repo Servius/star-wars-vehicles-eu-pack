@@ -11,7 +11,7 @@ ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.Vehicle = "dark_speeder_servius"; -- The unique name for the speeder.
-ENT.EntModel = "models/darc/barc1.mdl"; -- The path to your model
+ENT.EntModel = "models/dbarc/DBARC1.mdl"; -- The path to your model
 
 local classes = {
 	"speeder_bike",
