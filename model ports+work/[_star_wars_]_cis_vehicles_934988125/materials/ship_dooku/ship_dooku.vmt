@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "ship_dooku/ship_dooku"
+	"$bumpmap" "ship_dooku/ship_dooku_02_n"
+}

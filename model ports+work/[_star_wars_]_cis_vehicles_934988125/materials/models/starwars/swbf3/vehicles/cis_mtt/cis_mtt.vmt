@@ -1,0 +1,10 @@
+"VertexlitGeneric"
+{
+
+	"$basetexture" "models\starwars\swbf3\vehicles\cis_mtt\cis_mtt"					
+	"$phongexponenttexture" "models\starwars\swbf3\vehicles\cis_mtt\cis_mtt_exp"
+}
+
+
+
+
