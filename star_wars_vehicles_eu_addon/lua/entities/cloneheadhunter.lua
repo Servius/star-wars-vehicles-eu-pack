@@ -10,7 +10,7 @@ ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.EntModel = "models/npc/sweaw/ships/rep_z95.mdl"
+ENT.EntModel = "models/sweaw/ships/rep_z95_servius.mdl"
 ENT.Vehicle = "cloneheadhunter"
 ENT.StartHealth = 2200;
 ENT.HasLookaround = true
