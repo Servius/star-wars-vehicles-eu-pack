@@ -11,7 +11,7 @@ ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.EntModel = "models/ship_belbu/ship_belbu.mdl"
+ENT.EntModel = "models/ship_belbu/ship_belbu_servius.mdl"
 ENT.Vehicle = "soulless_servius"
 ENT.StartHealth = 1500;
 ENT.Allegiance = "CIS";

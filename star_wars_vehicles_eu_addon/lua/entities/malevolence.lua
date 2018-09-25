@@ -5,14 +5,14 @@ ENT.Type = "vehicle"
 
 ENT.PrintName = "Malevolence"
 ENT.Author = "Liam0102, Servius"
-ENT.Category = "Star Wars Vehicles: In Development"; 
+ENT.Category = "Star Wars Vehicles: CIS"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = true;
 
-ENT.EntModel = "models/ship_maleo1/ship_maleo1.mdl"
+ENT.EntModel = "models/ship_maleo1/ship_maleo_servius.mdl"
 ENT.Vehicle = "malevolence"
 ENT.StartHealth = 35000;
 ENT.DontLock = true;

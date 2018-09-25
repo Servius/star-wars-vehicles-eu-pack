@@ -1,0 +1,54 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl ship_maleo1
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.458254 0.398337 0.623874
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\star_wars__cis_ships_pack_768102717\materials\ship_maleo1\ship_maleo1.jpg
+
+newmtl ship_maleo1_01
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.529460 0.727173 0.699058
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\star_wars__cis_ships_pack_768102717\materials\ship_maleo1\ship_maleo1_01.jpg
+
+newmtl ship_maleo1_02
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.392926 0.623104 0.728628
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\star_wars__cis_ships_pack_768102717\materials\ship_maleo1\ship_maleo1_02.jpg
+
+newmtl ship_maleo1_03
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.733876 0.741788 0.395355
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\addons\star_wars__cis_ships_pack_768102717\materials\ship_maleo1\ship_maleo1_03.jpg
