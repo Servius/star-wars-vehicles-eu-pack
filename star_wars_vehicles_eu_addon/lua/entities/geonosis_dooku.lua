@@ -10,7 +10,7 @@ ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
-ENT.EntModel = "models/ship_dooku/ship_dooku.mdl"
+ENT.EntModel = "models/ship_dooku/ship_dooku_servius.mdl"
 ENT.Vehicle = "geonosis_dooku"
 ENT.StartHealth = 1500;
 ENT.Allegiance = "CIS";
