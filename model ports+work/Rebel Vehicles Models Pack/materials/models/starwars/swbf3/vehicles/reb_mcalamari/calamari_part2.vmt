@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swbf3\vehicles\reb_mcalamari\calamari_part2"
+"$phongexponenttexture"  "models/starwars\swbf3\vehicles\reb_mcalamari/calamari_part2_exp"
+
+
+	$selfillum 1
+	$detail detail\metal_detail_01
+	$detailscale 4.283
+	$detailblendfactor 1
+	$detailblendmode 0
+}

@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swbf3\vehicles\reb_snowspeeder\Snowspeeder Main"
+"$bumpmap" "models/starwars\swbf3\vehicles\reb_snowspeeder/Snowspeeder Main_nrm"
+"$phongexponenttexture"  "models/starwars\swbf3\vehicles\reb_snowspeeder/Snowspeeder Main_exp"
+
+
+	$selfillum 1
+	$detail detail\metal_detail_01
+	$detailscale 10
+	$detailblendfactor 1
+	$detailblendmode 0
+}
