@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\starwars\swbf3\vehicles\reb_landspeeder\reb_landspeeder"
+"$phongexponenttexture"  "models/starwars\swbf3\vehicles\reb_landspeeder/reb_landspeeder_exp"
+}

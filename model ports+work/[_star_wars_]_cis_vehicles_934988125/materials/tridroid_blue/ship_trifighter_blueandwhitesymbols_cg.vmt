@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "tridroid_blue/Ship_TriFighter_BlueAndWhiteSymbols_CG"
+	//"$translucent" 1
+}

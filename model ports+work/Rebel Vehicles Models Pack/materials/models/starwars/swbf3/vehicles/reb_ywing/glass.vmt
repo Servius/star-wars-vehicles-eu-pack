@@ -1,0 +1,12 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models\starwars\swbf3\vehicles\reb_ywing\glass"
+
+"$envmap"	"env_cubemap"
+"$envmaptint"	"[0.2 0.2 0.2]"
+"$refractamount"	".6" 
+"$envmapsaturation"	"0.7"
+
+//"$nocull"	"1"
+"$translucent"	"1"
+}

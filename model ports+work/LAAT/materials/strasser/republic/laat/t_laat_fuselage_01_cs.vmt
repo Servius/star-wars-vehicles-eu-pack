@@ -1,0 +1,15 @@
+"VertexLitGeneric"
+{
+	"$basetexture"		"strasser/republic/laat/t_laat_fuselage_01_cs"
+	"$bumpmap"		"strasser/republic/laat/t_laat_fuselage_01_nma"
+
+	$envmap "env_cubemap"
+	$envmaptint "[0.04 0.04 0.04]"
+	$envmapfresnel 1
+	$blendTintByBaseAlpha 1
+	
+	$phong 1
+    	$phongfresnelranges "[0.55 1.56 0]"
+	$phongboost	"1.80"
+	$nocull 1
+}
