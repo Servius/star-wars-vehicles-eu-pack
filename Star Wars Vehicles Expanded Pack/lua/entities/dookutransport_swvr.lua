@@ -41,7 +41,8 @@ if SERVER then
 
 
         self:AddPilot(nil, nil, {
-            ExitPos = Vector(-200, -150, 0)
+            ExitPos = Vector(-200, -150, 0),
+            FPVPos = Vector(20, 0, 0), -- distance from center, left right, up down.
         })
 
         self.BaseClass.Initialize(self)
@@ -51,6 +52,8 @@ end
 if CLIENT then
     function ENT:Initialize()
         self:Setup({
+            Cockpit = "vgui/droid_cockpit",
+            AlwaysDraw = true,
             EngineSound = "vehicles/droid/droid_fly.wav",
             ViewDistance = 800,
             ViewHeight = 150
