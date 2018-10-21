@@ -27,9 +27,9 @@ if SERVER then
         self:Setup({
             Model = "models/ship_vulture/vulture_yellow_servius.mdl",
             Health = 1500,
-            Speed = 1250,
+            Speed = 3000,
             Shields = 1000,
-            BoostSpeed = 2500,
+            BoostSpeed = 3000,
             VerticalSpeed = 600,
             Acceleration = 8,
             Roll = true,
@@ -43,12 +43,13 @@ if SERVER then
             MaxOverheat = 20
         })
 
-        self:AddWeapon("Pilot", "BottomLeft", Vector(150, -75, 30))
-        self:AddWeapon("Pilot", "BottomRight", Vector(150, 75, 30))
-        self:AddWeapon("Pilot", "TopLeft", Vector(150, -75, 30))
-        self:AddWeapon("Pilot", "TopRight", Vector(150, 75, 30))
+        self:AddWeapon("Pilot", "BottomLeft", Vector(90, -80, 10))
+        self:AddWeapon("Pilot", "BottomRight", Vector(90, 80, 10))
+        self:AddWeapon("Pilot", "TopLeft", Vector(90, -80, -10))
+        self:AddWeapon("Pilot", "TopRight", Vector(90, 80, -10))
 
         self:AddPilot(nil, nil, {
+            FPVPos = Vector(-90, 0, 40), -- distance from center, left right, up down.
             Weapons = { "Pilot" },
             ExitPos = Vector(-200, -150, 0)
         })
@@ -60,6 +61,8 @@ end
 if CLIENT then
     function ENT:Initialize()
         self:Setup({
+            Cockpit = "vgui/droid_cockpit",
+            AlwaysDraw = true,
             EngineSound = "vehicles/droid/droid_fly.wav",
             ViewDistance = 800,
             ViewHeight = 150

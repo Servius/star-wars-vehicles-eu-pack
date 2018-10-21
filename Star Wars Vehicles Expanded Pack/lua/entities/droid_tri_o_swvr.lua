@@ -42,9 +42,9 @@ if SERVER then
       MaxOverheat = 20
     })
 
-    self:AddWeapon("Pilot", "MainT", Vector(102, 3, 195))
-    self:AddWeapon("Pilot", "MainR", Vector(102, 84, 43))
-    self:AddWeapon("Pilot", "MainL", Vector(102, -87, 43))
+    self:AddWeapon("Pilot", "MainT", Vector(102, 0, 154)) -- distance from center, left right, up down.
+    self:AddWeapon("Pilot", "MainR", Vector(102, 73, 20))
+    self:AddWeapon("Pilot", "MainL", Vector(102, -73, 20))
 
     self:AddWeaponGroup("Center", "gn40_cannon", {
       Delay = 0.5,
@@ -54,7 +54,7 @@ if SERVER then
       Cooldown = 10
     })
 
-    self:AddWeapon("Center", "Center", Vector(170, 3, 100))
+    self:AddWeapon("Center", "Center", Vector(130, 0, 65))
 
     self:AddWeaponGroup("Torpedo", "swvr_base_missile", {
       Delay = 2,
@@ -73,7 +73,7 @@ if SERVER then
     self:AddWeapon("Torpedo", "Missile1", Vector(170, 3, 30))
 
     self:AddPilot(nil, nil, {
-      FPVPos = Vector(100, 3, 120),
+      FPVPos = Vector(80, 0, 80),
       Weapons = { "Pilot", "Center", "Torpedo" }
     })
 
@@ -93,7 +93,7 @@ if CLIENT then
 
     self:SetupDefaults()
 
-    self:AddEngine(Vector(-170, 30, 75), {
+    self:AddEngine(Vector(-140, 30, 47), { -- distance from center, left right, up down.
       StartSize = 15,
       EndSize = 13.5,
       Lifetime = 2.7,
@@ -101,7 +101,7 @@ if CLIENT then
       Sprite = "sprites/orangecore1"
     })
 
-    self:AddEngine(Vector(-170, 3, 130), {
+    self:AddEngine(Vector(-140, 0, 96), {
       StartSize = 15,
       EndSize = 13.5,
       Lifetime = 2.7,
@@ -109,7 +109,7 @@ if CLIENT then
       Sprite = "sprites/orangecore1"
     })
 
-    self:AddEngine(Vector(-170, -27, 75), {
+    self:AddEngine(Vector(-140, -30, 47), {
       StartSize = 15,
       EndSize = 13.5,
       Lifetime = 2.7,

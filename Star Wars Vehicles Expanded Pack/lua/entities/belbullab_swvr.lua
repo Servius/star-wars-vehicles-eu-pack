@@ -48,6 +48,7 @@ if SERVER then
 
         self:AddPilot(nil, nil, {
             Weapons = { "Pilot" },
+            FPVPos = Vector(-90, 0, 70), -- distance from center, left right, up down.
             ExitPos = Vector(-200, -150, 0)
         })
 
@@ -58,6 +59,8 @@ end
 if CLIENT then
     function ENT:Initialize()
         self:Setup({
+            Cockpit = "vgui/droid_cockpit",
+            AlwaysDraw = true,
             EngineSound = "vehicles/droid/droid_fly.wav",
             ViewDistance = 800,
             ViewHeight = 150
