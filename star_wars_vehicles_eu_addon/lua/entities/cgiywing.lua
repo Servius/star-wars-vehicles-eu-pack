@@ -5,7 +5,7 @@ ENT.Type = "vehicle"
 ENT.Base = "fighter_base"
 
 ENT.PrintName = "BTL-B Y-Wing (CGI)"
-ENT.Author = "Liam0102,Negi"
+ENT.Author = "Liam0102,Bridge"
 ENT.Category = "Star Wars Vehicles: Republic"
 ENT.AutomaticFrameAdvance = true
 ENT.Spawnable = false;
