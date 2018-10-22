@@ -1,5 +1,0 @@
-"VertexLitGeneric"
-{
-	"$baseTexture" "models/starwars\swbf3\vehicles\reb_ywing\ywing_main"
-	"$phongexponenttexture"  "models/starwars\swbf3\vehicles\reb_ywing\ywing_main_2"
-}
