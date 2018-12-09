@@ -49,12 +49,12 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 320 + self:GetRight() * 5 + self:GetUp() * 140,
-        Left = self:GetPos() + self:GetForward() * 320 + self:GetRight() * -5 + self:GetUp() * 140,
+        Right = self:GetPos() + self:GetForward() * 192 + self:GetRight() * 3 + self:GetUp() * 84,
+        Left = self:GetPos() + self:GetForward() * 192 + self:GetRight() * -3 + self:GetUp() * 84,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
-    self.ForwardSpeed = 700; -- The forward speed 
+    self.BoostSpeed = 1300; -- The speed we go when holding SHIFT
+    self.ForwardSpeed = 500; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 40; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
@@ -86,14 +86,14 @@ function ENT:ProtonTorpedos()
 	if(self.NextUse.Torpedos < CurTime()) then
 		local pos;
 		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*75+self:GetForward()*400+self:GetRight()*-15;
+			pos = self:GetPos()+self:GetUp()*40+self:GetForward()*240+self:GetRight()*-9;
 			self.NextUse.Torpedos = CurTime()+0.2;
 		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*75+self:GetForward()*400+self:GetRight()*15;
+			pos = self:GetPos()+self:GetUp()*40+self:GetForward()*240+self:GetRight()*9;
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(255,20,20,200),10);
+		self:FireTorpedo(pos,e,1500,700,Color(255,20,20,200),10);
 		fire = fire + 1;
 		if(fire > 2) then
 			fire = 1;
@@ -149,9 +149,9 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*60+self:GetRight()*-220,
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*60+self:GetRight()*220,
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*170
+		self:GetPos()+self:GetForward()*-155+self:GetUp()*36+self:GetRight()*-132,
+		self:GetPos()+self:GetForward()*-155+self:GetUp()*36+self:GetRight()*132,
+		self:GetPos()+self:GetForward()*-155+self:GetUp()*102
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -161,8 +161,8 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(30) -- Start size. Just play around to find the right size.
-		red:SetEndSize(3) -- End size
+		red:SetStartSize(20) -- Start size. Just play around to find the right size.
+		red:SetEndSize(5) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,20,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 

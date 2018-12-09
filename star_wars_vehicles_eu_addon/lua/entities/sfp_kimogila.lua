@@ -26,14 +26,14 @@ ENT.Allegiance = "Neutral";
  
 if SERVER then
  
-ENT.FireSound = Sound("weapons/mf/mf_shoot2.wav"); -- The sound to make when firing the weapons. You do not need the sounds folder at the start
+ENT.FireSound = Sound("vehicles/mf/mf_shoot2.wav"); -- The sound to make when firing the weapons. You do not need the sounds folder at the start
 ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),}; --Leave this alone for the most part.
 
  
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
     local e = ents.Create("sfp_kimogila"); -- This should be the same name as the file
-	local spawn_height = 115; -- How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
+	local spawn_height = 15; -- How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
 	
     e:SetPos(tr.HitPos + Vector(0,0,spawn_height));
     e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw,0));
@@ -49,13 +49,13 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        FarRight = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 600 + self:GetUp() * 220,
-        FarLeft = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -600 + self:GetUp() * 220,
-        Right = self:GetPos() + self:GetForward() * 685 + self:GetRight() * 40 + self:GetUp() * 80,
-        Left = self:GetPos() + self:GetForward() * 685 + self:GetRight() * -40 + self:GetUp() * 80,
+        FarRight = self:GetPos() + self:GetForward() * 100 + self:GetRight() * 410 + self:GetUp() * 150,
+        FarLeft = self:GetPos() + self:GetForward() * 100 + self:GetRight() * -410 + self:GetUp() * 150,
+        Right = self:GetPos() + self:GetForward() * 470 + self:GetRight() * 35 + self:GetUp() * 65,
+        Left = self:GetPos() + self:GetForward() * 470 + self:GetRight() * -35 + self:GetUp() * 65,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
+    self.BoostSpeed = 1200; -- The speed we go when holding SHIFT
     self.ForwardSpeed = 700; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
@@ -78,7 +78,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
@@ -88,20 +88,20 @@ function ENT:ProtonTorpedos()
 	if(self.NextUse.Torpedos < CurTime()) then
 		local pos;
 		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*225+self:GetForward()*-20+self:GetRight()*-285;
+			pos = self:GetPos()+self:GetUp()*157+self:GetForward()*-14+self:GetRight()*-200;
 			self.NextUse.Torpedos = CurTime()-0.1;
 		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*225+self:GetForward()*-20+self:GetRight()*285;
+			pos = self:GetPos()+self:GetUp()*157+self:GetForward()*-14+self:GetRight()*200;
 			self.NextUse.Torpedos = CurTime()+0.25;
 		elseif(fire == 3) then
-			pos = self:GetPos()+self:GetUp()*225+self:GetForward()*-20+self:GetRight()*-325;
+			pos = self:GetPos()+self:GetUp()*157+self:GetForward()*-14+self:GetRight()*-228;
 			self.NextUse.Torpedos = CurTime()-0.1;
 		elseif(fire == 4) then
-			pos = self:GetPos()+self:GetUp()*225+self:GetForward()*-20+self:GetRight()*325;
+			pos = self:GetPos()+self:GetUp()*157+self:GetForward()*-14+self:GetRight()*228;
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(230,0,0,200),10);
+		self:FireTorpedo(pos,e,4000,200,Color(230,0,0,200),10);
 		fire = fire + 1;
 		if(fire > 4) then
 			fire = 1;
@@ -157,7 +157,7 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-550+self:GetUp()*170+self:GetRight()*0,
+		self:GetPos()+self:GetForward()*-385+self:GetUp()*120+self:GetRight()*0,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -167,7 +167,7 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(100) -- Start size. Just play around to find the right size.
+		red:SetStartSize(70) -- Start size. Just play around to find the right size.
 		red:SetEndSize(15) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
@@ -193,7 +193,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_kimogila", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,900,400,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,600,400,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

@@ -49,14 +49,14 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        TopRight = self:GetPos() + self:GetForward() * 155 + self:GetRight() * 390 + self:GetUp() * 135,
-        TopLeft = self:GetPos() + self:GetForward() * 155 + self:GetRight() * -390 + self:GetUp() * 135,
-        Right = self:GetPos() + self:GetForward() * 155 + self:GetRight() * 390 + self:GetUp() * 105,
-        Left = self:GetPos() + self:GetForward() * 155 + self:GetRight() * -390 + self:GetUp() * 105,
+        TopRight = self:GetPos() + self:GetForward() * 64 + self:GetRight() * 156 + self:GetUp() * 54,
+        TopLeft = self:GetPos() + self:GetForward() * 64 + self:GetRight() * -156 + self:GetUp() * 54,
+        Right = self:GetPos() + self:GetForward() * 64 + self:GetRight() * 156 + self:GetUp() * 42,
+        Left = self:GetPos() + self:GetForward() * 64 + self:GetRight() * -156 + self:GetUp() * 42,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
-    self.ForwardSpeed = 600; -- The forward speed 
+    self.BoostSpeed = 1500; -- The speed we go when holding SHIFT
+    self.ForwardSpeed = 700; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
@@ -88,22 +88,16 @@ function ENT:ProtonTorpedos()
 	if(self.NextUse.Torpedos < CurTime()) then
 		local pos;
 		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*130+self:GetForward()*300+self:GetRight()*-125;
-			self.NextUse.Torpedos = CurTime()-0.1;
+			pos = self:GetPos()+self:GetUp()*52+self:GetForward()*120+self:GetRight()*50;
+			self.NextUse.Torpedos = CurTime()+.25;
 		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*130+self:GetForward()*300+self:GetRight()*125;
-			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 3) then
-			pos = self:GetPos()+self:GetUp()*130+self:GetForward()*300+self:GetRight()*-165;
-			self.NextUse.Torpedos = CurTime()-0.1;
-		elseif(fire == 4) then
-			pos = self:GetPos()+self:GetUp()*130+self:GetForward()*300+self:GetRight()*165;
+			pos = self:GetPos()+self:GetUp()*52+self:GetForward()*120+self:GetRight()*-50;
 			
 		end
 		local e = self:FindTarget();
 		self:FireTorpedo(pos,e,1500,500,Color(0,0,230,200),10);
 		fire = fire + 1;
-		if(fire > 4) then
+		if(fire > 2) then
 			fire = 1;
 			self.NextUse.Torpedos = CurTime()+10;
 			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
@@ -157,12 +151,12 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-405+self:GetUp()*120+self:GetRight()*-190,
-		self:GetPos()+self:GetForward()*-405+self:GetUp()*120+self:GetRight()*190,
-		self:GetPos()+self:GetForward()*-455+self:GetUp()*120+self:GetRight()*-115,
-		self:GetPos()+self:GetForward()*-455+self:GetUp()*120+self:GetRight()*115,
-		self:GetPos()+self:GetForward()*-455+self:GetUp()*120+self:GetRight()*-40,
-		self:GetPos()+self:GetForward()*-455+self:GetUp()*120+self:GetRight()*40,
+		self:GetPos()+self:GetForward()*-165+self:GetUp()*48+self:GetRight()*-76,
+		self:GetPos()+self:GetForward()*-165+self:GetUp()*48+self:GetRight()*76,
+		self:GetPos()+self:GetForward()*-180+self:GetUp()*48+self:GetRight()*-46,
+		self:GetPos()+self:GetForward()*-180+self:GetUp()*48+self:GetRight()*46,
+		self:GetPos()+self:GetForward()*-185+self:GetUp()*48+self:GetRight()*-16,
+		self:GetPos()+self:GetForward()*-185+self:GetUp()*48+self:GetRight()*16,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -172,8 +166,8 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(30) -- Start size. Just play around to find the right size.
-		red:SetEndSize(8) -- End size
+		red:SetStartSize(10) -- Start size. Just play around to find the right size.
+		red:SetEndSize(6) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(180,0,90) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
@@ -198,7 +192,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_droidbomber", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,800,400,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,400,150,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

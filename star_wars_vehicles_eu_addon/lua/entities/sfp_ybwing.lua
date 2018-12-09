@@ -49,12 +49,12 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        RightT = self:GetPos() + self:GetForward() * 105 + self:GetRight() * 90 + self:GetUp() * 660,
-        LeftT = self:GetPos() + self:GetForward() * 105 + self:GetRight() * -90 + self:GetUp() * 660,
-        RightM = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 580 + self:GetUp() * 320,
-        LeftM = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -580 + self:GetUp() * 320,
-        RightB = self:GetPos() + self:GetForward() * 105 + self:GetRight() * 90 + self:GetUp() * 20,
-        LeftB = self:GetPos() + self:GetForward() * 105 + self:GetRight() * -90 + self:GetUp() * 20,
+        RightT = self:GetPos() + self:GetForward() * 63 + self:GetRight() * 54 + self:GetUp() * 388,
+        LeftT = self:GetPos() + self:GetForward() * 63 + self:GetRight() * -54 + self:GetUp() * 388,
+        RightM = self:GetPos() + self:GetForward() * 87 + self:GetRight() * 348 + self:GetUp() * 192,
+        LeftM = self:GetPos() + self:GetForward() * 87 + self:GetRight() * -348 + self:GetUp() * 192,
+        RightB = self:GetPos() + self:GetForward() * 63 + self:GetRight() * 54 + self:GetUp() * 12,
+        LeftB = self:GetPos() + self:GetForward() * 63 + self:GetRight() * -54 + self:GetUp() * 12,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 1400; -- The speed we go when holding SHIFT
@@ -90,20 +90,20 @@ function ENT:ProtonTorpedos()
 	if(self.NextUse.Torpedos < CurTime()) then
 		local pos;
 		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*300+self:GetForward()*-20+self:GetRight()*-85;
+			pos = self:GetPos()+self:GetUp()*204+self:GetForward()*-12+self:GetRight()*-51;
 			self.NextUse.Torpedos = CurTime()-0.1;
 		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*300+self:GetForward()*-20+self:GetRight()*85;
+			pos = self:GetPos()+self:GetUp()*204+self:GetForward()*-12+self:GetRight()*51;
 			self.NextUse.Torpedos = CurTime()+0.25;
 		elseif(fire == 3) then
-			pos = self:GetPos()+self:GetUp()*340+self:GetForward()*-20+self:GetRight()*-85;
+			pos = self:GetPos()+self:GetUp()*180+self:GetForward()*-12+self:GetRight()*-51;
 			self.NextUse.Torpedos = CurTime()-0.1;
 		elseif(fire == 4) then
-			pos = self:GetPos()+self:GetUp()*340+self:GetForward()*-20+self:GetRight()*85;
+			pos = self:GetPos()+self:GetUp()*180+self:GetForward()*-12+self:GetRight()*51;
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(90,0,180,200),10);
+		self:FireTorpedo(pos,e,1500,500,Color(200,20,20,200),10);
 		fire = fire + 1;
 		if(fire > 4) then
 			fire = 1;
@@ -159,10 +159,10 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-340+self:GetUp()*370+self:GetRight()*-25,
-		self:GetPos()+self:GetForward()*-340+self:GetUp()*370+self:GetRight()*25,
-		self:GetPos()+self:GetForward()*-340+self:GetUp()*315+self:GetRight()*-25,
-		self:GetPos()+self:GetForward()*-340+self:GetUp()*315+self:GetRight()*25,
+		self:GetPos()+self:GetForward()*-204+self:GetUp()*222+self:GetRight()*-15,
+		self:GetPos()+self:GetForward()*-204+self:GetUp()*222+self:GetRight()*15,
+		self:GetPos()+self:GetForward()*-204+self:GetUp()*189+self:GetRight()*-15,
+		self:GetPos()+self:GetForward()*-204+self:GetUp()*189+self:GetRight()*15,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -172,7 +172,7 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(25) -- Start size. Just play around to find the right size.
+		red:SetStartSize(15) -- Start size. Just play around to find the right size.
 		red:SetEndSize(3) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.

@@ -55,8 +55,8 @@ function ENT:Initialize()
         Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -220 + self:GetUp() * 20,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
-    self.ForwardSpeed = 700; -- The forward speed 
+    self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
+    self.ForwardSpeed = 1000; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
@@ -101,7 +101,7 @@ function ENT:ProtonTorpedos()
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(90,0,180,200),10);
+		self:FireTorpedo(pos,e,4000,500,Color(90,0,180,200),10);
 		fire = fire + 1;
 		if(fire > 4) then
 			fire = 1;
@@ -196,7 +196,7 @@ end
 		local self = p:GetNetworkedEntity("havoc_merc", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,500,200,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,350,200,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

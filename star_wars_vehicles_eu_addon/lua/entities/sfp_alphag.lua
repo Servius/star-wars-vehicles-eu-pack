@@ -49,10 +49,10 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 320 + self:GetRight() * 170 + self:GetUp() * 75,
-        Right2 = self:GetPos() + self:GetForward() * 300 + self:GetRight() * 185 + self:GetUp() * 90,
-        Left = self:GetPos() + self:GetForward() * 320 + self:GetRight() * -170 + self:GetUp() * 75,
-        Left2 = self:GetPos() + self:GetForward() * 300 + self:GetRight() * -185 + self:GetUp() * 90,
+        Right = self:GetPos() + self:GetForward() * 192 + self:GetRight() * 102 + self:GetUp() * 45,
+        Right2 = self:GetPos() + self:GetForward() * 180 + self:GetRight() * 111 + self:GetUp() * 54,
+        Left = self:GetPos() + self:GetForward() * 192 + self:GetRight() * -102 + self:GetUp() * 45,
+        Left2 = self:GetPos() + self:GetForward() * 180 + self:GetRight() * -111 + self:GetUp() * 54,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
@@ -65,7 +65,7 @@ function ENT:Initialize()
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=125,y=225,z=60}
 
 	self.FireDelay = 0.05
 	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -90,18 +90,18 @@ function ENT:Think()
             if(IsValid(self.Pilot)) then 
                 if(self.Pilot:KeyDown(IN_ATTACK2) and self.NextUse.FireBlast < CurTime()) then
                     self.BlastPositions = {
-                        self:GetPos() + self:GetForward() * 100 + self:GetRight() * 100 + self:GetUp() * 100, //1
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * -100 + self:GetUp() * 100, //1
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * 115 + self:GetUp() * 100, //2
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * -115 + self:GetUp() * 100, //2
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * 130 + self:GetUp() * 100, //3
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * -130 + self:GetUp() * 100, //3
-						self:GetPos() + self:GetForward() * 10 + self:GetRight() * 100 + self:GetUp() * 140, //4
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * -100 + self:GetUp() * 140, //4
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * 115 + self:GetUp() * 140, //5
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * -115 + self:GetUp() * 140, //5
-						self:GetPos() + self:GetForward() * 10 + self:GetRight() * 130 + self:GetUp() * 140, //6
-						self:GetPos() + self:GetForward() * 100 + self:GetRight() * -130 + self:GetUp() * 140, //6
+                        self:GetPos() + self:GetForward() * 60 + self:GetRight() * 60 + self:GetUp() * 60, //1
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * -60 + self:GetUp() * 60, //1
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * 69 + self:GetUp() * 60, //2
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * -69 + self:GetUp() * 60, //2
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * 78 + self:GetUp() * 60, //3
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * -78 + self:GetUp() * 60, //3
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * 60 + self:GetUp() * 84, //4
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * -60 + self:GetUp() * 84, //4
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * 69 + self:GetUp() * 84, //5
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * -69 + self:GetUp() * 84, //5
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * 78 + self:GetUp() * 84, //6
+						self:GetPos() + self:GetForward() * 60 + self:GetRight() * -78 + self:GetUp() * 84, //6
                     } //Table of the positions from which to fire
                     self:FireDroidBlast(self.BlastPositions[self.NextBlast], false, 100, 100, true, 8, Sound("weapons/n1_cannon.wav"));
 					self.NextBlast = self.NextBlast + 1;
@@ -174,10 +174,10 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*120+self:GetRight()*-95,
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*120+self:GetRight()*95,
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*120+self:GetRight()*-115,
-		self:GetPos()+self:GetForward()*-250+self:GetUp()*120+self:GetRight()*115,
+		self:GetPos()+self:GetForward()*-150+self:GetUp()*72+self:GetRight()*-57,
+		self:GetPos()+self:GetForward()*-150+self:GetUp()*72+self:GetRight()*57,
+		self:GetPos()+self:GetForward()*-150+self:GetUp()*72+self:GetRight()*-72,
+		self:GetPos()+self:GetForward()*-150+self:GetUp()*72+self:GetRight()*72,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -186,16 +186,16 @@ function ENT:Effects()
 		red:SetVelocity(normal) --Set direction we made earlier
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
-		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(20) -- Start size. Just play around to find the right size.
-		red:SetEndSize(8) -- End size
+		red:SetEndAlpha(60) -- How visible it is at the end
+		red:SetStartSize(15) -- Start size. Just play around to find the right size.
+		red:SetEndSize(6) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,255,255) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
 		local dynlight = DynamicLight(id + 4096 * k); -- Create the "glow"
 		dynlight.Pos = v; -- Position from the table
  		dynlight.Brightness = 4; -- Brightness, Don't go above 10. It's blinding
-		dynlight.Size = 100; -- How far it reaches
+		dynlight.Size = 60; -- How far it reaches
 		dynlight.Decay = 1024; -- Not really sure what this does, but I leave it in
 		dynlight.R = 255; -- Colour R
 		dynlight.G = 69; -- Colour G
@@ -225,7 +225,7 @@ end
 		local Flying = p:GetNWBool("Flyingsfp_alphag");
 		local self = p:GetNWEntity("sfp_alphag");
 		if(Flying and IsValid(self)) then
-			SW_HUD_DrawHull(3000); -- Replace 1000 with the starthealth at the top
+			SW_HUD_DrawHull(3000); -- Replace 600 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
 			SW_BlastIcon(self,10);

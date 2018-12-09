@@ -49,19 +49,19 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 780 + self:GetRight() * 50 + self:GetUp() * 50,
-        Left = self:GetPos() + self:GetForward() * 780 + self:GetRight() * -50 + self:GetUp() * 50,
-        Right2 = self:GetPos() + self:GetForward() * 780 + self:GetRight() * 50 + self:GetUp() * 85,
-        Left2 = self:GetPos() + self:GetForward() * 780 + self:GetRight() * -50 + self:GetUp() * 85,
+        Right = self:GetPos() + self:GetForward() * 468 + self:GetRight() * 30 + self:GetUp() * 30,
+        Left = self:GetPos() + self:GetForward() * 468 + self:GetRight() * -30 + self:GetUp() * 30,
+        Right2 = self:GetPos() + self:GetForward() * 468 + self:GetRight() * 30 + self:GetUp() * 51,
+        Left2 = self:GetPos() + self:GetForward() * 468 + self:GetRight() * -30 + self:GetUp() * 51,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 2100; -- The speed we go when holding SHIFT
+    self.BoostSpeed = 1100; -- The speed we go when holding SHIFT
     self.ForwardSpeed = 500; -- The forward speed 
     self.UpSpeed = 250; -- Up/Down Speed
-    self.AccelSpeed = 16; -- How fast we get to our previously set speeds
+    self.AccelSpeed = 3; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
-	self.CanRoll = true; -- Set to true if you want the ship to roll, false if not
-	self.CanStrafe = false; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
+	self.CanRoll = false; -- Set to true if you want the ship to roll, false if not
+	self.CanStrafe = true; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
@@ -78,7 +78,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(70,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(40,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
@@ -90,29 +90,15 @@ function ENT:Think()
             if(IsValid(self.Pilot)) then 
                 if(self.Pilot:KeyDown(IN_ATTACK2) and self.NextUse.FireBlast < CurTime()) then
                     self.BlastPositions = {
-                        self:GetPos() + self:GetForward() * -250 + self:GetRight() * 100 + self:GetUp() * 250, --0
-						self:GetPos() + self:GetForward() * -250 + self:GetRight() * -100 + self:GetUp() * 250, --0
-                        self:GetPos() + self:GetForward() * -120 + self:GetRight() * 500 + self:GetUp() * 150, --1
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * -500 + self:GetUp() * 150, --1
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * 750 + self:GetUp() * 150, --2
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * -750 + self:GetUp() * 150, --2
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * 1000 + self:GetUp() * 150, --3
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * -1000 + self:GetUp() * 150, --3
-						
-						
-                        self:GetPos() + self:GetForward() * -250 + self:GetRight() * 100 + self:GetUp() * 150, --4
-						self:GetPos() + self:GetForward() * -250 + self:GetRight() * -100 + self:GetUp() * 250, --4
-                        self:GetPos() + self:GetForward() * -120 + self:GetRight() * 500 + self:GetUp() * 250, --5
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * -500 + self:GetUp() * 150, --5
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * 750 + self:GetUp() * 150, --6
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * -750 + self:GetUp() * 150, --6
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * 1000 + self:GetUp() * 150, --7
-						self:GetPos() + self:GetForward() * -120 + self:GetRight() * -1000 + self:GetUp() * 150, --7
-                    } //Table of the positions from which to fire
-                    self:FirekwingBlast(self.BlastPositions[self.NextBlast], true, 150, 150, true, 12, Sound("weapons/n1_cannon.wav"));
+                        self:GetPos() + self:GetForward() * -72 + self:GetRight() * 300 + self:GetUp() * 90, --1
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -300 + self:GetUp() * 90, --1
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * 450 + self:GetUp() * 90, --2
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -450 + self:GetUp() * 90, --2
+					}
+                    self:FirekwingBlast(self.BlastPositions[self.NextBlast], true, 150, 1200, false, 50, Sound("weapons/n1_cannon.wav"));
 					self.NextBlast = self.NextBlast + 1;
-					if(self.NextBlast > 16) then
-						self.NextUse.FireBlast = CurTime()+10;
+					if(self.NextBlast > 4) then
+						self.NextUse.FireBlast = CurTime()+20;
 						self:SetNWBool("OutOfMissiles",true);
 						self:SetNWInt("FireBlast",self.NextUse.FireBlast)
 						self.NextBlast = 1;
@@ -137,10 +123,10 @@ end
 function ENT:FirekwingBlast(pos,gravity,vel,dmg,white,size,snd)
 	local e = ents.Create("cannon_blast");
 	
-	e.Damage = dmg or 1000;
+	e.Damage = dmg or 500;
 	e.IsWhite = white or false;
-	e.StartSize = size or 15;
-	e.EndSize = size*0.55 or 8;
+	e.StartSize = size or 8;
+	e.EndSize = size*0.55 or 4;
 	
 	local sound = snd or Sound("weapons/n1_cannon.wav");
 	
@@ -148,7 +134,7 @@ function ENT:FirekwingBlast(pos,gravity,vel,dmg,white,size,snd)
 	e:Spawn();
 	e:Activate();
 	e:Prepare(self,sound,gravity,vel);
-	e:SetColor(Color(230,0,0,15));
+	e:SetColor(Color(230,100,0,150));
 	
 end
  
@@ -181,20 +167,20 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-675+self:GetUp()*210+self:GetRight()*-270,
-		self:GetPos()+self:GetForward()*-675+self:GetUp()*210+self:GetRight()*270,
-		self:GetPos()+self:GetForward()*-750+self:GetUp()*400+self:GetRight()*0,
+		self:GetPos()+self:GetForward()*-405+self:GetUp()*126+self:GetRight()*-162,
+		self:GetPos()+self:GetForward()*-405+self:GetUp()*126+self:GetRight()*162,
+		self:GetPos()+self:GetForward()*-450+self:GetUp()*240+self:GetRight()*0,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
 	
 		local red = self.FXEmitter:Add("sprites/orangecore1",v) -- This is where you add the effect. The ones I use are either the current or "sprites/bluecore"
 		red:SetVelocity(normal) --Set direction we made earlier
-		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
+		red:SetDieTime(0.2) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(45) -- Start size. Just play around to find the right size.
-		red:SetEndSize(5) -- End size
+		red:SetStartSize(30) -- Start size. Just play around to find the right size.
+		red:SetEndSize(10) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
@@ -234,7 +220,7 @@ end
 			SW_HUD_DrawHull(3200); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,10);
+			SW_BlastIcon(self,20);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end

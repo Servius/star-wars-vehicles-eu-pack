@@ -21,7 +21,7 @@ ENT.AdminOnly = false; --Set to true for an Admin vehicle.
  
 ENT.EntModel = "models/sfp_twing/sfp_twing.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "sfp_twing" --The internal name for the ship. It cannot be the same as a different ship.
-ENT.StartHealth = 2000; --How much health they should have.
+ENT.StartHealth = 1500; --How much health they should have.
 ENT.Allegiance = "Rebels";
  
 if SERVER then
@@ -49,12 +49,12 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 280 + self:GetRight() * 35 + self:GetUp() * 100,
-        Left = self:GetPos() + self:GetForward() * 280 + self:GetRight() * -35 + self:GetUp() * 100,
+        Right = self:GetPos() + self:GetForward() * 224 + self:GetRight() * 28 + self:GetUp() * 80,
+        Left = self:GetPos() + self:GetForward() * 224 + self:GetRight() * -28 + self:GetUp() * 80,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
-    self.ForwardSpeed = 700; -- The forward speed 
+    self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
+    self.ForwardSpeed = 1000; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
@@ -65,7 +65,7 @@ function ENT:Initialize()
 	
 	self.ExitModifier = {x=125,y=225,z=100}
 
-	self.FireDelay = 0.25
+	self.FireDelay = 0.2
 	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
 	self.FireGroup = {"Left","Right","FarLeft","FarRight"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 --The amount a ship can fire consecutively without overheating. 50 is standard.
@@ -80,46 +80,6 @@ function ENT:Initialize()
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
-local fire = 1;
-function ENT:ProtonTorpedos()
-
-	if(self.NextUse.Torpedos < CurTime()) then
-		local pos;
-		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*-65;
-			self.NextUse.Torpedos = CurTime()-0.1;
-		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*65;
-			
-		end
-		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(90,0,180,200),10);
-		fire = fire + 1;
-		if(fire > 4) then
-			fire = 1;
-			self.NextUse.Torpedos = CurTime()+10;
-			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
-		else
-			self:ProtonTorpedos();
-		end
-
-	end
-end
-
-function ENT:Think()
-	
-
-	if(self.Inflight) then
-		if(IsValid(self.Pilot)) then
-			if(self.Pilot:KeyDown(IN_ATTACK2)) then
-				self:ProtonTorpedos();
-			end
-		end
-		
-	end
-	self.BaseClass.Think(self);
-end
- 
 end
  
 if CLIENT then
@@ -149,9 +109,9 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-270+self:GetUp()*50+self:GetRight()*-184,
-		self:GetPos()+self:GetForward()*-270+self:GetUp()*50+self:GetRight()*184,
-		self:GetPos()+self:GetForward()*-270+self:GetUp()*245
+		self:GetPos()+self:GetForward()*-216+self:GetUp()*40+self:GetRight()*-147,
+		self:GetPos()+self:GetForward()*-216+self:GetUp()*40+self:GetRight()*147,
+		self:GetPos()+self:GetForward()*-216+self:GetUp()*196
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -161,8 +121,8 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(23) -- Start size. Just play around to find the right size.
-		red:SetEndSize(3) -- End size
+		red:SetStartSize(18) -- Start size. Just play around to find the right size.
+		red:SetEndSize(5) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
@@ -199,10 +159,9 @@ end
 		local Flying = p:GetNWBool("Flyingsfp_twing");
 		local self = p:GetNWEntity("sfp_twing");
 		if(Flying and IsValid(self)) then
-			SW_HUD_DrawHull(2000); -- Replace 1000 with the starthealth at the top
+			SW_HUD_DrawHull(1500); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,10);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end
