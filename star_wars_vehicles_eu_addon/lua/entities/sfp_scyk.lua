@@ -49,8 +49,8 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 260 + self:GetRight() * 120 + self:GetUp() * 230,
-        Left = self:GetPos() + self:GetForward() * 260 + self:GetRight() * -120 + self:GetUp() * 230,
+        Right = self:GetPos() + self:GetForward() * 130 + self:GetRight() * 60 + self:GetUp() * 115,
+        Left = self:GetPos() + self:GetForward() * 130 + self:GetRight() * -60 + self:GetUp() * 115,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 2500; -- The speed we go when holding SHIFT
@@ -109,7 +109,7 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-550+self:GetUp()*160
+		self:GetPos()+self:GetForward()*-275+self:GetUp()*80
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -119,8 +119,8 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(150) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(70) -- Start size. Just play around to find the right size.
-		red:SetEndSize(30) -- End size
+		red:SetStartSize(50) -- Start size. Just play around to find the right size.
+		red:SetEndSize(20) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
@@ -145,7 +145,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_scyk", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,800,500,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,600,300,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

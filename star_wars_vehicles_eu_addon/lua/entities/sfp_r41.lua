@@ -49,10 +49,10 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        FarRight = self:GetPos() + self:GetForward() * 0 + self:GetRight() * 390 + self:GetUp() * 25,
-        FarLeft = self:GetPos() + self:GetForward() * 0 + self:GetRight() * -390 + self:GetUp() * 25,
-        Right = self:GetPos() + self:GetForward() * 380 + self:GetRight() * 160 + self:GetUp() * 75,
-        Left = self:GetPos() + self:GetForward() * 380 + self:GetRight() * -160 + self:GetUp() * 75,
+        FarRight = self:GetPos() + self:GetForward() * 0 + self:GetRight() * 215 + self:GetUp() * 15,
+        FarLeft = self:GetPos() + self:GetForward() * 0 + self:GetRight() * -215 + self:GetUp() * 15,
+        Right = self:GetPos() + self:GetForward() * 210 + self:GetRight() * 88 + self:GetUp() * 41,
+        Left = self:GetPos() + self:GetForward() * 210 + self:GetRight() * -88 + self:GetUp() * 41,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
@@ -111,20 +111,46 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-480+self:GetUp()*75+self:GetRight()*-50,
-		self:GetPos()+self:GetForward()*-480+self:GetUp()*75+self:GetRight()*55,
-		self:GetPos()+self:GetForward()*-470+self:GetUp()*115+self:GetRight()*-125,
-		self:GetPos()+self:GetForward()*-470+self:GetUp()*115+self:GetRight()*135,
+		self:GetPos()+self:GetForward()*-270+self:GetUp()*41+self:GetRight()*-25,
+		self:GetPos()+self:GetForward()*-270+self:GetUp()*41+self:GetRight()*30,
+	}
+	
+	self.EnginePos2 = {
+		self:GetPos()+self:GetForward()*-258+self:GetUp()*63+self:GetRight()*-70,
+		self:GetPos()+self:GetForward()*-258+self:GetUp()*63+self:GetRight()*73,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
 	
 		local red = self.FXEmitter:Add("sprites/orangecore1",v) -- This is where you add the effect. The ones I use are either the current or "sprites/bluecore"
+		red:SetDieTime(0.1) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetVelocity(normal) --Set direction we made earlier
-		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(35) -- Start size. Just play around to find the right size.
+		red:SetStartSize(20) -- Start size. Just play around to find the right size.
+		red:SetEndSize(5) -- End size
+		red:SetRoll(roll) -- They see me rollin. (They hatin')
+		red:SetColor(255,100,80) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
+
+		local dynlight = DynamicLight(id + 4096 * k); -- Create the "glow"
+		dynlight.Pos = v; -- Position from the table
+ 		dynlight.Brightness = 4; -- Brightness, Don't go above 10. It's blinding
+		dynlight.Size = 100; -- How far it reaches
+		dynlight.Decay = 1024; -- Not really sure what this does, but I leave it in
+		dynlight.R = 255; -- Colour R
+		dynlight.G = 100; -- Colour G
+		dynlight.B = 60; -- Colour B
+		dynlight.DieTime = CurTime()+1; -- When the light should die
+
+	end
+	for k,v in pairs(self.EnginePos2) do
+	
+		local red = self.FXEmitter:Add("sprites/orangecore1",v) -- This is where you add the effect. The ones I use are either the current or "sprites/bluecore"
+		red:SetDieTime(0.1) --How quick the particle dies. Make it larger if you want the effect to hang around
+		red:SetVelocity(normal) --Set direction we made earlier
+		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
+		red:SetEndAlpha(100) -- How visible it is at the end
+		red:SetStartSize(15) -- Start size. Just play around to find the right size.
 		red:SetEndSize(5) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,100,80) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.

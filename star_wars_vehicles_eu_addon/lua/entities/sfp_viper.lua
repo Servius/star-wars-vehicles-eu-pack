@@ -21,7 +21,7 @@ ENT.AdminOnly = false; --Set to true for an Admin vehicle.
  
 ENT.EntModel = "models/sfp_viper/sfp_viper.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "sfp_viper" --The internal name for the ship. It cannot be the same as a different ship.
-ENT.StartHealth = 1500; --How much health they should have.
+ENT.StartHealth = 1200; --How much health they should have.
 ENT.Allegiance = "Neutral";
  
 if SERVER then
@@ -49,8 +49,8 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 125 + self:GetRight() * 100 + self:GetUp() * 100,
-        Left = self:GetPos() + self:GetForward() * 125 + self:GetRight() * -100 + self:GetUp() * 100,
+        Right = self:GetPos() + self:GetForward() * 100 + self:GetRight() * 75 + self:GetUp() * 80,
+        Left = self:GetPos() + self:GetForward() * 100 + self:GetRight() * -75 + self:GetUp() * 80,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
@@ -75,7 +75,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"yellow",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"yellow",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
@@ -109,10 +109,10 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-100+self:GetUp()*130+self:GetRight()*-23,
-		self:GetPos()+self:GetForward()*-100+self:GetUp()*130+self:GetRight()*23,
-		self:GetPos()+self:GetForward()*-100+self:GetUp()*105+self:GetRight()*-23,
-		self:GetPos()+self:GetForward()*-100+self:GetUp()*105+self:GetRight()*23,
+		self:GetPos()+self:GetForward()*-80+self:GetUp()*104+self:GetRight()*-18,
+		self:GetPos()+self:GetForward()*-80+self:GetUp()*104+self:GetRight()*18,
+		self:GetPos()+self:GetForward()*-80+self:GetUp()*84+self:GetRight()*-18,
+		self:GetPos()+self:GetForward()*-80+self:GetUp()*84+self:GetRight()*18,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -160,7 +160,7 @@ end
 		local Flying = p:GetNWBool("Flyingsfp_viper");
 		local self = p:GetNWEntity("sfp_viper");
 		if(Flying and IsValid(self)) then
-			SW_HUD_DrawHull(1500); -- Replace 1000 with the starthealth at the top
+			SW_HUD_DrawHull(1200); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
 			SW_BlastIcon(self,10);

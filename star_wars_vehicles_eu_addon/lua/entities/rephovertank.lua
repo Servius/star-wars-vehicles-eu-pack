@@ -43,7 +43,7 @@ function ENT:Initialize()
 	self.SpeederClass = 2;
 	self.StartHover = 30;
 
-	self.Bullet = CreateBulletStructure(50,"blue");
+	self.Bullet = CreateBulletStructure(70,"green",false);
 	self.WeaponDir = self:GetAngles():Forward()*-1;
 	self.FireDelay = 0.1;
 
@@ -61,7 +61,7 @@ function ENT:FireLeftBlast(pos,gravity,vel,ang,dmg,white,size,snd)
 	if(self.NextUse.FireLeftBlast < CurTime()) then
 		local e = ents.Create("cannon_blast");
 	
-	e.Damage = dmg or 600;
+	e.Damage = dmg or 1000;
 	e.IsWhite = white or false;
 	e.StartSize = 15;
 	e.EndSize = 5;
@@ -82,7 +82,7 @@ function ENT:FireRightBlast(pos,gravity,vel,ang,dmg,white,size,snd)
 	if(self.NextUse.FireRightBlast < CurTime()) then
 		local e = ents.Create("cannon_blast");
 	
-	e.Damage = dmg or 600;
+	e.Damage = dmg or 1000;
 	e.IsWhite = white or false;
 	e.StartSize = 15;
 	e.EndSize = 5;

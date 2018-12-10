@@ -146,7 +146,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_eta5", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,700,200,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,400,325,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end
