@@ -55,7 +55,7 @@ end
 
 function ENT:FireBlast(pos,gravity,vel,ang)
     if(self.NextUse.FireBlast < CurTime()) then
-        local e = ents.Create("tank_blast");
+        local e = ents.Create("cannon_blast");
         e:SetPos(pos);
         e:Spawn();
         e:Activate();

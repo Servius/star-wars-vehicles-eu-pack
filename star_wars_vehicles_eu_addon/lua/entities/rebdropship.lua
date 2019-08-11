@@ -12,14 +12,14 @@ ENT.PrintName = "Rebel Drop Ship";
 ENT.Author = "Liam0102, Servius";
  
 -- Leave the same
-ENT.Category = "Star Wars Vehicles: In Development"; 
+ENT.Category = "Star Wars Vehicles: Rebels"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 ENT.AdminOnly = false; --Set to true for an Admin vehicle.
  
-ENT.EntModel = "models/swbf3/vehicles/reb_dropship.mdl" --The oath to the model you want to use.
+ENT.EntModel = "models/swbf3/vehicles/reb_dropship_servius.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "RebelDropShip" --The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; --How much health they should have.
 ENT.Allegiance = "Rebels";
@@ -36,7 +36,7 @@ function ENT:SpawnFunction(pl, tr)
 	local spawn_height = 9; -- How high above the ground the vehicle spawns. Change if it's spawning too high, or spawning in the ground.
 	
     e:SetPos(tr.HitPos + Vector(0,0,spawn_height));
-    e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+90,0));
+    e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+0,0));
     e:Spawn();
     e:Activate();
     return e;
@@ -53,21 +53,23 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 225 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -225 + self:GetUp() * 20,
+        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 420 + self:GetUp() * 30,
+        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -360 + self:GetUp() * 30,
+        TopRight = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 400 + self:GetUp() * 30,
+        TopLeft = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -340 + self:GetUp() * 30,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
+    self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
     self.ForwardSpeed = 500; -- The forward speed 
     self.UpSpeed = 115; -- Up/Down Speed
     self.AccelSpeed = 14; -- How fast we get to our previously set speeds
     self.CanBack = false; -- Can we move backwards? Set to true if you want this.
-	self.CanRoll = true; -- Set to true if you want the ship to roll, false if not
-	self.CanStrafe = false; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
+	self.CanRoll = false; -- Set to true if you want the ship to roll, false if not
+	self.CanStrafe = true; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=125,y=0,z=100}
 
 	
 	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -78,9 +80,16 @@ function ENT:Initialize()
 	
 	
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
- 
+	
+	self.HasSeats = true;
+	self.SeatPos = {
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0,self:GetAngles()+Angle(0,0,0),Vector(160,100,0)},
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0,self:GetAngles()+Angle(0,0,0),Vector(160,100,0)},
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0,self:GetAngles()+Angle(0,180,0),Vector(160,100,0)},
+		{self:GetPos()+self:GetForward()*-100+self:GetUp()*0,self:GetAngles()+Angle(0,180,0),Vector(160,100,0)},
+	}	
 
-    self.Bullet = CreateBulletStructure(80,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(40,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
@@ -115,8 +124,8 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-210+self:GetUp()*57+self:GetRight()*-57,
-		self:GetPos()+self:GetForward()*-210+self:GetUp()*57+self:GetRight()*57,
+		self:GetPos()+self:GetForward()*-140+self:GetUp()*225+self:GetRight()*100,
+		self:GetPos()+self:GetForward()*-140+self:GetUp()*225+self:GetRight()*-50,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
@@ -126,7 +135,7 @@ function ENT:Effects()
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(14) -- Start size. Just play around to find the right size.
+		red:SetStartSize(10) -- Start size. Just play around to find the right size.
 		red:SetEndSize(3) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
 		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
@@ -152,7 +161,7 @@ end
 		local self = p:GetNetworkedEntity("RebelDropShip", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,500,200,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,500,400,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

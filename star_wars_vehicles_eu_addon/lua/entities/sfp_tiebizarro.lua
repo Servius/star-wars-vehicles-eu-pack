@@ -64,7 +64,7 @@ function ENT:Initialize()
 	
 	self.ExitModifier = {x=125,y=225,z=100}
 
-	self.FireDelay = 0.35
+	self.FireDelay = 1.3
 	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
 	self.FireGroup = {"Left","Right","FarLeft","FarRight"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 --The amount a ship can fire consecutively without overheating. 50 is standard.
@@ -74,7 +74,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(150,"green",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(500,"green",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end

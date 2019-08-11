@@ -27,7 +27,7 @@ ENT.HyperDriveSound = Sound("vehicles/hyperdrive.mp3");
 AddCSLuaFile();
 function ENT:SpawnFunction(pl, tr)
 	local e = ents.Create("fo_resurgent");
-	e:SetPos(tr.HitPos + Vector(0,0,1000));
+	e:SetPos(tr.HitPos + Vector(0,0,0-1000));
 	e:SetAngles(Angle(0,pl:GetAimVector():Angle().Yaw+180,0));
 	e:Spawn();
 	e:Activate();
@@ -343,7 +343,7 @@ if CLIENT then
 		Engine=Sound("ambient/atmosphere/ambience_base.wav"),
 	}
 
-    ENT.ViewDistance = 3000;
+    ENT.ViewDistance = 300;
     ENT.ViewHeight = 350;
 	
 	function ENT:Initialize()

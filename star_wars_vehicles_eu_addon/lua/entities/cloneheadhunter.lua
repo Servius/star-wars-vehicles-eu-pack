@@ -131,6 +131,6 @@ if CLIENT then
 			SW_HUD_DrawSpeedometer();
 		end
 	end
-	hook.Add("HUDPaint", "HeadhunterReticle", HeadhunterReticle)
+	hook.Add("HUDPaint", "cloneheadhunterReticle", cloneheadhunterReticle)
 
 end

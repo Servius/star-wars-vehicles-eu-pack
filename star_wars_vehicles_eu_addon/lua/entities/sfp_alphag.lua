@@ -26,7 +26,7 @@ ENT.Allegiance = "Empire";
  
 if SERVER then
  
-ENT.FireSound = Sound("weapons/slave_shoot.wav"); -- The sound to make when firing the weapons. You do not need the sounds folder at the start
+ENT.FireSound = Sound("weapons/tie_shoot.wav"); -- The sound to make when firing the weapons. You do not need the sounds folder at the start
 ENT.NextUse = {Wings = CurTime(),Use = CurTime(),Fire = CurTime(),}; --Leave this alone for the most part.
 
  
@@ -153,7 +153,7 @@ if CLIENT then
 	ENT.CanFPV = false; -- Set to true if you want FPV
     ENT.EnginePos = {}
     ENT.Sounds={
-        Engine=Sound("ambient/atmosphere/ambience_base.wav"),
+        Engine=Sound("vehicles/slave1_fly_loop.wav"),
     }
 
 function ENT:Think()

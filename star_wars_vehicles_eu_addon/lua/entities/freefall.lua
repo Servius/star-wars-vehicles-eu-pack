@@ -12,7 +12,7 @@ ENT.PrintName = "Freefall";
 ENT.Author = "Liam0102, Servius";
  
 -- Leave the same
-ENT.Category = "Star Wars Vehicles: In Development"; 
+ENT.Category = "Star Wars Vehicles: Neutral"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true;
 ENT.Spawnable = false;
@@ -22,7 +22,7 @@ ENT.AdminOnly = false; --Set to true for an Admin vehicle.
 ENT.EntModel = "models/sweaw/ships/rep_freefall_servius.mdl" --The oath to the model you want to use.
 ENT.Vehicle = "freefall" --The internal name for the ship. It cannot be the same as a different ship.
 ENT.StartHealth = 2000; --How much health they should have.
-ENT.Allegiance = "Rebels";
+ENT.Allegiance = "Neutral";
  
 if SERVER then
  
@@ -49,8 +49,8 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 225 + self:GetUp() * 20,
-        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -225 + self:GetUp() * 20,
+        Right = self:GetPos() + self:GetForward() * 80 + self:GetRight() * 10 + self:GetUp() * 40,
+        Left = self:GetPos() + self:GetForward() * 80 + self:GetRight() * -10 + self:GetUp() * 40,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
@@ -62,6 +62,7 @@ function ENT:Initialize()
 	self.CanStrafe = false; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
+	self.NextBlast = 1;
 	
 	self.ExitModifier = {x=125,y=225,z=100}
 
@@ -81,6 +82,62 @@ function ENT:Initialize()
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
 
+	function ENT:Think()
+ 
+    if(self.Inflight) then
+        if(IsValid(self.Pilot)) then
+            if(IsValid(self.Pilot)) then 
+                if(self.Pilot:KeyDown(IN_ATTACK2) and self.NextUse.FireBlast < CurTime()) then
+                    self.BlastPositions = {
+                        self:GetPos() + self:GetForward() * 120 + self:GetRight() * 65 + self:GetUp() * 60, //1
+						self:GetPos() + self:GetForward() * 120 + self:GetRight() * -65 + self:GetUp() * 60, //2
+						self:GetPos() + self:GetForward() * 120 + self:GetRight() * 85 + self:GetUp() * 60, //3
+						self:GetPos() + self:GetForward() * 120 + self:GetRight() * -85 + self:GetUp() * 60, //4
+                        self:GetPos() + self:GetForward() * 120 + self:GetRight() * 65 + self:GetUp() * 60, //5
+						self:GetPos() + self:GetForward() * 120 + self:GetRight() * -65 + self:GetUp() * 60, //6
+						self:GetPos() + self:GetForward() * 120 + self:GetRight() * 85 + self:GetUp() * 60, //7
+						self:GetPos() + self:GetForward() * 120 + self:GetRight() * -85 + self:GetUp() * 60, //8
+                    }
+                    self:FirentbbomberBlast(self.BlastPositions[self.NextBlast],true,1.5,600,true,30);
+					self.NextBlast = self.NextBlast + 1;
+					if(self.NextBlast == 9) then
+						self.NextUse.FireBlast = CurTime()+3;
+						self:SetNWBool("OutOfMissiles",true);
+						self:SetNWInt("FireBlast",self.NextUse.FireBlast)
+						self.NextBlast = 1;
+					end
+                end
+			end
+		end
+		
+		if(self.NextUse.FireBlast < CurTime()) then
+			self:SetNWBool("OutOfMissiles",false);
+		end
+        self:SetNWInt("Overheat",self.Overheat);
+        self:SetNWBool("Overheated",self.Overheated);
+    end
+    self.BaseClass.Think(self);
+    end
+
+    function ENT:FirentbbomberBlast(pos,gravity,vel,dmg,white,size,snd)
+	if(self.NextUse.FireBlast < CurTime()) then
+		local e = ents.Create("cannon_blast");
+		
+		e.Damage = dmg or 400;
+		e.IsWhite = white or false;
+		e.StartSize = 15;
+		e.EndSize = 5;
+		
+		
+		local sound = snd or Sound("weapons/ywing_bomb.wav");
+		
+		e:SetPos(pos);
+		e:Spawn();
+		e:Activate();
+		e:Prepare(self,sound,gravity,vel);
+		e:SetColor(Color(20,20,255,1));
+	end
+    end
  
 end
  
@@ -111,30 +168,30 @@ function ENT:Effects()
 	
 	--Get the engine pos the same way you get weapon pos
 	self.EnginePos = {
-		self:GetPos()+self:GetForward()*-210+self:GetUp()*57+self:GetRight()*-57,
-		self:GetPos()+self:GetForward()*-210+self:GetUp()*57+self:GetRight()*57,
+		self:GetPos()+self:GetForward()*-178+self:GetUp()*59+self:GetRight()*-256,
+		self:GetPos()+self:GetForward()*-178+self:GetUp()*59+self:GetRight()*256,
 	}
 	
 	for k,v in pairs(self.EnginePos) do
 	
-		local red = self.FXEmitter:Add("sprites/orangecore1",v) -- This is where you add the effect. The ones I use are either the current or "sprites/bluecore"
+		local red = self.FXEmitter:Add("sprites/bluecore",v) -- This is where you add the effect. The ones I use are either the current or "sprites/bluecore"
 		red:SetVelocity(normal) --Set direction we made earlier
 		red:SetDieTime(0.09) --How quick the particle dies. Make it larger if you want the effect to hang around
 		red:SetStartAlpha(255) -- Self explanitory. How visible it is.
 		red:SetEndAlpha(100) -- How visible it is at the end
-		red:SetStartSize(14) -- Start size. Just play around to find the right size.
-		red:SetEndSize(3) -- End size
+		red:SetStartSize(35) -- Start size. Just play around to find the right size.
+		red:SetEndSize(8) -- End size
 		red:SetRoll(roll) -- They see me rollin. (They hatin')
-		red:SetColor(255,60,0) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
+		red:SetColor(50,50,255) -- Set the colour in RGB. This is more of an overlay colour effect and doesn't change the material source.
 
 		local dynlight = DynamicLight(id + 4096 * k); -- Create the "glow"
 		dynlight.Pos = v; -- Position from the table
  		dynlight.Brightness = 4; -- Brightness, Don't go above 10. It's blinding
 		dynlight.Size = 100; -- How far it reaches
 		dynlight.Decay = 1024; -- Not really sure what this does, but I leave it in
-		dynlight.R = 255; -- Colour R
-		dynlight.G = 69; -- Colour G
-		dynlight.B = 0; -- Colour B
+		dynlight.R = 0; -- Colour R
+		dynlight.G = 0; -- Colour G
+		dynlight.B = 255; -- Colour B
 		dynlight.DieTime = CurTime()+1; -- When the light should die
 
 	end
@@ -163,6 +220,7 @@ end
 			SW_HUD_DrawHull(2000); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
+			SW_BlastIcon(self,10);
 
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer

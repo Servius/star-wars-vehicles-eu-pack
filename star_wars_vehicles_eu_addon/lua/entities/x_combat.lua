@@ -11,7 +11,7 @@ ENT.Spawnable = false;
 ENT.AdminSpawnable = false;
 
 ENT.Vehicle = "Speeder";
-ENT.EntModel = "models/swbf3/vehicles/reb_landspeeder.mdl";
+ENT.EntModel = "models/swbf3/vehicles/reb_landspeeder_servius.mdl";
 ENT.StartHealth = 1000;
 
 if SERVER then
