@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "Y-Bwing";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Neutral"; 
@@ -198,7 +198,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_ybwing", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,900,650,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,800,350,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

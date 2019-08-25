@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "TIE Bizarro";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Empire"; 
@@ -57,12 +57,12 @@ function ENT:Initialize()
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
     self.CanBack = true; -- Can we move backwards? Set to true if you want this.
-	self.CanRoll = true; -- Set to true if you want the ship to roll, false if not
-	self.CanStrafe = false; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
+	self.CanRoll = false; -- Set to true if you want the ship to roll, false if not
+	self.CanStrafe = true; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=-110,y=-100,z=10}
 
 	self.FireDelay = 1.3
 	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -74,7 +74,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(500,"green",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(200,"green",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end

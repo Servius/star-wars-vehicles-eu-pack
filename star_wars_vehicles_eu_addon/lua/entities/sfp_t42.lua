@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "T-42";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Neutral"; 
@@ -65,7 +65,7 @@ function ENT:Initialize()
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=25,y=50,z=150}
 
 	self.FireDelay = 0.05
 	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)

@@ -57,7 +57,7 @@ function ENT:Initialize()
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3250; -- The speed we go when holding SHIFT
     self.ForwardSpeed = 2000; -- The forward speed 
-    self.UpSpeed = 115; -- Up/Down Speed
+    self.UpSpeed = 250; -- Up/Down Speed
     self.AccelSpeed = 14; -- How fast we get to our previously set speeds
     self.CanBack = false; -- Can we move backwards? Set to true if you want this.
 	self.CanRoll = true; -- Set to true if you want the ship to roll, false if not

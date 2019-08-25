@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "Scimitar";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Empire"; 
@@ -62,8 +62,9 @@ function ENT:Initialize()
 	self.CanStrafe = true; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
+	self.NextBlast = 1;
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=25,y=575,z=10}
 
 	self.FireDelay = 0.30
 	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -79,18 +80,63 @@ function ENT:Initialize()
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
-function ENT:Think()
 
-	if(self.Inflight) then
-		if(IsValid(self.Pilot)) then
-			if(self.Pilot:KeyDown(IN_ATTACK2)) then
-				self:FireBlast(self:GetPos()+self:GetForward()*50+self:GetRight()*0,true,0.4);	
+function ENT:Think()
+ 
+    if(self.Inflight) then
+        if(IsValid(self.Pilot)) then
+            if(IsValid(self.Pilot)) then 
+                if(self.Pilot:KeyDown(IN_ATTACK2) and self.NextUse.FireBlast < CurTime()) then
+                    self.BlastPositions = {
+                        self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //1
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //2
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //3
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //4
+                        self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //5
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //6
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //7
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //8
+                    }
+                    self:FirentbbomberBlast(self.BlastPositions[self.NextBlast],true,.5,600,false,50);
+					self.NextBlast = self.NextBlast + 1;
+					if(self.NextBlast == 9) then
+						self.NextUse.FireBlast = CurTime()+10;
+						self:SetNWBool("OutOfMissiles",true);
+						self:SetNWInt("FireBlast",self.NextUse.FireBlast)
+						self.NextBlast = 1;
+					end
+                end
 			end
 		end
+		
+		if(self.NextUse.FireBlast < CurTime()) then
+			self:SetNWBool("OutOfMissiles",false);
+		end
+        self:SetNWInt("Overheat",self.Overheat);
+        self:SetNWBool("Overheated",self.Overheated);
+    end
+    self.BaseClass.Think(self);
+    end
+
+function ENT:FirentbbomberBlast(pos,gravity,vel,dmg,white,size,snd)
+	if(self.NextUse.FireBlast < CurTime()) then
+		local e = ents.Create("cannon_blast");
+		
+		e.Damage = dmg or 400;
+		e.IsWhite = white or false;
+		e.StartSize = 30;
+		e.EndSize = 15;
+		
+		
+		local sound = snd or Sound("weapons/ywing_bomb.wav");
+		
+		e:SetPos(pos);
+		e:Spawn();
+		e:Activate();
+		e:Prepare(self,sound,gravity,vel);
+		e:SetColor(Color(255,255,255,1));
 	end
-	self.BaseClass.Think(self);
-end
- 
+    end
 end
  
 if CLIENT then
@@ -172,7 +218,7 @@ end
 			SW_HUD_DrawHull(2000); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,3);
+			SW_BlastIcon(self,10);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end
