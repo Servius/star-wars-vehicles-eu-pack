@@ -1,9 +1,9 @@
 ENT.Base = "swvr_base"
 
-ENT.Category = "Independent"
-ENT.Class = "Fighter"
+ENT.Category = "Rebels"
+ENT.Class = "Bomber"
 
-ENT.PrintName = "IG-2000 Starfighter"
+ENT.PrintName = "K-wing Heavy Bomber"
 ENT.Author = "Nashatok"
 
 if SERVER then
@@ -15,7 +15,7 @@ if SERVER then
         end
 
         local ent = ents.Create(ClassName)
-        ent:SetPos(tr.HitPos + Vector(0, 0, 100)) -- Third number controls height. Negative equals down, postive equals up.
+        ent:SetPos(tr.HitPos + Vector(0, 0, 10)) -- Third number controls height. Negative equals down, postive equals up.
         ent:SetAngles(Angle(0, ply:GetAimVector():Angle().Yaw, 0))
         ent:Spawn()
         ent:Activate()
@@ -25,18 +25,18 @@ if SERVER then
 
     function ENT:Initialize()
         self:Setup({
-            Model = "models/sfp_ig2000/sfp_ig2000.mdl",
+            Model = "models/sfp_kwing/sfp_kwing.mdl",
             Health = 1500,
             Speed = 1250,
             Shields = 1000,
             BoostSpeed = 2500,
             VerticalSpeed = 600,
             Acceleration = 8,
-            Roll = true,
+            Roll = false,
             LandVector = Vector(0, 0, 0) -- Third number is up/down. 
         })
 
-        self:AddWeaponGroup("Pilot", "ms4_cannon", {
+        self:AddWeaponGroup("Pilot", "kx5_cannon", {
             Delay = 0.2,
             Damage = 50,
             CanOverheat = true,
@@ -44,21 +44,11 @@ if SERVER then
 			Tracer = "red_tracer_fx"
         })
 
-        self:AddWeapon("Pilot", "Left", Vector(250, -90, 100))
-        self:AddWeapon("Pilot", "Right", Vector(250, 90, 100))
-		
-		self:AddWeaponGroup("Center", "kx5_cannon",  {
-			Delay = .6,
-			Damage = 75,
-			CanOverheat = true,
-			MaxOverheat = 5,
-			Cooldown = 20
-		})
-		
-		self:AddWeapon("Center", "Center", Vector(150, 0, 65))
+        self:AddWeapon("Pilot", "Left", Vector(230, -7, 165))
+        self:AddWeapon("Pilot", "Right", Vector(230, 7, 165))
 
         self:AddPilot(nil, nil, {
-            Weapons = { "Pilot", "Center"},
+            Weapons = { "Pilot",},
             ExitPos = Vector(-200, -150, 0)
         })
 
@@ -70,17 +60,31 @@ if CLIENT then
     function ENT:Initialize()
         self:Setup({
             EngineSound = "vehicles/xwing/xwing_fly2.wav",
-            ViewDistance = 600,
-            ViewHeight = 350
+            ViewDistance = 700,
+            ViewHeight = 500
         })
 
         self:SetupDefaults()
 
-        self:AddEngine(Vector(-245, 0, 60), {
-            StartSize = 20,
+        self:AddEngine(Vector(-450, 0, 240), {
+            StartSize = 30,
             EndSize = 10,
             Lifetime = 10,
-            Color = Color(150, 100, 0),
+            Color = Color(250, 100, 100),
+            Sprite = "sprites/orangecore1"
+        })
+		self:AddEngine(Vector(-405, 162, 126), {
+            StartSize = 30,
+            EndSize = 10,
+            Lifetime = 10,
+            Color = Color(250, 100, 100),
+            Sprite = "sprites/orangecore1"
+        })
+		self:AddEngine(Vector(-405, -162, 126), {
+            StartSize = 30,
+            EndSize = 10,
+            Lifetime = 10,
+            Color = Color(250, 100, 100),
             Sprite = "sprites/orangecore1"
         })
 

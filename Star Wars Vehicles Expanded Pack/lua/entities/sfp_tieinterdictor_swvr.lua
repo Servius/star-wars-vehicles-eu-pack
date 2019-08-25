@@ -1,9 +1,11 @@
+--WIP until Missiles/Torpedoes are ready.
+
 ENT.Base = "swvr_base"
 
-ENT.Category = "Independent"
-ENT.Class = "Fighter"
+ENT.Category = "Empire"
+ENT.Class = "Bomber"
 
-ENT.PrintName = "IG-2000 Starfighter"
+ENT.PrintName = "TIE/IT Interdictor"
 ENT.Author = "Nashatok"
 
 if SERVER then
@@ -25,40 +27,29 @@ if SERVER then
 
     function ENT:Initialize()
         self:Setup({
-            Model = "models/sfp_ig2000/sfp_ig2000.mdl",
-            Health = 1500,
-            Speed = 1250,
-            Shields = 1000,
-            BoostSpeed = 2500,
-            VerticalSpeed = 600,
-            Acceleration = 8,
+            Model = "models/sfp_tieinterdictor/sfp_tieinterdictor.mdl",
+            Health = 2500,
+            Speed = 1000,
+            BoostSpeed = 1700,
+            VerticalSpeed = 400,
+            Acceleration = 15,
             Roll = true,
             LandVector = Vector(0, 0, 0) -- Third number is up/down. 
         })
 
-        self:AddWeaponGroup("Pilot", "ms4_cannon", {
-            Delay = 0.2,
-            Damage = 50,
+        self:AddWeaponGroup("Pilot", "ls1_cannon", {
+            Delay = 0.3,
+            Damage = 70,
             CanOverheat = true,
             MaxOverheat = 20,
-			Tracer = "red_tracer_fx"
+			Tracer = "green_tracer_fx"
         })
 
-        self:AddWeapon("Pilot", "Left", Vector(250, -90, 100))
-        self:AddWeapon("Pilot", "Right", Vector(250, 90, 100))
-		
-		self:AddWeaponGroup("Center", "kx5_cannon",  {
-			Delay = .6,
-			Damage = 75,
-			CanOverheat = true,
-			MaxOverheat = 5,
-			Cooldown = 20
-		})
-		
-		self:AddWeapon("Center", "Center", Vector(150, 0, 65))
+        self:AddWeapon("Pilot", "Left", Vector(150, -20, 80))
+        self:AddWeapon("Pilot", "Right", Vector(150, 20, 80))
 
         self:AddPilot(nil, nil, {
-            Weapons = { "Pilot", "Center"},
+            Weapons = { "Pilot",},
             ExitPos = Vector(-200, -150, 0)
         })
 
@@ -69,21 +60,28 @@ end
 if CLIENT then
     function ENT:Initialize()
         self:Setup({
-            EngineSound = "vehicles/xwing/xwing_fly2.wav",
+            EngineSound = "vehicles/tie/tie_engine.wav",
             ViewDistance = 600,
             ViewHeight = 350
         })
 
         self:SetupDefaults()
 
-        self:AddEngine(Vector(-245, 0, 60), {
-            StartSize = 20,
-            EndSize = 10,
+        self:AddEngine(Vector(-145, 38, 120), {
+            StartSize = 5,
+            EndSize = 2,
             Lifetime = 10,
-            Color = Color(150, 100, 0),
+            Color = Color(150, 20, 20),
             Sprite = "sprites/orangecore1"
         })
 
+        self:AddEngine(Vector(-145, -38, 120), {
+            StartSize = 5,
+            EndSize = 2,
+            Lifetime = 10,
+            Color = Color(150, 20, 20),
+            Sprite = "sprites/orangecore1"
+        })
         self.BaseClass.Initialize(self)
     end
 end

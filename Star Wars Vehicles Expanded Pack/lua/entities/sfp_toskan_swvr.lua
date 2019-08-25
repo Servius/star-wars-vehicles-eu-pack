@@ -1,9 +1,9 @@
 ENT.Base = "swvr_base"
 
-ENT.Category = "Independent"
-ENT.Class = "Fighter"
+ENT.Category = "Empire"
+ENT.Class = "Interceptor"
 
-ENT.PrintName = "IG-2000 Starfighter"
+ENT.PrintName = "TIE M5 'Booster'						"
 ENT.Author = "Nashatok"
 
 if SERVER then
@@ -25,7 +25,7 @@ if SERVER then
 
     function ENT:Initialize()
         self:Setup({
-            Model = "models/sfp_ig2000/sfp_ig2000.mdl",
+            Model = "models/sfp_tiebooster/sfp_tiebooster.mdl",
             Health = 1500,
             Speed = 1250,
             Shields = 1000,
@@ -36,7 +36,7 @@ if SERVER then
             LandVector = Vector(0, 0, 0) -- Third number is up/down. 
         })
 
-        self:AddWeaponGroup("Pilot", "ms4_cannon", {
+        self:AddWeaponGroup("Pilot", "ls1_cannon", {
             Delay = 0.2,
             Damage = 50,
             CanOverheat = true,
@@ -46,19 +46,9 @@ if SERVER then
 
         self:AddWeapon("Pilot", "Left", Vector(250, -90, 100))
         self:AddWeapon("Pilot", "Right", Vector(250, 90, 100))
-		
-		self:AddWeaponGroup("Center", "kx5_cannon",  {
-			Delay = .6,
-			Damage = 75,
-			CanOverheat = true,
-			MaxOverheat = 5,
-			Cooldown = 20
-		})
-		
-		self:AddWeapon("Center", "Center", Vector(150, 0, 65))
 
         self:AddPilot(nil, nil, {
-            Weapons = { "Pilot", "Center"},
+            Weapons = { "Pilot",},
             ExitPos = Vector(-200, -150, 0)
         })
 
@@ -69,7 +59,7 @@ end
 if CLIENT then
     function ENT:Initialize()
         self:Setup({
-            EngineSound = "vehicles/xwing/xwing_fly2.wav",
+            EngineSound = "vehicles/tie/tie_new.wav",
             ViewDistance = 600,
             ViewHeight = 350
         })
@@ -77,10 +67,10 @@ if CLIENT then
         self:SetupDefaults()
 
         self:AddEngine(Vector(-245, 0, 60), {
-            StartSize = 20,
+            StartSize = 1,
             EndSize = 10,
             Lifetime = 10,
-            Color = Color(150, 100, 0),
+            Color = Color(150, 20, 20),
             Sprite = "sprites/orangecore1"
         })
 
