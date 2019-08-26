@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "TIE Booster";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Empire"; 
@@ -63,7 +63,7 @@ function ENT:Initialize()
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=0,y=-200,z=10}
 
 	self.FireDelay = 0.05
 	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -145,7 +145,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_tiebooster", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,300,200,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,400,300,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

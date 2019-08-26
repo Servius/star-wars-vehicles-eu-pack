@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "Tie Scout";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Empire"; 
@@ -48,7 +48,7 @@ function ENT:Initialize()
     self:SetNWInt("Health",self.StartHealth); -- Set the ship health, to the start health as made earlier
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
-    self.WeaponLocations = {self:GetPos() + self:GetForward() * 400 + self:GetUp() * 60,
+    self.WeaponLocations = {self:GetPos() + self:GetForward() * 200 + self:GetUp() * 20,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
     self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
@@ -59,12 +59,12 @@ function ENT:Initialize()
 	self.CanRoll = true; -- Set to true if you want the ship to roll, false if not
 	self.CanStrafe = false; -- Set to true if you want the ship to strafe, false if not. You cannot have roll and strafe at the same time
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
-	self.CanShoot = false; -- Set to true if you want the ship to be able to shoot, false if not
+	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=0,y=275,z=0}
 
-	self.FireDelay = 0.20
-	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
+	self.FireDelay = 0.25
+	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
 	self.FireGroup = {"Left","Right","FarLeft","FarRight"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 --The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; -- Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
@@ -159,7 +159,6 @@ end
 			SW_HUD_DrawHull(1000); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,10);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end

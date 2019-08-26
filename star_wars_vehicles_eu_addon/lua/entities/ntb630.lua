@@ -2,7 +2,7 @@ ENT.RenderGroup = RENDERGROUP_OPAQUE
 ENT.Base = "fighter_base"
 ENT.Type = "vehicle"
 ENT.PrintName = "NTB-630 Bomber"
-ENT.Author = "Liam0102, Jellyton, Nashatok"
+ENT.Author = "Liam0102, Nashatok"
 ENT.Category = "Star Wars Vehicles: Republic"; 
 list.Set("SWVehiclesEU", ENT.PrintName, ENT);
 ENT.AutomaticFrameAdvance = true

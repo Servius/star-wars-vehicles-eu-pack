@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "TIE Neutralizer";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Empire"; 
@@ -49,13 +49,13 @@ function ENT:Initialize()
    
     --The locations of the weapons (Where we shoot out of), local to the ship. These largely just take a lot of tinkering.
     self.WeaponLocations = {
-        Top = self:GetPos() + self:GetForward() * 145+ self:GetUp() * 70,
-        Bottom = self:GetPos() + self:GetForward() * 145 + self:GetUp() * 160,
-        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 45 + self:GetUp() * 125,
-        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -45 + self:GetUp() * 125,
+        Top = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 0 + self:GetUp() * 70,
+        Bottom = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 0 + self:GetUp() * 160,
+        Right = self:GetPos() + self:GetForward() * 145 + self:GetRight() * 45 + self:GetUp() * 120,
+        Left = self:GetPos() + self:GetForward() * 145 + self:GetRight() * -45 + self:GetUp() * 120,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 3000; -- The speed we go when holding SHIFT
+    self.BoostSpeed = 2000; -- The speed we go when holding SHIFT
     self.ForwardSpeed = 700; -- The forward speed 
     self.UpSpeed = 300; -- Up/Down Speed
     self.AccelSpeed = 16; -- How fast we get to our previously set speeds
@@ -65,69 +65,80 @@ function ENT:Initialize()
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=80,y=-225,z=10}
 
 	self.FireDelay = 0.25
-	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
-	self.FireGroup = {"Left","Right","FarLeft","FarRight"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
+	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
+	self.FireGroup = {"Left","Top","Right","Bottom"} -- In this example, the weapon positions set above will fire with Left and TopLeft at the same time. And Right and TopRight at the same time.
 	self.OverheatAmount = 50 --The amount a ship can fire consecutively without overheating. 50 is standard.
 	self.DontOverheat = false; -- Set this to true if you don't want the weapons to ever overheat. Mostly only appropriate on Admin vehicles.
 	self.MaxIonShots = 20; -- The amount of Ion shots a vehicle can take before being disabled. 20 is the default.
-	self.NextUse.Torpedos = CurTime();
+	self.NextBlast = 1;
 	
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(80,"green",true); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"green",true); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
-local fire = 1;
-function ENT:ProtonTorpedos()
-
-	if(self.NextUse.Torpedos < CurTime()) then
-		local pos;
-		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*-65;
-			self.NextUse.Torpedos = CurTime()-0.1;
-		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*25+self:GetForward()*100+self:GetRight()*65;
-			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 3) then
-			pos = self:GetPos()+self:GetUp()*-5+self:GetForward()*100+self:GetRight()*-85;
-			self.NextUse.Torpedos = CurTime()-0.1;
-		elseif(fire == 4) then
-			pos = self:GetPos()+self:GetUp()*-5+self:GetForward()*100+self:GetRight()*85;
-			
-		end
-		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(90,0,180,200),10);
-		fire = fire + 1;
-		if(fire > 4) then
-			fire = 1;
-			self.NextUse.Torpedos = CurTime()+10;
-			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
-		else
-			self:ProtonTorpedos();
-		end
-
-	end
-end
 
 function ENT:Think()
-	
-
-	if(self.Inflight) then
-		if(IsValid(self.Pilot)) then
-			if(self.Pilot:KeyDown(IN_ATTACK2)) then
-				self:ProtonTorpedos();
+ 
+    if(self.Inflight) then
+        if(IsValid(self.Pilot)) then
+            if(IsValid(self.Pilot)) then 
+                if(self.Pilot:KeyDown(IN_ATTACK2) and self.NextUse.FireBlast < CurTime()) then
+                    self.BlastPositions = {
+                        self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //1
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //2
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //3
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //4
+                        self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //5
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //6
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //7
+						self:GetPos() + self:GetForward() * 80 + self:GetRight() * 0 + self:GetUp() * 0, //8
+                    }
+                    self:FirentbbomberBlast(self.BlastPositions[self.NextBlast],true,.5,600,false,50);
+					self.NextBlast = self.NextBlast + 1;
+					if(self.NextBlast == 9) then
+						self.NextUse.FireBlast = CurTime()+10;
+						self:SetNWBool("OutOfMissiles",true);
+						self:SetNWInt("FireBlast",self.NextUse.FireBlast)
+						self.NextBlast = 1;
+					end
+                end
 			end
 		end
 		
+		if(self.NextUse.FireBlast < CurTime()) then
+			self:SetNWBool("OutOfMissiles",false);
+		end
+        self:SetNWInt("Overheat",self.Overheat);
+        self:SetNWBool("Overheated",self.Overheated);
+    end
+    self.BaseClass.Think(self);
+    end
+
+function ENT:FirentbbomberBlast(pos,gravity,vel,dmg,white,size,snd)
+	if(self.NextUse.FireBlast < CurTime()) then
+		local e = ents.Create("cannon_blast");
+		
+		e.Damage = dmg or 400;
+		e.IsWhite = white or false;
+		e.StartSize = 30;
+		e.EndSize = 15;
+		
+		
+		local sound = snd or Sound("weapons/ywing_bomb.wav");
+		
+		e:SetPos(pos);
+		e:Spawn();
+		e:Activate();
+		e:Prepare(self,sound,gravity,vel);
+		e:SetColor(Color(255,255,255,1));
 	end
-	self.BaseClass.Think(self);
-end
- 
+    end
 end
  
 if CLIENT then

@@ -63,7 +63,7 @@ function ENT:Initialize()
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = true; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=125,y=225,z=10}
 
 	self.FireDelay = 0.05
 	self.AlternateFire = false -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -187,7 +187,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_ywingheavy", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,750,600,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,750,300,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end

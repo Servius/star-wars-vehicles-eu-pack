@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "K-Wing";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Rebels"; 
@@ -55,7 +55,7 @@ function ENT:Initialize()
         Left2 = self:GetPos() + self:GetForward() * 468 + self:GetRight() * -30 + self:GetUp() * 51,
     }
     self.WeaponsTable = {}; -- IGNORE. Needed to give players their weapons back
-    self.BoostSpeed = 1100; -- The speed we go when holding SHIFT
+    self.BoostSpeed = 1600; -- The speed we go when holding SHIFT
     self.ForwardSpeed = 500; -- The forward speed 
     self.UpSpeed = 250; -- Up/Down Speed
     self.AccelSpeed = 3; -- How fast we get to our previously set speeds
@@ -78,7 +78,7 @@ function ENT:Initialize()
 	self.LandOffset = Vector(0,0,0); -- Change the last 0 if you're vehicle is having trouble landing properly. (Make it larger)
  
 
-    self.Bullet = CreateBulletStructure(40,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
+    self.Bullet = CreateBulletStructure(60,"red",false); -- The first number is bullet damage, the second colour. green and red are the only options. (Set to blue for ion shot, the damage will be halved but ships will be disabled after consecutive hits). The final one is for splash damage. Set to true if you don't want splashdamage.
 	
     self.BaseClass.Initialize(self); -- Ignore, needed to work
 end
@@ -94,11 +94,19 @@ function ENT:Think()
 						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -300 + self:GetUp() * 90, --1
 						self:GetPos() + self:GetForward() * -72 + self:GetRight() * 450 + self:GetUp() * 90, --2
 						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -450 + self:GetUp() * 90, --2
+                        self:GetPos() + self:GetForward() * -72 + self:GetRight() * 300 + self:GetUp() * 90, --3
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -300 + self:GetUp() * 90, --3
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * 450 + self:GetUp() * 90, --4
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -450 + self:GetUp() * 90, --4
+                        self:GetPos() + self:GetForward() * -72 + self:GetRight() * 300 + self:GetUp() * 90, --5
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -300 + self:GetUp() * 90, --5
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * 450 + self:GetUp() * 90, --6
+						self:GetPos() + self:GetForward() * -72 + self:GetRight() * -450 + self:GetUp() * 90, --6
 					}
                     self:FirekwingBlast(self.BlastPositions[self.NextBlast], true, 150, 1200, false, 50, Sound("weapons/n1_cannon.wav"));
 					self.NextBlast = self.NextBlast + 1;
-					if(self.NextBlast > 4) then
-						self.NextUse.FireBlast = CurTime()+20;
+					if(self.NextBlast > 12) then
+						self.NextUse.FireBlast = CurTime()+15;
 						self:SetNWBool("OutOfMissiles",true);
 						self:SetNWInt("FireBlast",self.NextUse.FireBlast)
 						self.NextBlast = 1;
@@ -205,7 +213,7 @@ end
 		local self = p:GetNetworkedEntity("sfp_kwing", NULL)
 		if(IsValid(self)) then
 			local fpvPos = self:GetPos(); -- This is the position of the first person view if you have it
-			View = SWVehicleView(self,1500,700,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
+			View = SWVehicleView(self,800,200,fpvPos);		-- 700 is distance from vehicle, 200 is the height.
 			return View;
 		end
     end
@@ -220,7 +228,7 @@ end
 			SW_HUD_DrawHull(3200); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,20);
+			SW_BlastIcon(self,15);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end

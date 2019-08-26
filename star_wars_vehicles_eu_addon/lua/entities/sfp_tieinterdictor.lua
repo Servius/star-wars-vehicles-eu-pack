@@ -9,7 +9,7 @@ ENT.Type = "vehicle";
  
 --Edit appropriatly. I'd prefer it if you left my name (Since I made the base, and this template)
 ENT.PrintName = "TIE Interdictor";
-ENT.Author = "Liam0102, Servius";
+ENT.Author = "Liam0102, Nashatok";
  
 -- Leave the same
 ENT.Category = "Star Wars Vehicles: Empire"; 
@@ -65,7 +65,7 @@ function ENT:Initialize()
 	self.CanStandby = true; -- Set to true if you want the ship to hover when not inflight
 	self.CanShoot = false; -- Set to true if you want the ship to be able to shoot, false if not
 	
-	self.ExitModifier = {x=125,y=225,z=100}
+	self.ExitModifier = {x=0,y=-225,z=10}
 
 	self.FireDelay = 0.05
 	self.AlternateFire = true -- Set this to true if you want weapons to fire in sequence (You'll need to set the firegroups below)
@@ -88,37 +88,37 @@ function ENT:ProtonTorpedos()
 	if(self.NextUse.Torpedos < CurTime()) then
 		local pos;
 		if(fire == 1) then
-			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*-150;
-			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 2) then
-			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*150;
-			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 3) then
 			pos = self:GetPos()+self:GetUp()*165+self:GetForward()*100+self:GetRight()*-150;
 			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 4) then
+		elseif(fire == 2) then
 			pos = self:GetPos()+self:GetUp()*165+self:GetForward()*100+self:GetRight()*150;
+			self.NextUse.Torpedos = CurTime()+0.25;
+		elseif(fire == 3) then
+			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*-150;
+			self.NextUse.Torpedos = CurTime()+0.25;
+		elseif(fire == 4) then
+			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*150;
 			self.NextUse.Torpedos = CurTime()+0.25;
 			
 		elseif(fire == 5) then
-			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*-150;
-			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 6) then
-			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*150;
-			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 7) then
 			pos = self:GetPos()+self:GetUp()*165+self:GetForward()*100+self:GetRight()*-150;
 			self.NextUse.Torpedos = CurTime()+0.25;
-		elseif(fire == 8) then
+		elseif(fire == 6) then
 			pos = self:GetPos()+self:GetUp()*165+self:GetForward()*100+self:GetRight()*150;
+			self.NextUse.Torpedos = CurTime()+0.25;
+		elseif(fire == 7) then
+			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*-150;
+			self.NextUse.Torpedos = CurTime()+0.25;
+		elseif(fire == 8) then
+			pos = self:GetPos()+self:GetUp()*65+self:GetForward()*100+self:GetRight()*150;
 			
 		end
 		local e = self:FindTarget();
-		self:FireTorpedo(pos,e,1500,500,Color(120,120,200,200),10);
+		self:FireTorpedo(pos,e,1500,500,Color(120,120,200,200),20);
 		fire = fire + 1;
 		if(fire > 8) then
 			fire = 1;
-			self.NextUse.Torpedos = CurTime()+10;
+			self.NextUse.Torpedos = CurTime()+12;
 			self:SetNWInt("FireBlast",self.NextUse.Torpedos)
 		else
 			self:ProtonTorpedos();
@@ -223,7 +223,7 @@ end
 			SW_HUD_DrawHull(4000); -- Replace 1000 with the starthealth at the top
 			SW_WeaponReticles(self);
 			SW_HUD_DrawOverheating(self);
-			SW_BlastIcon(self,10);
+			SW_BlastIcon(self,12);
 			SW_HUD_Compass(self); -- Draw the compass/radar
 			SW_HUD_DrawSpeedometer(); -- Draw the speedometer
 		end
